@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 
 import Raster from "../components/raster";
 import Baum from "../components/baum";
+import { Boden } from "../components/bGAssets";
 
 import handleScroll from "../functions/handleScroll";
 
@@ -22,11 +23,11 @@ export default function Home() {
 
     useEffect(() => {
         console.log(colors, Tree);
-        console.log(colors.kugeln[0].kugel1);
-        baumRef.current.children[0].children[0].style.left = "-20px";
+        console.log(baumRef.current.children[0].clientWidth);
+        baumRef.current.children[0].style.left = "-20px";
         setRasterDimensions({
-            width: baumRef.current.children[0].children[0].width + "px",
-            height: (baumRef.current.children[0].children[0].height / 100) * 79 + "px",
+            width: baumRef.current.children[0].clientWidth + "px",
+            height: (baumRef.current.children[0].clientHeight / 100) * 79 + "px",
         });
         window.addEventListener("resize", (e) => handleScroll(e, setRasterDimensions, baumRef));
         return () => {
@@ -64,6 +65,7 @@ export default function Home() {
                     <Baum ref={baumRef}></Baum>
                 </div>
             </MainContainer>
+            <Boden></Boden>
             {/* <div className="absolute w-full h-screen">
                 <div className="absolute w-2/4 h-[80%]  left-1/2 transform -translate-x-1/2 ">
                     <Baum></Baum>

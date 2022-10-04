@@ -1,1 +1,1 @@
-export { default as boden } from "./boden";
+export { default as Boden } from "./boden";

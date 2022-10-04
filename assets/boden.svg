@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1366" height="173" viewBox="0 0 1366 173">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="227" viewBox="0 0 1920 227">
   <defs>
     <clipPath id="clip-path">
-      <rect id="Rechteck_93" data-name="Rechteck 93" width="1366" height="173" transform="translate(0 853)" fill="#fff" stroke="#707070" stroke-width="1"/>
+      <rect id="Rechteck_93" data-name="Rechteck 93" width="1920" height="227" transform="translate(0 853)" fill="#fff" stroke="#707070" stroke-width="1"/>
     </clipPath>
   </defs>
   <g id="boden" transform="translate(0 -853)" clip-path="url(#clip-path)">
-    <path id="Pfad_316" data-name="Pfad 316" d="M944.181,0c521.457,0,944.181,165.207,944.181,369S1465.637,738,944.181,738,0,572.793,0,369,422.724,0,944.181,0Z" transform="translate(0 853)" fill="#f5f5f5"/>
+    <path id="Pfad_316" data-name="Pfad 316" d="M1327.106,0c732.94,0,1327.106,216.774,1327.106,484.179S2060.046,968.358,1327.106,968.358,0,751.584,0,484.179,594.166,0,1327.106,0Z" transform="translate(0 853)" fill="#f5f5f5"/>
   </g>
 </svg>
