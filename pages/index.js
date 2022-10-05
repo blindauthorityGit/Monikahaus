@@ -16,7 +16,7 @@ import handleScroll from "../functions/handleScroll";
 
 export default function Home() {
     const [isDragging, setIsDragging] = useState(false);
-    const [opacity, setOpacity] = useState(0);
+    const [opacity, setOpacity] = useState(1);
     const [rasterDimensions, setRasterDimensions] = useState({});
 
     const baumRef = useRef();

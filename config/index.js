@@ -5,16 +5,16 @@ const colors = {
     primaryColor: "#C2A85B",
     kugeln: [
         {
-            kugel1: "#C2A85B",
+            kugel1: "#EB4511",
         },
         {
-            kugel2: "#fff",
+            kugel2: "#DCDFDC",
         },
         {
-            kugel1: "#EF476F",
+            kugel3: "#000000",
         },
         {
-            kugel1: "#00AFB9",
+            kugel4: "#fff",
         },
     ],
     baum: "#04151F",

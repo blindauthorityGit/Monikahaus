@@ -1,23 +1,36 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Kugel, Row } from "../kugeln";
+import { testData } from "../../dev";
+import uuid from "react-uuid";
 
 const Raster = (props) => {
     const rowCount = Array(10).fill("");
 
     const [kugelWidth, setKugelWidth] = useState(5);
     const kugelRef = useRef();
+    const allRef = useRef();
 
     useEffect(() => {
-        console.log(rowCount);
-        console.log(kugelRef.current.clientHeight);
         setKugelWidth(kugelRef.current.clientHeight);
-        // setTimeout(() => {
-        //     setKugelWidth(kugelRef.current.clientHeight);
-        // }, 200);
+        let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
+        // GIVE ID's
+        arr.map((e, i) => {
+            e.id = i;
+        });
+        // ONLY IDS ARRAY
+        let arrClaimedID = testData.map((e) => e.id);
+        arrClaimedID.map((e, i) => {
+            arr[e].style.opacity = 1;
+            arr[e].style.background = testData[i].color;
+            arr[e].initialOpacity = 0;
+            console.log(arr[e], arr[e].style.opacity);
+        });
     }, [kugelRef.current]);
 
+    useEffect(() => {}, [allRef.current]);
+
     return (
-        <div className="flex items-center h-full">
+        <div ref={allRef} className="flex items-center h-full">
             <div
                 id="raster"
                 className=" z-40"
@@ -38,11 +51,13 @@ const Raster = (props) => {
                                 return (
                                     <Kugel
                                         ref={kugelRef}
-                                        size="w-[5%] h-[100%]"
+                                        size="w-[5%] h-[100%] opacity-0"
                                         color="bg-white"
                                         id={i}
                                         isClaimed={false}
                                         style={{ width: kugelWidth }}
+                                        // initialOpacity={0}
+                                        key={uuid()}
                                     ></Kugel>
                                 );
                             })}
