@@ -10,8 +10,9 @@ const SmallTree = (props) => {
                 y: props.initialY,
                 scale: props.initialScale,
                 rotate: props.initialRotate,
+                opacity: props.initialOpacity,
             }}
-            animate={{ x: props.x, y: props.y, scale: props.scale, rotate: props.rotate }}
+            animate={{ x: props.x, y: props.y, scale: props.scale, rotate: props.rotate, opacity: props.opacity }}
             transition={{ duration: props.duration, delay: props.delay, type: props.type }}
             className={`absolute ${props.klasse}`}
         >

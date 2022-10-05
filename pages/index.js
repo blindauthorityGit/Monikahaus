@@ -16,7 +16,7 @@ import handleScroll from "../functions/handleScroll";
 
 export default function Home() {
     const [isDragging, setIsDragging] = useState(false);
-    const [opacity, setOpacity] = useState(0.5);
+    const [opacity, setOpacity] = useState(0);
     const [rasterDimensions, setRasterDimensions] = useState({});
 
     const baumRef = useRef();
@@ -41,7 +41,7 @@ export default function Home() {
                 <title>Site title</title>
             </Head>
 
-            <MainContainer width="w-full h-[80%]">
+            <MainContainer width="w-full h-[80%] overflow-hidden">
                 <div className="left col-span-4">
                     <motion.div
                         drag

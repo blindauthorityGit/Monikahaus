@@ -4,13 +4,22 @@ import { motion } from "framer-motion";
 const SVG = (props) => {
     return (
         <svg
-            className="absolute overflow-hidden"
+            className="absolute overflow-hidden z-10"
             xmlns="http://www.w3.org/2000/svg"
             width="100%"
             height="100%"
             viewBox="0 0 526.157 794.811"
         >
-            <g id="Gruppe_272" data-name="Gruppe 272" transform="translate(3908.159 1025.176)">
+            <motion.g
+                // style={{ opacity: 0.5 }}
+                id="Gruppe_272"
+                data-name="Gruppe 272"
+                transform="translate(3908.159 1025.176)"
+                initial={{
+                    opacity: 0,
+                }}
+                animate={{ opacity: 1 }}
+            >
                 <g id="Gruppe_204" data-name="Gruppe 204" transform="translate(-3908.159 -917.583)">
                     <motion.rect
                         id="Rechteck_66"
@@ -27,6 +36,8 @@ const SVG = (props) => {
                         }}
                         animate={{ x: 257.14, y: 531.685, scale: 1, rotate: 0 }}
                         transition={{ duration: props.duration, delay: props.delay, type: "spring" }}
+                        transitionStart={console.log("Ich lade")}
+                        transitionEnd={console.log("Ich ende")}
                     />
                     <motion.path
                         id="Pfad_228"
@@ -42,7 +53,8 @@ const SVG = (props) => {
                             rotate: 0,
                         }}
                         animate={{ x: 3806.77, y: 65.955, scale: 1, rotate: 0 }}
-                        transition={{ duration: props.duration, delay: 0.25, type: "spring" }}
+                        transition={{ duration: props.duration, delay: 0.35, type: "spring" }}
+                        transitionStart={console.log("start")}
                     />
                     <motion.path
                         id="Pfad_312"
@@ -114,7 +126,7 @@ const SVG = (props) => {
                     data-name="Pfad 231"
                     d="M-3042.63-1025.176l6.38,40.454,32.2-13.555-25.818,26.9,25.818,26.9-32.2-13.554-6.38,40.453-6.378-40.453-32.2,13.554,25.818-26.9-25.818-26.9,32.2,13.555Z"
                     transform="translate(-592.133)"
-                    fill="#7e856e"
+                    fill="#dcdfdc"
                     layout
                     initial={{
                         x: -592.133,
@@ -124,7 +136,7 @@ const SVG = (props) => {
                     animate={{ x: -592.133, y: 0, scale: 1, rotate: 0 }}
                     transition={{ duration: props.duration, delay: 1.25, type: "spring" }}
                 />
-            </g>
+            </motion.g>
         </svg>
     );
 };
