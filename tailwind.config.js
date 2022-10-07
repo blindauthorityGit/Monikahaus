@@ -3,6 +3,7 @@
 const { fontFamily } = require("tailwindcss/defaultTheme");
 
 module.exports = {
+    mode: "jit",
     content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
     theme: {
         container: {
@@ -29,7 +30,7 @@ module.exports = {
             fontFamily: {
                 ...fontFamily,
                 sans: ["Montserrat", "sans-serif"],
-                europa: ["europa", "sans-serif"],
+                rucksack: ["Rucksack", "sans-serif"],
             },
         },
     },

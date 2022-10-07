@@ -1,4 +1,4 @@
-import React, { useEffect, forwardRef } from "react";
+import React, { useEffect, forwardRef, useContext } from "react";
 import Img from "next/image";
 import { Tree } from "../../config";
 import Baum1 from "../../assets/tree1Big.svg";
@@ -8,14 +8,22 @@ import BaumDoc from "../../assets/baumDoc2.svg";
 import SVG from "./svg";
 import Kreis from "../bGAssets/kreis";
 
+import { TreeAnimationFinish } from "../../helper/context";
+
 const Baum = (props, ref) => {
-    useEffect(() => {}, []);
+    const { treeAnimationFinish, setTreeAnimationFinish } = useContext(TreeAnimationFinish);
+
     return (
         <div ref={ref} className="absolute w-full h-full">
             {/* <Img src={BaumDoc} layout="fill"></Img> */}
 
             <SVG></SVG>
-            <Kreis></Kreis>
+            <Kreis
+                onAnimationComplete={(definition) => {
+                    console.log("Completed animating", definition);
+                    setTreeAnimationFinish(true);
+                }}
+            ></Kreis>
         </div>
     );
 };

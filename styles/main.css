@@ -1,8 +1,27 @@
+@charset "UTF-8";
 html, body, #__next {
   height: 100%;
 }
 
 #Pfad_230 {
   background: red;
+}
+
+.tooltip::after {
+  content: "■";
+  position: absolute;
+  color: #000000;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  font-size: 2rem;
+  top: 33%;
+  right: -16px;
+  z-index: 10;
+}
+
+.claimedKugel {
+  -webkit-transition: all ease-in-out 200ms;
+  transition: all ease-in-out 200ms;
+  z-index: 10;
 }
 /*# sourceMappingURL=main.css.map */

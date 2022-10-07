@@ -5,3 +5,34 @@ html, body, #__next {
 #Pfad_230 {
     background: red;
 }
+
+.tooltip::after {
+    content: "■";
+    position: absolute;
+    color: #000000;
+    transform: rotate(45deg);
+    font-size: 2rem;
+    top: 33%;
+    right: -16px;
+    z-index: 10;
+}
+
+.claimedKugel {
+    transition: all ease-in-out 200ms;
+    z-index: 10
+}
+// .claimedKugel::after {
+//     transition: all ease-in-out 200ms;
+//     content: "";
+//     position: absolute;
+//     background-color: red;
+//     width: 100%;
+//     height: 100%;
+//     z-index: -1
+
+// }
+
+// .claimedKugel:hover {
+//     transform: scale(1.1);
+//     opacity: 0.5;
+// }

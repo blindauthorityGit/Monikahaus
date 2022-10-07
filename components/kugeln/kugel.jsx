@@ -1,10 +1,15 @@
-import React, { useRef, forwardRef } from "react";
+import React, { useEffect, useRef, forwardRef } from "react";
 import { motion } from "framer-motion";
+import ToolTip from "./tooltip";
 
 const Kugel = (props, ref) => {
+    const toolTipRef = useRef();
+    useEffect(() => {
+        // console.log(toolTipRef);
+    }, [toolTipRef.current]);
     return (
         <motion.div
-            className={`kugel mx-3 flex h-full items-center justify-center text-white ${props.size} rounded-full ${props.color}`}
+            className={`kugel relative mx-3 flex h-full items-center justify-center text-white ${props.size} ${props.klasse} rounded-full ${props.color}`}
             id={props.id}
             data-isClaimed={props.isClaimed}
             cat={props.cat}
@@ -12,6 +17,8 @@ const Kugel = (props, ref) => {
             style={props.style}
             key={props.key}
             whileHover={{ scale: 1.2 }}
+            onMouseEnter={props.onMouseEnter}
+            onMouseLeave={props.onMouseLeave}
             layout
             initial={{
                 x: props.initialX,
@@ -20,10 +27,22 @@ const Kugel = (props, ref) => {
                 rotate: props.initialRotate,
                 opacity: props.initialOpacity,
             }}
-            animate={{ x: props.x, y: props.y, scale: props.scale, rotate: props.rotate, opacity: props.opacity }}
+            animate={props.animate}
+            // animate={{ x: props.x, y: props.y, scale: props.scale, rotate: props.rotate, opacity: props.opacity }}
             transition={{ duration: props.duration, delay: props.delay, type: props.type }}
         >
             {props.name}
+            <ToolTip
+                klasse={`absolute tooltip hidden z-20 right-[${props.abstand}rem] bg-black py-8 px-12 min-w-[15rem] font-bold rounded-xl ${props.toolTipColor}`}
+                name={props.fullName}
+                sum={props.sum}
+                style={props.toolTipStyle}
+                ref={toolTipRef}
+                onMouseEnter={(e) => {
+                    console.log(e);
+                }}
+                onMouseLeave={props.toolTiponMouseLeave}
+            ></ToolTip>
         </motion.div>
     );
 };

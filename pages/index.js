@@ -13,11 +13,14 @@ import Baum from "../components/baum";
 import { Boden } from "../components/bGAssets";
 
 import handleScroll from "../functions/handleScroll";
+import { TreeAnimationFinish } from "../helper/context";
 
 export default function Home() {
     const [isDragging, setIsDragging] = useState(false);
     const [opacity, setOpacity] = useState(1);
     const [rasterDimensions, setRasterDimensions] = useState({});
+
+    const [treeAnimationFinish, setTreeAnimationFinish] = useState(false);
 
     const baumRef = useRef();
 
@@ -29,10 +32,10 @@ export default function Home() {
             width: baumRef.current.children[0].clientWidth + "px",
             height: (baumRef.current.children[0].clientHeight / 100) * 79 + "px",
         });
-        window.addEventListener("resize", (e) => handleScroll(e, setRasterDimensions, baumRef));
-        return () => {
-            window.removeEventListener("resize", handleScroll);
-        };
+        // window.addEventListener("resize", (e) => handleScroll(e, setRasterDimensions, baumRef));
+        // return () => {
+        //     window.removeEventListener("resize", handleScroll);
+        // };
     }, []);
 
     return (
@@ -60,10 +63,21 @@ export default function Home() {
                     ></motion.div>
                     {isDragging && <div>WIR ZIEHEN</div>}
                 </div>
-                <div className="left col-span-8 flex  relative">
-                    <Raster opacity={opacity} width={rasterDimensions.width} height={rasterDimensions.height}></Raster>
-                    <Baum ref={baumRef}></Baum>
-                </div>
+                <TreeAnimationFinish.Provider value={{ treeAnimationFinish, setTreeAnimationFinish }}>
+                    <div className="left col-span-8 flex  relative">
+                        <Raster
+                            opacity={opacity}
+                            width={rasterDimensions.width}
+                            height={rasterDimensions.height}
+                        ></Raster>
+                        <Baum ref={baumRef}></Baum>
+                        {!treeAnimationFinish ? (
+                            <div className="absolute">ANFANG</div>
+                        ) : (
+                            <div className="absolute">ENDE</div>
+                        )}
+                    </div>
+                </TreeAnimationFinish.Provider>
             </MainContainer>
             <Boden></Boden>
             {/* <div className="absolute w-full h-screen">
