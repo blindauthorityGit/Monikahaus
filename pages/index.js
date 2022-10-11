@@ -45,7 +45,7 @@ export default function Home() {
             </Head>
 
             <MainContainer width="w-full h-[80%] overflow-hidden">
-                <div className="left col-span-4">
+                <div className="left col-span-6">
                     <motion.div
                         drag
                         dragSnapToOrigin
@@ -64,7 +64,7 @@ export default function Home() {
                     {isDragging && <div>WIR ZIEHEN</div>}
                 </div>
                 <TreeAnimationFinish.Provider value={{ treeAnimationFinish, setTreeAnimationFinish }}>
-                    <div className="left col-span-8 flex  relative">
+                    <div className="left col-span-6 flex  relative">
                         <Raster
                             opacity={opacity}
                             width={rasterDimensions.width}

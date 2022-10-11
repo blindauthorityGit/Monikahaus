@@ -20,8 +20,10 @@ const colors = {
     baum: "#04151F",
 };
 
+const anzahlRows = 10;
+
 const Tree = () => {
     return Baum;
 };
 
-export { colors, Tree };
+export { colors, Tree, anzahlRows };

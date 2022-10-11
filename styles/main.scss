@@ -6,21 +6,39 @@ html, body, #__next {
     background: red;
 }
 
-.tooltip::after {
+.tooltip {
+    z-index: 999;
+}
+
+.tooltip::before {
     content: "■";
     position: absolute;
     color: #000000;
     transform: rotate(45deg);
     font-size: 2rem;
-    top: 33%;
-    right: -16px;
-    z-index: 10;
+    top: 27%;
+    right: -14px;
+    z-index: 100;
 }
 
 .claimedKugel {
     transition: all ease-in-out 200ms;
     z-index: 10
 }
+
+.bgLightGreen::before{
+    color: #DCDFDC
+}
+.bgRed::before{
+    color: #eb4511
+}
+
+.bgWeiss::before{
+    color: #fff
+}
+
+
+
 // .claimedKugel::after {
 //     transition: all ease-in-out 200ms;
 //     content: "";

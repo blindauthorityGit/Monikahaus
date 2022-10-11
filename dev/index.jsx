@@ -2,6 +2,14 @@ import { colors } from "../config";
 
 const testData = [
     {
+        id: 0,
+        claimed: true,
+        name: "Christine Buchner",
+        sum: 15,
+        color: colors.kugeln[0].kugel1,
+        comment: "Ich spende gerne viel",
+    },
+    {
         id: 2,
         claimed: true,
         name: "Johannes Buchner",
@@ -28,6 +36,14 @@ const testData = [
         name: "Bubu Bernhard",
         sum: 35,
         color: colors.kugeln[3].kugel4,
+    },
+    {
+        id: 21,
+        claimed: true,
+        name: "Edeltraud Wippenberger",
+        sum: 35,
+        color: colors.kugeln[1].kugel2,
+        comment: "Shut up and take my money!",
     },
     {
         id: 30,

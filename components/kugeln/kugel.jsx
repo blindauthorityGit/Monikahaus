@@ -9,7 +9,7 @@ const Kugel = (props, ref) => {
     }, [toolTipRef.current]);
     return (
         <motion.div
-            className={`kugel relative mx-3 flex h-full items-center justify-center text-white ${props.size} ${props.klasse} rounded-full ${props.color}`}
+            className={`kugel relative mx-3 flex h-full items-center justify-center text-white ${props.size} ${props.klasse} rounded-full ${props.color} ${props.textColor}`}
             id={props.id}
             data-isClaimed={props.isClaimed}
             cat={props.cat}
@@ -33,11 +33,13 @@ const Kugel = (props, ref) => {
         >
             {props.name}
             <ToolTip
-                klasse={`absolute tooltip hidden z-20 right-[${props.abstand}rem] bg-black py-8 px-12 min-w-[15rem] font-bold rounded-xl ${props.toolTipColor}`}
+                klasse={`absolute tooltip hidden z-20 right-[${props.abstand}rem] bg-black py-8 px-10 min-w-[20rem] font-bold rounded-xl ${props.toolTipColor} ${props.toolTipAfterColor}`}
                 name={props.fullName}
                 sum={props.sum}
+                comment={props.comment}
                 style={props.toolTipStyle}
                 ref={toolTipRef}
+                avatrSrc={props.avatrSrc}
                 onMouseEnter={(e) => {
                     console.log(e);
                 }}

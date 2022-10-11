@@ -5,9 +5,10 @@ import uuid from "react-uuid";
 
 import { TreeAnimationFinish } from "../../helper/context";
 import getIndex from "../../functions/getIndex";
+import { anzahlRows } from "../../config";
 
 const Raster = (props) => {
-    const rowCount = Array(10).fill("");
+    const rowCount = Array(anzahlRows).fill("");
 
     const [kugelWidth, setKugelWidth] = useState(5);
     const [animator, setAnimator] = useState("");
@@ -25,40 +26,49 @@ const Raster = (props) => {
 
     const { treeAnimationFinish, setTreeAnimationFinish } = useContext(TreeAnimationFinish);
 
+    function switcher(params) {
+        switch (params) {
+            case "#fff":
+                return "bgWeiss";
+            case "#DCDFDC":
+                return "bgLightGreen";
+            case "#000000":
+                return "bgBlack";
+            case "#EB4511":
+                return "bgRed";
+            default:
+                return "bubu";
+        }
+    }
+
     useEffect(() => {
         setKugelWidth(kugelRef.current.clientHeight);
-        let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
-        // GIVE ID's
-        // arr.map((e, i) => {
-        //     e.id = i;
-        // });
-        // ONLY IDS ARRAY
-        let arrClaimedID = testData.map((e) => e.id);
-        arrClaimedID.map((e, i) => {
-            // setName((prev) => ({ ...prev, name: testData[i].name }));
-            // arr[e].style.opacity = 1;
-            // arr[e].style.background = testData[i].color;
-            // arr[e].initialOpacity = 0;
-            // arr[e].classList.add("animate__animated animate__bounce");
-            // setAnimator({ scale: 2 });
-        });
-        console.log(getIndex(data, 2));
     }, [kugelRef.current]);
 
     useEffect(() => {
         let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
         let arrClaimedID = testData.map((e) => e.id);
-        if (treeAnimationFinish) {
-            arrClaimedID.map((e, i) => {
-                let random = Math.random() * 500;
-                setTimeout(() => {
-                    arr[e].style.opacity = 1;
-                    arr[e].style.background = testData[i].color;
-                    arr[e].initialOpacity = 0;
-                    arr[e].classList.add("bounce-in-fwd");
-                }, random);
-            });
-        }
+
+        arrClaimedID.map((e, i) => {
+            let random = Math.random() * 500;
+            setTimeout(() => {
+                arr[e].style.opacity = 1;
+                arr[e].style.background = testData[i].color;
+                arr[e].initialOpacity = 0;
+                arr[e].classList.add("bounce-in-fwd");
+                arr[e].addEventListener("animationend", (e) => {
+                    console.log(e.target);
+                    e.target.classList.remove("bounce-in-fwd");
+                });
+                // CLASS NAME FOR ::AFTER STYLING TOOLTIP
+                arr[e].children[0].classList.add(switcher(testData[i].color));
+            }, random);
+        });
+        // arrClaimedID.map((e, i) => {
+        //     setTimeout(() => {
+        //         arr[e].style.background = "purple";
+        //     }, 2000);
+        // });
     }, [treeAnimationFinish]);
 
     return (
@@ -79,15 +89,30 @@ const Raster = (props) => {
                     }
 
                     return (
-                        <Row klasse="h-[10%] relative">
+                        <Row klasse={`h-[${100 / anzahlRows}%] relative`} style={{ height: 100 / anzahlRows + "%" }}>
                             {kugelCount.map((e, i) => {
                                 counter = counter + 1;
-                                console.log(kugelWidth);
                                 return (
                                     <Kugel
                                         ref={kugelRef}
                                         size={`w-[5%] h-[100%] opacity-0`}
                                         color="bg-white"
+                                        textColor={
+                                            data.some((e) => e.id === counter - 1)
+                                                ? data[getIndex(data, counter - 1)].color.toLowerCase() === "#fff" ||
+                                                  data[getIndex(data, counter - 1)].color.toLowerCase() === "#dcdfdc"
+                                                    ? "text-black"
+                                                    : "text-white"
+                                                : ""
+                                        }
+                                        avatrSrc={"https://i.pravatar.cc/300"}
+                                        // toolTipAfterColor={(e) => {
+                                        //     data.some((e) => e.id === counter - 1)
+                                        //         ? e.target.classList.add(
+                                        //               switcher(data[getIndex(data, counter - 1)].color.toLowerCase())
+                                        //           )
+                                        //         : "";
+                                        // }}
                                         id={counter - 1}
                                         isClaimed={false}
                                         style={{ width: kugelWidth }}
@@ -148,6 +173,11 @@ const Raster = (props) => {
                                             data.some((e) => e.id === counter - 1)
                                                 ? data[getIndex(data, counter - 1)].sum
                                                 : "KEIN NAME"
+                                        }
+                                        comment={
+                                            data.some((e) => e.id === counter - 1)
+                                                ? data[getIndex(data, counter - 1)].comment
+                                                : ""
                                         }
                                     ></Kugel>
                                 );
