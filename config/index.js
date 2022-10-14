@@ -1,8 +1,8 @@
 import Baum from "../assets/baum.svg";
 
 const colors = {
-    background: "#E9F1F7",
-    primaryColor: "#C2A85B",
+    background: "#7d866f",
+    primaryColor: "#7d866f",
     kugeln: [
         {
             kugel1: "#EB4511",
@@ -20,10 +20,16 @@ const colors = {
     baum: "#04151F",
 };
 
+const startInfo = {
+    headline: "Schmücken Sie den Baum!",
+    subline: "Lorem ipsum dolor sit amet delurum omes bubu",
+    buttonText: "Jetzt spenden",
+};
+
 const anzahlRows = 10;
 
 const Tree = () => {
     return Baum;
 };
 
-export { colors, Tree, anzahlRows };
+export { colors, Tree, anzahlRows, startInfo };

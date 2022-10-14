@@ -46,29 +46,26 @@ const Raster = (props) => {
     }, [kugelRef.current]);
 
     useEffect(() => {
-        let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
-        let arrClaimedID = testData.map((e) => e.id);
+        if (treeAnimationFinish) {
+            let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
+            let arrClaimedID = testData.map((e) => e.id);
 
-        arrClaimedID.map((e, i) => {
-            let random = Math.random() * 500;
-            setTimeout(() => {
-                arr[e].style.opacity = 1;
-                arr[e].style.background = testData[i].color;
-                arr[e].initialOpacity = 0;
-                arr[e].classList.add("bounce-in-fwd");
-                arr[e].addEventListener("animationend", (e) => {
-                    console.log(e.target);
-                    e.target.classList.remove("bounce-in-fwd");
-                });
-                // CLASS NAME FOR ::AFTER STYLING TOOLTIP
-                arr[e].children[0].classList.add(switcher(testData[i].color));
-            }, random);
-        });
-        // arrClaimedID.map((e, i) => {
-        //     setTimeout(() => {
-        //         arr[e].style.background = "purple";
-        //     }, 2000);
-        // });
+            arrClaimedID.map((e, i) => {
+                let random = Math.random() * 500;
+                setTimeout(() => {
+                    arr[e].style.opacity = 1;
+                    arr[e].style.background = testData[i].color;
+                    arr[e].initialOpacity = 0;
+                    arr[e].classList.add("bounce-in-fwd");
+                    arr[e].addEventListener("animationend", (e) => {
+                        console.log(e.target);
+                        e.target.classList.remove("bounce-in-fwd");
+                    });
+                    // CLASS NAME FOR ::AFTER STYLING TOOLTIP
+                    arr[e].children[0].classList.add(switcher(testData[i].color));
+                }, random);
+            });
+        }
     }, [treeAnimationFinish]);
 
     return (
@@ -117,15 +114,20 @@ const Raster = (props) => {
                                         isClaimed={false}
                                         style={{ width: kugelWidth }}
                                         animate={animator}
-                                        key={uuid()}
+                                        key={`kugel${i}`}
                                         onMouseEnter={(e) => {
                                             if (e.target.classList.contains("claimedKugel")) {
+                                                // e.target.classList.add("wobble-hor-bottom");
+                                                // e.target.style.transform = "scale(1.2)";
+                                                e.target.children[0].style.transform = "scale(0.8)";
                                                 e.target.children[0].classList.remove("hidden");
                                                 e.target.children[0].classList.add("scale-in-hor-right");
                                             }
                                         }}
                                         onMouseLeave={(e) => {
                                             if (e.target.classList.contains("claimedKugel")) {
+                                                // e.target.style.transform = "scale(1)";
+                                                // e.target.children[0].style.transform = "scale(1)";
                                                 e.target.children[0].classList.remove("block");
                                                 e.target.children[0].classList.add("hidden");
                                             }

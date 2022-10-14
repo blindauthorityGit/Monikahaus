@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 const SVG = (props) => {
+    const [closeMe, setCloseMe] = useState(props.closeMe);
+
     return (
         <svg
             className="absolute overflow-hidden z-10"
@@ -34,7 +36,7 @@ const SVG = (props) => {
                             scale: 1,
                             rotate: 0,
                         }}
-                        animate={{ x: 257.14, y: 531.685, scale: 1, rotate: 0 }}
+                        animate={{ x: 257.14, y: props.closeMe ? 700 : 531.685, scale: 1, rotate: 0 }}
                         transition={{ duration: props.duration, delay: props.delay, type: "spring" }}
                         transitionStart={console.log("Ich lade")}
                         transitionEnd={console.log("Ich ende")}
@@ -52,7 +54,7 @@ const SVG = (props) => {
                             scale: 0.75,
                             rotate: 0,
                         }}
-                        animate={{ x: 3806.77, y: 65.955, scale: 1, rotate: 0 }}
+                        animate={{ x: 3806.77, y: props.closeMe ? 600 : 65.955, scale: 1, rotate: 0 }}
                         transition={{ duration: props.duration, delay: 0.35, type: "spring" }}
                         transitionStart={console.log("start")}
                     />

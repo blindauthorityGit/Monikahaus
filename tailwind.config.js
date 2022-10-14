@@ -3,7 +3,7 @@
 const { fontFamily } = require("tailwindcss/defaultTheme");
 
 module.exports = {
-    mode: "jit",
+    // mode: "jit",
     content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
     theme: {
         container: {
@@ -16,7 +16,8 @@ module.exports = {
         },
         extend: {
             colors: {
-                primaryColor: "#8E8162",
+                primaryColor: "#7d866f",
+                primaryColorDark: "#4e5346",
                 secondaryColor: "#bab298",
                 darkPurple: "#71664D",
                 overlay: "#A54399",

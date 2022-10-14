@@ -8,7 +8,7 @@ const Kugel = (props, ref) => {
         // console.log(toolTipRef);
     }, [toolTipRef.current]);
     return (
-        <motion.div
+        <div
             className={`kugel relative mx-3 flex h-full items-center justify-center text-white ${props.size} ${props.klasse} rounded-full ${props.color} ${props.textColor}`}
             id={props.id}
             data-isClaimed={props.isClaimed}
@@ -16,20 +16,8 @@ const Kugel = (props, ref) => {
             ref={ref}
             style={props.style}
             key={props.key}
-            whileHover={{ scale: 1.2 }}
             onMouseEnter={props.onMouseEnter}
             onMouseLeave={props.onMouseLeave}
-            layout
-            initial={{
-                x: props.initialX,
-                y: props.initialY,
-                scale: props.initialScale,
-                rotate: props.initialRotate,
-                opacity: props.initialOpacity,
-            }}
-            animate={props.animate}
-            // animate={{ x: props.x, y: props.y, scale: props.scale, rotate: props.rotate, opacity: props.opacity }}
-            transition={{ duration: props.duration, delay: props.delay, type: props.type }}
         >
             {props.name}
             <ToolTip
@@ -45,7 +33,7 @@ const Kugel = (props, ref) => {
                 }}
                 onMouseLeave={props.toolTiponMouseLeave}
             ></ToolTip>
-        </motion.div>
+        </div>
     );
 };
 
