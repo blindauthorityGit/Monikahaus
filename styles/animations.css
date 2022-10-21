@@ -1,6 +1,6 @@
 .bounce-in-fwd {
-  -webkit-animation: bounce-in-fwd .75s ease-in-out both;
-  animation: bounce-in-fwd .75s ease-in-out both;
+  -webkit-animation: bounce-in-fwd 0.75s ease-in-out both;
+  animation: bounce-in-fwd 0.75s ease-in-out both;
 }
 
 .scale-in-hor-right {
@@ -9,8 +9,13 @@
 }
 
 .wobble-hor-bottom {
-  -webkit-animation: wobble-hor-bottom .8s both;
-  animation: wobble-hor-bottom .8s both;
+  -webkit-animation: wobble-hor-bottom 0.8s both;
+  animation: wobble-hor-bottom 0.8s both;
+}
+
+.scale-in-center {
+  -webkit-animation: scale-in-center 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: scale-in-center 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 @-webkit-keyframes bounce-in-fwd {
@@ -154,7 +159,8 @@
 }
 
 @-webkit-keyframes wobble-hor-bottom {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateX(0);
     transform: translateX(0);
     -webkit-transform-origin: 50% 50%;
@@ -183,7 +189,8 @@
 }
 
 @keyframes wobble-hor-bottom {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateX(0);
     transform: translateX(0);
     -webkit-transform-origin: 50% 50%;
@@ -208,6 +215,28 @@
   75% {
     -webkit-transform: translateX(-6px) rotate(-1.2deg);
     transform: translateX(-6px) rotate(-1.2deg);
+  }
+}
+
+@-webkit-keyframes scale-in-center {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes scale-in-center {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
   }
 }
 /*# sourceMappingURL=animations.css.map */

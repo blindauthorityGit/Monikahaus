@@ -1,7 +1,11 @@
+import react, { useContext } from "react";
 import { H1 } from "../utils/headlines";
 import Button from "../utils/buttons";
+import { ShowUnclaimed } from "../../helper/context";
 
 function StartText(props) {
+    const { showUnclaimed, setShowUnclaimed } = useContext(ShowUnclaimed);
+
     return (
         <div className="wrapper relative flex items-center h-full justify-end">
             <div className="caller w-2/4">

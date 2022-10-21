@@ -15,10 +15,14 @@ import { Boden } from "../components/bGAssets";
 import handleScroll from "../functions/handleScroll";
 import { TreeAnimationFinish } from "../helper/context";
 import { TreeAway } from "../helper/context";
+import { ShowUnclaimed } from "../helper/context";
+
+import { DndContext, closestCenter } from "@dnd-kit/core";
 
 import StartText from "../components/layout/startText";
 import Overlay from "../components/utils/overlay.";
 import Modal from "../components/utils/modal";
+import FirstModal from "../components/modalContent/first";
 
 // function StartText() {
 //     return (
@@ -43,11 +47,25 @@ export default function Home() {
     const [opacity, setOpacity] = useState(1);
     const [rasterDimensions, setRasterDimensions] = useState({});
 
+    const [isDropped, setIsDropped] = useState(false);
+
     const [treeAnimationFinish, setTreeAnimationFinish] = useState(false);
     const [baumWeg, setBaumWeg] = useState(false);
+    const [showUnclaimed, setShowUnclaimed] = useState(false);
     const [showOverlay, setShowOverlay] = useState(false);
 
     const baumRef = useRef();
+
+    function handleDragEnd(event) {
+        // console.log("DRAG END");
+        // const { active, over } = event;
+        // console.log("OVER " + over.id);
+        // console.log("ACTIVE " + active.id);
+        if (event.over && event.over.id === "droppable") {
+            console.log("IS DROPPED");
+            setIsDropped(true);
+        }
+    }
 
     useEffect(() => {
         console.log(colors, Tree);
@@ -69,59 +87,51 @@ export default function Home() {
                 <title>Site title</title>
             </Head>
             <TreeAway.Provider value={{ baumWeg, setBaumWeg }}>
-                {showOverlay && (
-                    <>
-                        <Modal
-                            onClick={() => {
-                                setShowOverlay(false);
-                            }}
-                        ></Modal>
-                        <Overlay></Overlay>
-                    </>
-                )}
-                <MainContainer width="w-full h-[80%] overflow-hidden">
-                    <div className="left col-span-6">
-                        <StartText
-                            headline={startInfo.headline}
-                            subline={startInfo.subline}
-                            buttonText={startInfo.buttonText}
-                            onClick={() => {
-                                setShowOverlay(true);
-                            }}
-                        ></StartText>
-                        {/* <motion.div
-                        drag
-                        dragSnapToOrigin
-                        onDragStart={(event, info) => {
-                            setIsDragging(true);
-                            setOpacity(0.3);
-                        }}
-                        onDragEnd={(event, info) => {
-                            setIsDragging(false);
-                            setOpacity(0);
-                            console.log(event);
-                        }}
-                        whileDrag={{ scale: 1.2 }}
-                        className="circle z-50 relative w-[100px] h-[100px] bg-red-700 rounded-2xl "
-                    ></motion.div>
-                    {isDragging && <div>WIR ZIEHEN</div>} */}
-                    </div>
-                    <TreeAnimationFinish.Provider value={{ treeAnimationFinish, setTreeAnimationFinish }}>
-                        <div className="left col-span-6 flex  relative">
-                            <Raster
-                                opacity={opacity}
-                                width={rasterDimensions.width}
-                                height={rasterDimensions.height}
-                            ></Raster>
-                            <Baum ref={baumRef}></Baum>
-                            {!treeAnimationFinish ? (
-                                <div className="absolute">ANFANG</div>
-                            ) : (
-                                <div className="absolute">ENDE</div>
-                            )}
-                        </div>
-                    </TreeAnimationFinish.Provider>
-                </MainContainer>
+                <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                    {showOverlay && (
+                        <>
+                            <Modal
+                                onClick={() => {
+                                    setShowOverlay(false);
+                                    setShowUnclaimed(false);
+                                }}
+                            >
+                                <FirstModal headline="UNSER BUBUBUB"></FirstModal>
+                            </Modal>
+                            <Overlay></Overlay>
+                        </>
+                    )}
+                    <ShowUnclaimed.Provider value={{ showUnclaimed, setShowUnclaimed }}>
+                        <MainContainer width="w-full h-[80%] overflow-hidden">
+                            <div className="left col-span-6">
+                                <StartText
+                                    headline={startInfo.headline}
+                                    subline={startInfo.subline}
+                                    buttonText={startInfo.buttonText}
+                                    onClick={() => {
+                                        setShowOverlay(true);
+                                        setShowUnclaimed(true);
+                                    }}
+                                ></StartText>
+                            </div>
+                            <TreeAnimationFinish.Provider value={{ treeAnimationFinish, setTreeAnimationFinish }}>
+                                <div className="left col-span-6 flex  relative">
+                                    <Raster
+                                        opacity={opacity}
+                                        width={rasterDimensions.width}
+                                        height={rasterDimensions.height}
+                                    ></Raster>
+                                    <Baum ref={baumRef}></Baum>
+                                    {!treeAnimationFinish ? (
+                                        <div className="absolute">ANFANG</div>
+                                    ) : (
+                                        <div className="absolute">ENDE</div>
+                                    )}
+                                </div>
+                            </TreeAnimationFinish.Provider>
+                        </MainContainer>
+                    </ShowUnclaimed.Provider>
+                </DndContext>
             </TreeAway.Provider>
 
             <Boden></Boden>

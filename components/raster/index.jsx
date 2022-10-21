@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Kugel, Row } from "../kugeln";
 import { testData } from "../../dev";
-import uuid from "react-uuid";
 
 import { TreeAnimationFinish } from "../../helper/context";
+import { ShowUnclaimed } from "../../helper/context";
 import getIndex from "../../functions/getIndex";
+import switcher from "../../functions/switcher";
 import { anzahlRows } from "../../config";
+
+import { useDroppable } from "@dnd-kit/core";
 
 const Raster = (props) => {
     const rowCount = Array(anzahlRows).fill("");
@@ -20,35 +23,25 @@ const Raster = (props) => {
 
     let counter = 0;
 
-    function someData(data, attr, noData) {
-        return data.some((e) => e.id === counter - 1) ? data[getIndex(data, counter - 1)].attr : noData;
-    }
-
     const { treeAnimationFinish, setTreeAnimationFinish } = useContext(TreeAnimationFinish);
+    const { showUnclaimed, setShowUnclaimed } = useContext(ShowUnclaimed);
 
-    function switcher(params) {
-        switch (params) {
-            case "#fff":
-                return "bgWeiss";
-            case "#DCDFDC":
-                return "bgLightGreen";
-            case "#000000":
-                return "bgBlack";
-            case "#EB4511":
-                return "bgRed";
-            default:
-                return "bubu";
-        }
-    }
+    const { isOver, setNodeRef } = useDroppable({
+        id: "droppable",
+    });
+    const style = {
+        color: isOver ? "green" : undefined,
+    };
 
     useEffect(() => {
-        setKugelWidth(kugelRef.current.clientHeight);
+        // setKugelWidth(kugelRef.current.clientHeight);
     }, [kugelRef.current]);
 
     useEffect(() => {
         if (treeAnimationFinish) {
             let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
             let arrClaimedID = testData.map((e) => e.id);
+            setKugelWidth(arr[0].clientHeight);
 
             arrClaimedID.map((e, i) => {
                 let random = Math.random() * 500;
@@ -91,8 +84,12 @@ const Raster = (props) => {
                                 counter = counter + 1;
                                 return (
                                     <Kugel
-                                        ref={kugelRef}
-                                        size={`w-[5%] h-[100%] opacity-0`}
+                                        ref={setNodeRef}
+                                        size={`w-[5%] h-[100%] ${
+                                            showUnclaimed ? "opacity-30 scale-in-center" : "opacity-0"
+                                        }
+                                            ${isOver ? "bg-green-500" : ""}
+                                        `}
                                         color="bg-white"
                                         textColor={
                                             data.some((e) => e.id === counter - 1)
@@ -103,22 +100,16 @@ const Raster = (props) => {
                                                 : ""
                                         }
                                         avatrSrc={"https://i.pravatar.cc/300"}
-                                        // toolTipAfterColor={(e) => {
-                                        //     data.some((e) => e.id === counter - 1)
-                                        //         ? e.target.classList.add(
-                                        //               switcher(data[getIndex(data, counter - 1)].color.toLowerCase())
-                                        //           )
-                                        //         : "";
-                                        // }}
                                         id={counter - 1}
-                                        isClaimed={false}
+                                        isClaimed={data.some((e) => e.id === counter - 1) ? "true" : "false"}
                                         style={{ width: kugelWidth }}
                                         animate={animator}
                                         key={`kugel${i}`}
+                                        // Droppable Inputs
+                                        // droppableKey={e}
+                                        // droppableID={i}
                                         onMouseEnter={(e) => {
                                             if (e.target.classList.contains("claimedKugel")) {
-                                                // e.target.classList.add("wobble-hor-bottom");
-                                                // e.target.style.transform = "scale(1.2)";
                                                 e.target.children[0].style.transform = "scale(0.8)";
                                                 e.target.children[0].classList.remove("hidden");
                                                 e.target.children[0].classList.add("scale-in-hor-right");
@@ -126,8 +117,6 @@ const Raster = (props) => {
                                         }}
                                         onMouseLeave={(e) => {
                                             if (e.target.classList.contains("claimedKugel")) {
-                                                // e.target.style.transform = "scale(1)";
-                                                // e.target.children[0].style.transform = "scale(1)";
                                                 e.target.children[0].classList.remove("block");
                                                 e.target.children[0].classList.add("hidden");
                                             }

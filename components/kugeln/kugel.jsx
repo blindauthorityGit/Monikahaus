@@ -2,6 +2,8 @@ import React, { useEffect, useRef, forwardRef } from "react";
 import { motion } from "framer-motion";
 import ToolTip from "./tooltip";
 
+import Droppable from "../dragNDrop/droppable";
+
 const Kugel = (props, ref) => {
     const toolTipRef = useRef();
     useEffect(() => {
@@ -19,7 +21,11 @@ const Kugel = (props, ref) => {
             onMouseEnter={props.onMouseEnter}
             onMouseLeave={props.onMouseLeave}
         >
-            {props.name}
+            <>
+                {props.name}
+                {/* <Droppable key={props.droppableKey} id={props.droppableID}>
+                </Droppable> */}
+            </>
             <ToolTip
                 klasse={`absolute tooltip hidden z-20 right-[${props.abstand}rem] bg-black py-8 px-10 min-w-[20rem] font-bold rounded-xl ${props.toolTipColor} ${props.toolTipAfterColor}`}
                 name={props.fullName}
