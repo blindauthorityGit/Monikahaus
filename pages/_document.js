@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import { colors } from "../config/";
 
 class MyDocument extends Document {
     static async getInitialProps(ctx) {
@@ -31,7 +32,9 @@ class MyDocument extends Document {
                     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
                     rel="stylesheet"
                 ></link>
-                <body>
+                <link rel="stylesheet" href="https://unpkg.com/react-rangeslider/umd/rangeslider.min.css" />
+
+                <body style={{ background: colors.background }}>
                     <Main />
                     <NextScript />
                 </body>

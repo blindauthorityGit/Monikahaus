@@ -51,6 +51,17 @@ html, body, #__next {
     color: #fff
 }
 
+#sum {
+    position: relative;
+}
+
+#sum::after {
+    content: "€";
+    top: 0;
+    left: 40px;
+    z-index: 1;
+}
+
 
 
 // .claimedKugel::after {

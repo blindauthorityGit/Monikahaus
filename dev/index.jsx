@@ -15,6 +15,7 @@ const testData = [
         name: "Johannes Buchner",
         sum: 15,
         color: colors.kugeln[0].kugel1,
+        comment: "Viel Glück und Erfolg!",
     },
     {
         id: 10,
@@ -29,6 +30,7 @@ const testData = [
         name: "Marc Werner",
         sum: 35,
         color: colors.kugeln[2].kugel3,
+        comment: "Frohe Weihnachten!",
     },
     {
         id: 16,
@@ -48,21 +50,21 @@ const testData = [
     {
         id: 30,
         claimed: true,
-        name: "Marc Werner",
+        name: "Santa Clause",
         sum: 35,
         color: colors.kugeln[0].kugel1,
     },
     {
         id: 35,
         claimed: true,
-        name: "Marc Werner",
+        name: "Dr. Herbert Schuh",
         sum: 35,
         color: colors.kugeln[2].kugel3,
     },
     {
         id: 39,
         claimed: true,
-        name: "Suppen Beidl",
+        name: "Christ Kind",
         sum: 35,
         color: colors.kugeln[2].kugel3,
     },

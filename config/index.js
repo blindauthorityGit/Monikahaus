@@ -1,8 +1,9 @@
 import Baum from "../assets/baum.svg";
 
 const colors = {
-    background: "#7d866f",
+    background: "#fff",
     primaryColor: "#7d866f",
+    bgColors: ["#EB4511", "#DCDFDC", "#000000", "#fff"],
     kugeln: [
         {
             kugel1: "#EB4511",

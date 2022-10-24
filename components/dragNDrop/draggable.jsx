@@ -1,8 +1,10 @@
 import { useDraggable } from "@dnd-kit/core";
+import Item from "./item";
 
 function Draggable(props) {
+    const Element = props.element || "div";
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
-        id: "draggable",
+        id: props.id,
     });
     const style = transform
         ? {
@@ -11,13 +13,9 @@ function Draggable(props) {
         : undefined;
 
     return (
-        <div
-            ref={setNodeRef}
-            style={style}
-            {...listeners}
-            {...attributes}
-            className="tester absolute w-12 h-12 bg-red-500"
-        ></div>
+        <Item ref={setNodeRef} {...listeners} {...attributes} klasse={props.klasse} style={props.style}>
+            {props.children}
+        </Item>
     );
 }
 

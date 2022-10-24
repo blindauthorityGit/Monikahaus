@@ -38,8 +38,6 @@ const SVG = (props) => {
                         }}
                         animate={{ x: 257.14, y: props.closeMe ? 700 : 531.685, scale: 1, rotate: 0 }}
                         transition={{ duration: props.duration, delay: props.delay, type: "spring" }}
-                        transitionStart={console.log("Ich lade")}
-                        transitionEnd={console.log("Ich ende")}
                     />
                     <motion.path
                         id="Pfad_228"
@@ -56,7 +54,6 @@ const SVG = (props) => {
                         }}
                         animate={{ x: 3806.77, y: props.closeMe ? 600 : 65.955, scale: 1, rotate: 0 }}
                         transition={{ duration: props.duration, delay: 0.35, type: "spring" }}
-                        transitionStart={console.log("start")}
                     />
                     <motion.path
                         id="Pfad_312"

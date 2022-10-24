@@ -7,17 +7,24 @@ const DNDTest = () => {
     const containers = ["A", "B", "C"];
     const [parent, setParent] = useState(null);
     const draggableMarkup = <Draggable id="draggable">Drag me</Draggable>;
+    const [isDragging, setIsDragging] = useState(false);
 
-    function handleDragEnd(event) {
-        const { over } = event;
+    // function handleDragEnd(event) {
+    //     const { over } = event;
+    //     setParent(over ? over.id : null);
+    //     console.log(event.over);
+    // }
 
-        // If the item is dropped over a container, set it as the parent
-        // otherwise reset the parent to `null`
-        setParent(over ? over.id : null);
+    function handleDragStart() {
+        setIsDragging(true);
+    }
+
+    function handleDragEnd() {
+        setIsDragging(false);
     }
 
     return (
-        <DndContext onDragEnd={handleDragEnd}>
+        <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
             {parent === null ? draggableMarkup : null}
             <div className="grid grid-cols-12 ">
                 {containers.map((id) => (
@@ -25,11 +32,24 @@ const DNDTest = () => {
                     // prop and pass it to `useDroppable`
 
                     <Droppable key={id} id={id}>
-                        {parent === id ? draggableMarkup : "Drop here"}
+                        {parent === id ? draggableMarkup : "Drop here ggeg"}
                     </Droppable>
                 ))}{" "}
             </div>
         </DndContext>
+        // <DndContext onDragEnd={handleDragEnd}>
+        //     {parent === null ? draggableMarkup : null}
+        //     <div className="grid grid-cols-12 ">
+        //         {containers.map((id) => (
+        //             // We updated the Droppable component so it would accept an `id`
+        //             // prop and pass it to `useDroppable`
+
+        //             <Droppable key={id} id={id}>
+        //                 {parent === id ? draggableMarkup : "Drop here ggeg"}
+        //             </Droppable>
+        //         ))}{" "}
+        //     </div>
+        // </DndContext>
     );
 };
 
