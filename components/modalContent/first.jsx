@@ -8,7 +8,7 @@ import { DragOverlay } from "@dnd-kit/core";
 import Item from "../dragNDrop/item";
 import { createPortal } from "react-dom";
 import Droppable from "../dragNDrop/droppable";
-import { TreeAnimationFinish, KugelColor, UserData, UserList } from "../../helper/context";
+import { TreeAnimationFinish, KugelColor, UserData, UserList, ShowOverlay } from "../../helper/context";
 import Slider from "react-rangeslider";
 import QMark from "../../assets/qmark.svg";
 import ReactTooltip from "react-tooltip";
@@ -41,6 +41,8 @@ const FirstModal = (props) => {
     const { kugelColor, setKugelColor } = useContext(KugelColor);
     const { userData, setUserData } = useContext(UserData);
     const { userList, setUserList } = useContext(UserList);
+    const { showOverlay, setShowOverlay } = useContext(ShowOverlay);
+    const { showUnclaimed, setShowUnclaimed } = useContext(ShowOverlay);
 
     const ballRef = useRef();
     const firstRef = useRef();
@@ -79,12 +81,10 @@ const FirstModal = (props) => {
 
         setColor(e.currentTarget.style.backgroundColor);
         setKugelColor({ ...kugelColor, color: e.currentTarget.style.backgroundColor });
-        console.log(typeof userData.spende);
     };
     const onChange = (e) => {
         setUserData({ ...userData, [e.target.name]: e.target.value });
         setDonateData({ ...donateData, [e.target.name]: e.target.value });
-        console.log(userData);
     };
 
     useEffect(() => {
@@ -275,6 +275,8 @@ const FirstModal = (props) => {
                                     pathname: "/",
                                     query: { id: newUser.id, name: newUser.name, winner: newUser.winner },
                                 });
+                                setShowOverlay(false);
+                                setShowUnclaimed(false);
                             });
                         }}
                     />
