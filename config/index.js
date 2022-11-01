@@ -33,4 +33,7 @@ const Tree = () => {
     return Baum;
 };
 
-export { colors, Tree, anzahlRows, startInfo };
+const showGoal = true;
+const goalSum = 1000;
+
+export { colors, Tree, anzahlRows, startInfo, goalSum, showGoal };

@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Kugel, Row } from "../kugeln";
-import { testData } from "../../dev";
 
-import { ShowUnclaimed, KugelColor, TreeAnimationFinish } from "../../helper/context";
+import { ShowUnclaimed, KugelColor, TreeAnimationFinish, UserList } from "../../helper/context";
 import getIndex from "../../functions/getIndex";
 import switcher from "../../functions/switcher";
 import { anzahlRows } from "../../config";
 
-import { useDroppable } from "@dnd-kit/core";
 import Draggable from "../dragNDrop/draggable";
 
 // import { useColorStore } from "../zustand";
@@ -22,9 +20,7 @@ const Raster = (props) => {
 
     const [kugelWidth, setKugelWidth] = useState(5);
     const [animator, setAnimator] = useState("");
-    const [name, setName] = useState({ name: "name" });
-    const [data, setData] = useState(testData);
-    const kugelRef = useRef();
+    // const [data, setData] = useState(testData);
     const allRef = useRef();
 
     let counter = 0;
@@ -32,6 +28,7 @@ const Raster = (props) => {
     const { treeAnimationFinish, setTreeAnimationFinish } = useContext(TreeAnimationFinish);
     const { showUnclaimed, setShowUnclaimed } = useContext(ShowUnclaimed);
     const { kugelColor, setKugelColor } = useContext(KugelColor);
+    const { userList, setUserList } = useContext(UserList);
 
     // OPACITY CHECK DROPZONE WHEN DROPPED
     useEffect(() => {
@@ -53,33 +50,39 @@ const Raster = (props) => {
     }, [props.parent]);
 
     const draggableMarkup = (
-        <Draggable klasse="rounded-full" style={{ width: kugelWidth + "px", height: kugelWidth + "px" }} id="draggable">
-            {/* Drag me */}
-        </Draggable>
+        <Draggable
+            klasse="rounded-full"
+            style={{ width: kugelWidth + "px", height: kugelWidth + "px" }}
+            id="draggable"
+        ></Draggable>
     );
 
     useEffect(() => {
         if (treeAnimationFinish) {
             let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
-            let arrClaimedID = testData.map((e) => e.id);
+            let arrClaimedID = userList.map((e) => e.id);
             setKugelWidth(arr[0].clientHeight);
 
             arrClaimedID.map((e, i) => {
                 let random = Math.random() * 500;
                 setTimeout(() => {
                     arr[e].style.opacity = 1;
-                    arr[e].style.background = testData[i].color;
+                    arr[e].style.background = userList[i].color;
                     arr[e].initialOpacity = 0;
                     arr[e].classList.add("bounce-in-fwd");
                     arr[e].addEventListener("animationend", (e) => {
                         e.target.classList.remove("bounce-in-fwd");
                     });
                     // CLASS NAME FOR ::AFTER STYLING TOOLTIP
-                    arr[e].children[0].classList.add(switcher(testData[i].color));
+                    if (arr[e].children[0].classList.contains("draggable")) {
+                        arr[e].children[1].classList.add(switcher(userList[i].color));
+                        console.log("BUBUBU");
+                    }
+                    arr[e].children[0].classList.add(switcher(userList[i].color));
                 }, random);
             });
         }
-    }, [treeAnimationFinish]);
+    }, [treeAnimationFinish, userList]);
 
     return (
         <div ref={allRef} className="flex items-center h-full">
@@ -102,32 +105,40 @@ const Raster = (props) => {
                         <Row klasse={`h-[${100 / anzahlRows}%] relative`} style={{ height: 100 / anzahlRows + "%" }}>
                             {kugelCount.map((e, i) => {
                                 counter = counter + 1;
-                                let claimed = data.some((e) => e.id === counter - 1);
+                                let claimed = userList.some((e) => e.id === counter - 1);
+                                console.log(claimed, userList);
                                 // console.log(data.some((e) => e.id === counter - 1));
                                 return (
                                     <Kugel
                                         size={`w-[5%] h-[100%] ${
                                             showUnclaimed ? "opacity-30 scale-in-center" : "opacity-0"
-                                        } ${claimed ? "" : "border-4 border-white border-dotted"} `}
+                                        } ${claimed ? "shadow-md" : "border-4 border-white border-dotted"} `}
                                         onAnimationEnd={(e) => {
                                             e.target.classList.remove("scale-in-center");
                                         }}
                                         textColor={
-                                            data.some((e) => e.id === counter - 1)
-                                                ? data[getIndex(data, counter - 1)].color.toLowerCase() === "#fff" ||
-                                                  data[getIndex(data, counter - 1)].color.toLowerCase() === "#dcdfdc"
+                                            userList.some((e) => e.id === counter - 1)
+                                                ? userList[getIndex(userList, counter - 1)].color.toLowerCase() ===
+                                                      "#fff" ||
+                                                  userList[getIndex(userList, counter - 1)].color.toLowerCase() ===
+                                                      "#dcdfdc"
                                                     ? "text-black"
                                                     : "text-white"
                                                 : ""
                                         }
-                                        avatrSrc={"https://i.pravatar.cc/300"}
+                                        avatrSrc={`https://i.pravatar.cc/300?img=${counter - 1}`}
                                         id={counter - 1}
                                         key={`kugel${i}`}
-                                        isClaimed={data.some((e) => e.id === counter - 1) ? "true" : "false"}
-                                        disabled={data.some((e) => e.id === counter - 1) ? true : false}
+                                        isClaimed={userList.some((e) => e.id === counter - 1) ? "true" : "false"}
+                                        disabled={userList.some((e) => e.id === counter - 1) ? true : false}
                                         style={{ width: kugelWidth }}
                                         animate={animator}
                                         onMouseEnter={(e) => {
+                                            if (e.currentTarget.children[0].classList.contains("draggable")) {
+                                                e.currentTarget.children[1].style.transform = "scale(0.8)";
+                                                e.currentTarget.children[1].classList.remove("hidden");
+                                                e.currentTarget.children[1].classList.add("scale-in-hor-right");
+                                            }
                                             if (e.target.classList.contains("claimedKugel")) {
                                                 e.target.children[0].style.transform = "scale(0.8)";
                                                 e.target.children[0].classList.remove("hidden");
@@ -135,6 +146,10 @@ const Raster = (props) => {
                                             }
                                         }}
                                         onMouseLeave={(e) => {
+                                            if (e.currentTarget.children[0].classList.contains("draggable")) {
+                                                e.currentTarget.children[1].classList.remove("block");
+                                                e.currentTarget.children[1].classList.add("hidden");
+                                            }
                                             if (e.target.classList.contains("claimedKugel")) {
                                                 e.target.children[0].classList.remove("block");
                                                 e.target.children[0].classList.add("hidden");
@@ -144,24 +159,26 @@ const Raster = (props) => {
                                             e.target.classList.remove("block");
                                             e.target.classList.add("hidden");
                                         }}
-                                        klasse={data.some((e) => e.id === counter - 1) ? "claimedKugel" : null}
+                                        klasse={userList.some((e) => e.id === counter - 1) ? "claimedKugel" : null}
                                         toolTipStyle={{
                                             right: kugelWidth + 16 + "px",
-                                            background: data.some((e) => e.id === counter - 1)
-                                                ? data[getIndex(data, counter - 1)].color.toLowerCase()
+                                            background: userList.some((e) => e.id === counter - 1)
+                                                ? userList[getIndex(userList, counter - 1)].color.toLowerCase()
                                                 : "",
                                         }}
                                         toolTipColor={
-                                            data.some((e) => e.id === counter - 1)
-                                                ? data[getIndex(data, counter - 1)].color.toLowerCase() === "#fff" ||
-                                                  data[getIndex(data, counter - 1)].color.toLowerCase() === "#dcdfdc"
+                                            userList.some((e) => e.id === counter - 1)
+                                                ? userList[getIndex(userList, counter - 1)].color.toLowerCase() ===
+                                                      "#fff" ||
+                                                  userList[getIndex(userList, counter - 1)].color.toLowerCase() ===
+                                                      "#dcdfdc"
                                                     ? "text-black"
                                                     : "text-white"
                                                 : ""
                                         }
                                         name={
-                                            data.some((e) => e.id === counter - 1)
-                                                ? data[getIndex(data, counter - 1)].name
+                                            userList.some((e) => e.id === counter - 1)
+                                                ? userList[getIndex(userList, counter - 1)].name
                                                       .split(" ")
                                                       .map((n) => n[0])
                                                       .join(".")
@@ -170,29 +187,34 @@ const Raster = (props) => {
                                         abstand={kugelWidth}
                                         // check ob Index in dem Kunden Array vorhanden ist
                                         fullName={
-                                            data.some((e) => e.id === counter - 1)
-                                                ? data[getIndex(data, counter - 1)].name
+                                            userList.some((e) => e.id === counter - 1)
+                                                ? userList[getIndex(userList, counter - 1)].name
                                                 : "KEIN NAME"
                                         }
                                         toolTipBG={
-                                            data.some((e) => e.id === counter - 1)
-                                                ? data[getIndex(data, counter - 1)].color.toLowerCase()
+                                            userList.some((e) => e.id === counter - 1)
+                                                ? userList[getIndex(userList, counter - 1)].color.toLowerCase()
                                                 : ""
                                         }
                                         sum={
-                                            data.some((e) => e.id === counter - 1)
-                                                ? data[getIndex(data, counter - 1)].sum
+                                            userList.some((e) => e.id === counter - 1)
+                                                ? userList[getIndex(userList, counter - 1)].sum
                                                 : "KEIN NAME"
                                         }
                                         comment={
-                                            data.some((e) => e.id === counter - 1)
-                                                ? data[getIndex(data, counter - 1)].comment
+                                            userList.some((e) => e.id === counter - 1)
+                                                ? userList[getIndex(userList, counter - 1)].comment
                                                 : ""
                                         }
                                     >
                                         {props.parent === counter - 1 ? (
                                             <Draggable
-                                                klasse="rounded-full flex items-center justify-center"
+                                                klasse={`draggable rounded-full flex items-center justify-center ${
+                                                    kugelColor.color == "rgb(255, 255, 255)" ||
+                                                    kugelColor.color == "rgb(220, 223, 220)"
+                                                        ? "text-black border-4"
+                                                        : "text-white"
+                                                }`}
                                                 style={{
                                                     width: kugelWidth + "px",
                                                     height: kugelWidth + "px",

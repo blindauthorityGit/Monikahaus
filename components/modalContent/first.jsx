@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
+import { useRouter } from "next/router";
+
 import MainContainer from "../layout/mainContainer";
 import { H2 } from "../utils/headlines";
 import Draggable from "../dragNDrop/draggable";
@@ -6,11 +8,23 @@ import { DragOverlay } from "@dnd-kit/core";
 import Item from "../dragNDrop/item";
 import { createPortal } from "react-dom";
 import Droppable from "../dragNDrop/droppable";
-import { TreeAnimationFinish, KugelColor } from "../../helper/context";
-import { colors } from "../../config";
-import { GiCheckMark } from "react-icons/gi";
+import { TreeAnimationFinish, KugelColor, UserData, UserList } from "../../helper/context";
 import Slider from "react-rangeslider";
 import QMark from "../../assets/qmark.svg";
+import ReactTooltip from "react-tooltip";
+
+import ColorChoice from "./colorChoice";
+import SpendenSumme from "./spendenSumme";
+import NameKugel from "./NameKugel";
+import ImageUpload from "./imageUpload";
+import Comment from "./comment";
+
+import { colors } from "../../config";
+import { testData } from "../../dev";
+
+import axios from "axios";
+
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const FirstModal = (props) => {
     const { treeAnimationFinish, setTreeAnimationFinish } = useContext(TreeAnimationFinish);
@@ -21,15 +35,36 @@ const FirstModal = (props) => {
     const [name, setName] = useState("");
     const [anon, setAnon] = useState(false);
 
+    // PAYMENT STUFF
+    const [isPayed, setIsPayed] = useState(false);
+
     const { kugelColor, setKugelColor } = useContext(KugelColor);
+    const { userData, setUserData } = useContext(UserData);
+    const { userList, setUserList } = useContext(UserList);
 
     const ballRef = useRef();
+    const firstRef = useRef();
+    const secondRef = useRef();
+
+    const router = useRouter();
 
     const [donateData, setDonateData] = useState({
         color: "",
         spende: 0,
         fullName: "",
     });
+
+    const redirectToCheckout = async () => {
+        const {
+            data: { id },
+        } = await axios.post("/api/checkout_sessions");
+    };
+
+    const objectMapper = (object1) => {
+        for (const [key, value] of Object.entries(object1)) {
+            localStorage.setItem(`${key}`, `${value}`);
+        }
+    };
 
     // const { value } = value;
 
@@ -39,170 +74,213 @@ const FirstModal = (props) => {
         arr[e.currentTarget.dataset.id].children[0].classList.remove("hidden");
         arr[e.currentTarget.dataset.id].children[0].classList.add("block");
         setChecked(e.currentTarget.dataset.id);
+        setUserData({ ...userData, [e.currentTarget.id]: e.currentTarget.style.backgroundColor });
         setDonateData({ ...donateData, [e.currentTarget.id]: e.currentTarget.style.backgroundColor });
+
         setColor(e.currentTarget.style.backgroundColor);
         setKugelColor({ ...kugelColor, color: e.currentTarget.style.backgroundColor });
-        console.log(donateData);
+        console.log(typeof userData.spende);
     };
     const onChange = (e) => {
+        setUserData({ ...userData, [e.target.name]: e.target.value });
         setDonateData({ ...donateData, [e.target.name]: e.target.value });
-        console.log(donateData);
+        console.log(userData);
     };
 
     useEffect(() => {
-        console.log("Baum feddisch Kugel");
         let arr = Array.from(document.querySelectorAll(".kugel"));
         setSize(arr[0].clientHeight);
     }, [treeAnimationFinish]);
 
+    const initialOptions = {
+        "client-id": "AaX0OXb-afYDG23QpVOmNi6cPevWn_cTCyD_mmbcH87wYqbGmxlCZLdUTUbJ0WM4PAZEdT7tODT-z5m0",
+        currency: "EUR",
+        intent: "capture",
+        // "data-client-token": "abc123xyz==",
+    };
+
     return (
-        <MainContainer width="fixed relative">
-            <div className="col-span-12">
-                <H2 klasse="font-bold mb-16">{props.headline}</H2>
-                <div className="colors w-2/4">
-                    <div className="topLine mb-8">Wählen Sie Ihre Farbe</div>
-                    <div className="wrapper flex justify-between" ref={ballRef}>
-                        {colors.bgColors.map((e, i) => {
-                            return (
-                                <div
-                                    className={`colorBall rounded-full flex items-center justify-center ${
-                                        e === "#fff" ? "border-4" : ""
-                                    } hover:scale-110 transition cursor-pointer`}
-                                    onClick={(e) => {
-                                        onChangeColor(e);
-                                        e.target.classList.add("jello-horizontal");
+        <PayPalScriptProvider options={initialOptions}>
+            <MainContainer width="fixed relative h-full">
+                <div className="col-span-12">
+                    <div ref={firstRef} className="wrapper">
+                        <H2 klasse="font-bold mb-8">{props.headline}</H2>
+                        <div className="topLine mb-10 text-lg italic">
+                            Wählen Sie die Farbe Ihrer Kugel, die Spendensumme weitere Infos
+                        </div>
+                        <ColorChoice
+                            size={size}
+                            checked={checked}
+                            ballRef={ballRef}
+                            onChangeColor={onChangeColor}
+                            dataTip="Die Farbe Ihrer Kugel"
+                        ></ColorChoice>
+                        {/* <hr className="mt-6" /> */}
+                        <SpendenSumme dataTip="Ihre Spende in EURO" onChange={onChange}></SpendenSumme>
+                        {/* <hr className="mt-6" /> */}
+                        <NameKugel
+                            setName={setName}
+                            kugelColor={kugelColor}
+                            setKugelColor={setKugelColor}
+                            onChange={onChange}
+                            dataTip="Ihr Name, wird als Initialen auf der Kugel angezeigt"
+                        ></NameKugel>
+                        {/* <hr className="mt-6" /> */}
+                        <ImageUpload
+                            anon={anon}
+                            setAnon={setAnon}
+                            kugelColor={kugelColor}
+                            setKugelColor={setKugelColor}
+                            dataTip="Ihr Avatar Bild (optional)"
+                        ></ImageUpload>
+                        {/* <hr className="mt-6" /> */}
+                        <Comment onChange={onChange} dataTip="Ihr Kommentar (optional)"></Comment>
+                        <div className="anonym mt-8">
+                            <div className="wrapper flex items-center">
+                                <img
+                                    data-tip="Ihr Name und Spendenbeitrag werden nicht<br /> auf der Kugel und der Spenderliste angezeigt"
+                                    data-iscapture="true"
+                                    multiline={true}
+                                    src={QMark.src}
+                                    className="pr-4"
+                                    alt=""
+                                />
+                                <input
+                                    className="text-lg p-8 border font-semibold "
+                                    type="checkbox"
+                                    name="anon"
+                                    id="anon"
+                                    placeholder="Ihr Name"
+                                    onChange={(e) => {
+                                        anon ? setAnon(false) : setAnon(true);
+                                        anon
+                                            ? setKugelColor({ ...kugelColor, anon: false })
+                                            : setKugelColor({ ...kugelColor, anon: true });
                                     }}
-                                    onAnimationEnd={(e) => {
-                                        e.target.classList.remove("jello-horizontal");
-                                    }}
-                                    id="color"
-                                    data-id={i}
-                                    key={`farbKugel${i}`}
-                                    style={{ width: size + "px", height: size + "px", background: e }}
-                                >
-                                    <div className="icon hidden text-2xl">
-                                        <GiCheckMark color={checked == 3 ? "black" : "white"}></GiCheckMark>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-                <div className="spende">
-                    <input
-                        className="mt-16 text-3xl p-8 border font-semibold"
-                        type="number"
-                        name="spende"
-                        id="sum"
-                        placeholder="EUR 20,-"
-                        onChange={(e) => {
-                            onChange(e);
-                        }}
-                    />
-                </div>
-                <div className="name">
-                    <input
-                        className="mt-16 text-3xl p-8 border font-semibold"
-                        type="text"
-                        name="fullName"
-                        id="fullName"
-                        placeholder="Ihr Name"
-                        onChange={(e) => {
-                            onChange(e);
-                            setName(e.target.value);
-                            setKugelColor({ ...kugelColor, name: e.target.value });
-                        }}
-                    />
-                </div>
-
-                <div className="file mt-8">
-                    <div className="wrapper flex items-center">
-                        <input
-                            className="text-xl p-8 border font-semibold "
-                            type="file"
-                            name="file"
-                            id="file"
-                            placeholder="Bild"
-                            onChange={(e) => {
-                                anon ? setAnon(false) : setAnon(true);
-                                anon
-                                    ? setKugelColor({ ...kugelColor, anon: false })
-                                    : setKugelColor({ ...kugelColor, anon: true });
-                            }}
-                        />{" "}
-                        <label className="ml-4 text-lg" for="file">
-                            Bild Upload Avatar
-                        </label>
-                    </div>
-                </div>
-                <div className="anonym mt-8">
-                    <div className="wrapper flex items-center">
-                        <img src={QMark.src} className="pr-4" alt="" />
-                        <input
-                            className="text-lg p-8 border font-semibold "
-                            type="checkbox"
-                            name="anon"
-                            id="anon"
-                            placeholder="Ihr Name"
-                            onChange={(e) => {
-                                anon ? setAnon(false) : setAnon(true);
-                                anon
-                                    ? setKugelColor({ ...kugelColor, anon: false })
-                                    : setKugelColor({ ...kugelColor, anon: true });
-                            }}
-                        />{" "}
-                        <label className="ml-4 text-lg" for="anon">
-                            Anonyme Spende?
-                        </label>
-                    </div>
-                </div>
-
-                <div className="absolute bg-white h-48 w-48 right-[-190px] rounded-full shadow-xl top-[35%] flex items-center justify-center">
-                    <div className="absolute top-8">DRAG ME</div>
-                    <Draggable
-                        id="draggable"
-                        value="bubu"
-                        style={{ width: size + "px", height: size + "px", background: kugelColor.color }}
-                        klasse={`${props.isDropped ? "hidden" : "block"} ${
-                            props.isDragging ? "opacity-30" : ""
-                        } rounded-full flex items-center justify-center ${
-                            kugelColor == "rgb(255, 255, 255)" || kugelColor == "rgb(220, 223, 220)"
-                                ? "text-black"
-                                : "text-white"
-                        }`}
-                    >
-                        {anon
-                            ? "Anon"
-                            : name
-                                  .split(" ")
-                                  .map((n) => n[0])
-                                  .join(".")}
-                    </Draggable>
-                </div>
-                <div className="flex justify-end">
-                    <div className="btn border p-4 cursor-pointer opacity-50">Weiter</div>
-                </div>
-                {/* KLASSE HIDDEN NOCH BUGGY */}
-
-                {createPortal(
-                    <DragOverlay
-                        dropAnimation={{
-                            duration: 300,
-                            easing: "cubic-bezier(0.18, 0.67, 0.6, 1.22)",
-                        }}
-                    >
-                        {props.activeId ? (
-                            <Item
+                                />{" "}
+                                <label className="ml-4 text-lg" for="anon">
+                                    Anonyme Spende?
+                                </label>
+                            </div>
+                        </div>
+                        <div
+                            className={`${
+                                userData.color && userData.spende && userData.fullName ? "scale-in-center" : "hidden"
+                            } absolute bg-white h-48 w-48 right-[-190px] rounded-full shadow-xl top-[35%] flex items-center justify-center`}
+                        >
+                            <div className="absolute top-8">DRAG ME</div>
+                            <Draggable
+                                id="draggable"
+                                value="bubu"
                                 style={{ width: size + "px", height: size + "px", background: kugelColor.color }}
-                                value={`Item ${props.activeId}`}
-                                klasse="rounded-full"
-                            />
-                        ) : null}
-                    </DragOverlay>,
-                    document.body
-                )}
-            </div>
-        </MainContainer>
+                                klasse={`${props.isDropped ? "hidden" : "block"} ${
+                                    props.isDragging ? "opacity-30" : ""
+                                } rounded-full flex items-center justify-center ${
+                                    kugelColor.color == "rgb(255, 255, 255)" || kugelColor.color == "rgb(220, 223, 220)"
+                                        ? "text-black border-4"
+                                        : "text-white"
+                                }`}
+                            >
+                                {anon
+                                    ? "Anon"
+                                    : name
+                                          .split(" ")
+                                          .map((n) => n[0])
+                                          .join(".")}
+                            </Draggable>{" "}
+                        </div>
+                    </div>
+                    <div className="flex justify-end">
+                        <button
+                            disabled={
+                                userData.color && userData.spende && userData.fullName && userData.id ? false : true
+                            }
+                            className={`${
+                                userData.color && userData.spende && userData.fullName && userData.id
+                                    ? `bg-[${colors.primaryColor}]`
+                                    : "opacity-30"
+                            } absolute bottom-0 border px-12 py-4 font-bold`}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                console.log(userData);
+                                objectMapper(userData);
+                                firstRef.current.classList.add("hidden");
+                                secondRef.current.classList.remove("hidden");
+                            }}
+                        >
+                            Weiter
+                        </button>
+                    </div>
+                    {/* KLASSE HIDDEN NOCH BUGGY */}
+                    {createPortal(
+                        <DragOverlay
+                            dropAnimation={{
+                                duration: 300,
+                                easing: "cubic-bezier(0.18, 0.67, 0.6, 1.22)",
+                            }}
+                        >
+                            {props.activeId ? (
+                                <Item
+                                    style={{ width: size + "px", height: size + "px", background: kugelColor.color }}
+                                    value={`Item ${props.activeId}`}
+                                    klasse="rounded-full"
+                                />
+                            ) : null}
+                        </DragOverlay>,
+                        document.body
+                    )}
+                    <ReactTooltip multiline={true} />
+                </div>
+                <div
+                    ref={secondRef}
+                    id="sumWrapper"
+                    data-sum={Number(userData.spende)}
+                    className="second hidden col-span-12"
+                >
+                    <PayPalButtons
+                        createOrder={(data, actions) => {
+                            console.log(window.localStorage.getItem(""));
+                            return actions.order.create({
+                                purchase_units: [
+                                    {
+                                        amount: {
+                                            value: Number(window.localStorage.getItem("spende")),
+                                            // value: document.querySelector("#sumWrapper").dataset.sum,
+                                        },
+                                    },
+                                ],
+                            });
+                        }}
+                        onApprove={(data, actions) => {
+                            console.log(data);
+                            return actions.order.capture().then((details) => {
+                                console.log(details);
+                                setIsPayed(true);
+                                const name = details.payer.name.given_name;
+                                const newUser = {
+                                    anon: Boolean(window.localStorage.getItem("anon")),
+                                    color: window.localStorage.getItem("color"),
+                                    email: details.payer.email_adress,
+                                    name: window.localStorage.getItem("fullName"),
+                                    id: Number(window.localStorage.getItem("id")),
+                                    image: window.localStorage.getItem("image"),
+                                    sum: Number(window.localStorage.getItem("spende")),
+                                    winner: Boolean(window.localStorage.getItem("winner")),
+                                    comment: window.localStorage.getItem("comment"),
+                                    claimed: true,
+                                };
+                                setUserList((current) => [...current, newUser]);
+                                console.log(newUser, userList);
+                                router.push({
+                                    pathname: "/",
+                                    query: { id: newUser.id, name: newUser.name, winner: newUser.winner },
+                                });
+                            });
+                        }}
+                    />
+                </div>{" "}
+            </MainContainer>
+        </PayPalScriptProvider>
     );
 };
 

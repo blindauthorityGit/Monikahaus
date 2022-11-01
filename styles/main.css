@@ -26,7 +26,6 @@ html, body, #__next {
 .claimedKugel {
   -webkit-transition: all ease-in-out 200ms;
   transition: all ease-in-out 200ms;
-  z-index: 100;
   position: relative;
 }
 

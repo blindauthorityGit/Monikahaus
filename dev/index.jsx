@@ -48,6 +48,22 @@ const testData = [
         comment: "Shut up and take my money!",
     },
     {
+        id: 25,
+        claimed: true,
+        name: "Edeltraud Wippenberger",
+        sum: 135,
+        color: colors.kugeln[1].kugel2,
+        comment: "Shut up and take my money!",
+    },
+    {
+        id: 28,
+        claimed: true,
+        name: "Edeltraud Wippenberger",
+        sum: 335,
+        color: colors.kugeln[3].kugel4,
+        comment: "Shut up and take my money!",
+    },
+    {
         id: 30,
         claimed: true,
         name: "Santa Clause",
