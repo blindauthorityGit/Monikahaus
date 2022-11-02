@@ -102,14 +102,20 @@ const Raster = (props) => {
                     }
 
                     return (
-                        <Row klasse={`h-[${100 / anzahlRows}%] relative`} style={{ height: 100 / anzahlRows + "%" }}>
+                        <Row
+                            key={i + "nene"}
+                            klasse={`h-[${100 / anzahlRows}%] relative`}
+                            style={{ height: 100 / anzahlRows + "%" }}
+                        >
                             {kugelCount.map((e, i) => {
                                 counter = counter + 1;
+
                                 let claimed = userList.some((e) => e.id === counter - 1);
                                 console.log(claimed, userList);
                                 // console.log(data.some((e) => e.id === counter - 1));
                                 return (
                                     <Kugel
+                                        key={i + "kugel"}
                                         size={`w-[5%] h-[100%] ${
                                             showUnclaimed ? "opacity-30 scale-in-center" : "opacity-0"
                                         } ${claimed ? "shadow-md" : "border-4 border-white border-dotted"} `}
@@ -128,7 +134,6 @@ const Raster = (props) => {
                                         }
                                         avatrSrc={`https://i.pravatar.cc/300?img=${counter - 1}`}
                                         id={counter - 1}
-                                        key={`kugel${i}`}
                                         isClaimed={userList.some((e) => e.id === counter - 1) ? "true" : "false"}
                                         disabled={userList.some((e) => e.id === counter - 1) ? true : false}
                                         style={{ width: kugelWidth }}

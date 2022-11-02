@@ -16,7 +16,7 @@ function Comment(props) {
                     cols="40"
                     name="comment"
                     id="comment"
-                    maxlength="60"
+                    maxLength="60"
                     placeholder="Ihr Kommentar (max 60 Zeichen)"
                     onChange={(e) => {
                         props.onChange(e);

@@ -158,7 +158,7 @@ const FirstModal = (props) => {
                                             : setKugelColor({ ...kugelColor, anon: true });
                                     }}
                                 />{" "}
-                                <label className="ml-4 text-lg" for="anon">
+                                <label className="ml-4 text-lg" htmlFor="anon">
                                     Anonyme Spende?
                                 </label>
                             </div>
