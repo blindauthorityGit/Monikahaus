@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, forwardRef } from "react";
 import { motion } from "framer-motion";
-import ToolTip from "./tooltip";
+import ToolTip from "./toolTip";
 import { useDroppable } from "@dnd-kit/core";
 
 import Droppable from "../dragNDrop/droppable";

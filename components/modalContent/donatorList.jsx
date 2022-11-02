@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import MainContainer from "../layout/MainContainer";
+import MainContainer from "../layout/mainContainer";
 import { testData } from "../../dev";
 import { KugelColor, UserList } from "../../helper/context";
 import ReactPaginate from "react-paginate";
