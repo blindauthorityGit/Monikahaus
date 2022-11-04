@@ -27,7 +27,7 @@ const ThankYou = (props) => {
                 <MdOutlineClose></MdOutlineClose>
             </div>
 
-            <img src={props.isWinner ? SuccessTopRed.src : SuccessRed.src} alt="" />
+            <img src={props.isWinner ? SuccessTopRed.src : SuccessTop.src} alt="" />
             <H1 klasse="text-3xl md:text-5xl text-center lg:text-5xl xl:text-5xl 2xl:text-7xl 3xl:text-8xl text-white">
                 {props.isWinner ? "Sie haben gewonnen!" : "Vielen Dank!"}
             </H1>
