@@ -111,7 +111,7 @@ const Raster = (props) => {
                                 counter = counter + 1;
 
                                 let claimed = userList.some((e) => e.id === counter - 1);
-                                console.log(claimed, userList);
+                                // console.log(claimed, userList);
                                 // console.log(data.some((e) => e.id === counter - 1));
                                 return (
                                     <Kugel
@@ -211,6 +211,7 @@ const Raster = (props) => {
                                                 ? userList[getIndex(userList, counter - 1)].comment
                                                 : ""
                                         }
+                                        winner={counter - 1 == 40 ? true : false}
                                     >
                                         {props.parent === counter - 1 ? (
                                             <Draggable

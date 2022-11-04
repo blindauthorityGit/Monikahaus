@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { motion } from "framer-motion";
 import { showGoal, goalSum } from "../../config";
+import { UserList } from "../../helper/context";
 
 const Goal = (props) => {
+    const { userList, setUserList } = useContext(UserList);
     const [data, setData] = useState(props.data);
     const [sum, setSum] = useState(0);
     const [goal, setGoal] = useState(goalSum);
@@ -12,8 +14,8 @@ const Goal = (props) => {
     const countRef = useRef();
 
     useEffect(() => {
-        setSum(data.map((e) => e.sum).reduce((a, b) => a + b));
-    }, [props.data]);
+        setSum(userList.map((e) => e.sum).reduce((a, b) => a + b));
+    }, [userList]);
 
     useEffect(() => {
         if ((sum / goal) * 100 <= 100) {

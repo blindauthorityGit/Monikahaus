@@ -27,6 +27,8 @@ module.exports = {
                 footer: "#1d1e1e",
                 text: "#414646",
                 lightGray: "#F5F0ED",
+                success: "#1C2826",
+                winner: "#EB4511",
             },
             fontFamily: {
                 ...fontFamily,

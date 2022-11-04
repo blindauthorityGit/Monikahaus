@@ -10,7 +10,7 @@ const Kreis = (props) => {
             }}
             animate={{ scale: 1 }}
             transition={{ duration: props.duration, delay: 1.5, type: "spring" }}
-            className={`w-96 h-96 rounded-full absolute top-[20%] left-[40%] z-0  bg-[#f5f5f5]`}
+            className={`w-96 h-96 rounded-full absolute top-[20%] left-[35%] z-0  bg-[#f5f5f5]`}
             onAnimationComplete={props.onAnimationComplete}
             onClick={props.onClick}
         ></motion.div>

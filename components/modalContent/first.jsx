@@ -23,6 +23,7 @@ import { colors } from "../../config";
 import { testData } from "../../dev";
 
 import axios from "axios";
+import { Fireworks } from "fireworks-js";
 
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
@@ -43,6 +44,8 @@ const FirstModal = (props) => {
     const { userList, setUserList } = useContext(UserList);
     const { showOverlay, setShowOverlay } = useContext(ShowOverlay);
     const { showUnclaimed, setShowUnclaimed } = useContext(ShowOverlay);
+    const { showThankYou, setShowThankYou } = useContext(ShowOverlay);
+    const { isWinner, setIsWinner } = useContext(ShowOverlay);
 
     const ballRef = useRef();
     const firstRef = useRef();
@@ -64,6 +67,7 @@ const FirstModal = (props) => {
 
     const objectMapper = (object1) => {
         for (const [key, value] of Object.entries(object1)) {
+            console.log(`${key}`, `${value}`);
             localStorage.setItem(`${key}`, `${value}`);
         }
     };
@@ -265,7 +269,7 @@ const FirstModal = (props) => {
                                     id: Number(window.localStorage.getItem("id")),
                                     image: window.localStorage.getItem("image"),
                                     sum: Number(window.localStorage.getItem("spende")),
-                                    winner: Boolean(window.localStorage.getItem("winner")),
+                                    winner: window.localStorage.getItem("winner"),
                                     comment: window.localStorage.getItem("comment"),
                                     claimed: true,
                                 };
@@ -277,6 +281,10 @@ const FirstModal = (props) => {
                                 });
                                 setShowOverlay(false);
                                 setShowUnclaimed(false);
+                                setShowThankYou(true);
+                                {
+                                    window.localStorage.getItem("winner") == "true" ? setIsWinner(true) : null;
+                                }
                             });
                         }}
                     />

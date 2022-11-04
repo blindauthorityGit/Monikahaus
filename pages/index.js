@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React, { useState, useEffect, useRef } from "react";
 import MainContainer from "../components/layout/mainContainer";
-import { colors, Tree, startInfo } from "../config";
+import { startInfo } from "../config";
 
 import Raster from "../components/raster";
 import Baum from "../components/baum";
@@ -25,9 +25,12 @@ import Overlay from "../components/utils/overlay.";
 import Modal from "../components/utils/modal";
 import FirstModal from "../components/modalContent/first";
 import DonatorList from "../components/modalContent/donatorList";
+import ThankYou from "../components/thankyou";
 
 import Goal from "../components/goal";
 import { testData } from "../dev";
+
+import { Fireworks } from "fireworks-js";
 
 export default function Home() {
     const [opacity, setOpacity] = useState(1);
@@ -38,6 +41,8 @@ export default function Home() {
     const [showUnclaimed, setShowUnclaimed] = useState(false);
     const [showOverlay, setShowOverlay] = useState(false);
     const [showList, setShowList] = useState(false);
+    const [showThankYou, setShowThankYou] = useState(false);
+    const [isWinner, setIsWinner] = useState(false);
     const [kugelColor, setKugelColor] = useState({ color: "", name: "", anon: false, id: 0 });
     const [userData, setUserData] = useState({
         color: "",
@@ -86,9 +91,17 @@ export default function Home() {
         setIsDropped(over ? true : false);
         setIsDragging(false);
         droppedZone(over.id);
-        console.log(over ? over.id : null);
-        setUserData({ ...userData, id: over ? over.id : null });
-        console.log(userData);
+        console.log(over ? over.id : null, over);
+        setUserData({
+            ...userData,
+            id: over ? over.id : null,
+            winner: Array.from(document.querySelectorAll(".kugel"))[over.id].dataset.iswinner == "true" ? true : false,
+        });
+        console.log(
+            userData,
+            over.id,
+            Array.from(document.querySelectorAll(".kugel"))[over.id].dataset.iswinner == "true" ? true : false
+        );
 
         // if (over.id < 14) {
         //     document.getElementById("Pfad_313").classList.add("bounce-right");
@@ -114,7 +127,18 @@ export default function Home() {
                 <title>Site title</title>
             </Head>
             <TreeAway.Provider value={{ baumWeg, setBaumWeg }}>
-                <ShowOverlay.Provider value={{ showOverlay, setShowOverlay, showUnclaimed, setShowUnclaimed }}>
+                <ShowOverlay.Provider
+                    value={{
+                        showOverlay,
+                        setShowOverlay,
+                        showUnclaimed,
+                        setShowUnclaimed,
+                        showThankYou,
+                        setShowThankYou,
+                        isWinner,
+                        setIsWinner,
+                    }}
+                >
                     <UserList.Provider value={{ userList, setUserList }}>
                         <KugelColor.Provider value={{ kugelColor, setKugelColor }}>
                             <UserData.Provider value={{ userData, setUserData }}>
@@ -163,8 +187,23 @@ export default function Home() {
                                             <Overlay></Overlay>
                                         </>
                                     )}
+                                    {showThankYou && (
+                                        <>
+                                            <ThankYou
+                                                isWinner={isWinner}
+                                                onClick={() => {
+                                                    setShowOverlay(false);
+                                                    setShowThankYou(false);
+                                                }}
+                                            ></ThankYou>
+                                            <Overlay></Overlay>
+                                        </>
+                                    )}
                                     <ShowUnclaimed.Provider value={{ showUnclaimed, setShowUnclaimed }}>
-                                        <MainContainer width="w-full h-[80%] overflow-hidden">
+                                        <MainContainer
+                                            id="fireworksContainer"
+                                            width="container h-[80%] overflow-hidden"
+                                        >
                                             <div className="left col-span-6 relative">
                                                 <Goal data={userList} klasse="w-[472px] top-12 right-0 absolute"></Goal>
 
@@ -181,7 +220,7 @@ export default function Home() {
                                             <TreeAnimationFinish.Provider
                                                 value={{ treeAnimationFinish, setTreeAnimationFinish }}
                                             >
-                                                <div className="left col-span-6 flex  relative">
+                                                <div className="left col-span-6 flex relative">
                                                     <Raster
                                                         opacity={opacity}
                                                         width={rasterDimensions.width}

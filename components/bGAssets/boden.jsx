@@ -34,7 +34,7 @@ const Boden = (props) => {
                 type="spring"
                 delay={1.25}
                 duration={0.5}
-                klasse="top-[-8rem] right-[8%] transform z-[-1] rotate-[22deg]"
+                klasse="top-[-7.5rem] right-[4%] transform z-[-1] rotate-[22deg]"
             ></Present1>
             <Present2
                 initialX={0}
@@ -76,7 +76,7 @@ const Boden = (props) => {
                 type="spring"
                 delay={1.25}
                 duration={0.75}
-                klasse="top-[-3.85rem] left-[75%] transform z-[-1] scale-[0.6] rotate-[5deg]"
+                klasse="top-[-3.85rem] left-[78%] transform z-[-1] scale-[0.6] rotate-[5deg]"
             ></SmallTree>
             <SmallTree
                 initialX={0}
@@ -90,7 +90,7 @@ const Boden = (props) => {
                 type="spring"
                 delay={1.35}
                 duration={0.75}
-                klasse="top-[-4rem] left-[80%] transform z-[-1] scale-[0.75] rotate-[5deg]"
+                klasse="top-[-4rem] left-[82%] transform z-[-1] scale-[0.75] rotate-[5deg]"
             ></SmallTree>
             <SmallTree
                 initialX={0}
