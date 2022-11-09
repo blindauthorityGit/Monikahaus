@@ -183,7 +183,7 @@ export default function Home() {
                                         onClick={() => {
                                             setShowList(true);
                                         }}
-                                        className="btn z-50 p-10 bg-[#7d866f] absolute flex justify-center items-center text-3xl text-white"
+                                        className="btn hidden z-50 p-10 bg-[#7d866f] absolute sm:flex justify-center items-center text-3xl text-white"
                                     >
                                         +
                                     </div>

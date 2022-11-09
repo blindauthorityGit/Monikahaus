@@ -24,7 +24,8 @@ const SVG = (props, ref) => {
                 // style={{ opacity: 0.5 }}
                 id="Gruppe_272"
                 data-name="Gruppe 272"
-                transform="translate(3908.159 1025.176)"
+                transform="translate(3908.159 920.176)"
+                // transform="translate(3908.159 1025.176)"
                 initial={{
                     opacity: 0,
                 }}
@@ -132,6 +133,7 @@ const SVG = (props, ref) => {
                 <motion.path
                     id="Pfad_231"
                     data-name="Pfad 231"
+                    className="hidden sm:block"
                     d="M-3042.63-1025.176l6.38,40.454,32.2-13.555-25.818,26.9,25.818,26.9-32.2-13.554-6.38,40.453-6.378-40.453-32.2,13.554,25.818-26.9-25.818-26.9,32.2,13.555Z"
                     transform="translate(-592.133)"
                     fill="#dcdfdc"
