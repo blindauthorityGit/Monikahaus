@@ -1,4 +1,4 @@
-import React, { useState, useEffect, forwardRef } from "react";
+import React, { useState, useEffect, useRef, forwardRef } from "react";
 import { motion } from "framer-motion";
 import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
 
@@ -24,8 +24,9 @@ const SVG = (props, ref) => {
                 // style={{ opacity: 0.5 }}
                 id="Gruppe_272"
                 data-name="Gruppe 272"
-                transform="translate(3908.159 920.176)"
+                // transform={`translate(3908.159 ${mobile ? "920.176" : "1025.176"}`}
                 // transform="translate(3908.159 1025.176)"
+                transform={`translate(3908.159 ${mobile ? "920" : "1025.176"})`}
                 initial={{
                     opacity: 0,
                 }}

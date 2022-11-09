@@ -15,15 +15,21 @@ const Baum = (props, ref) => {
     const { treeAnimationFinish, setTreeAnimationFinish, baumDimensions, setBaumDimensions } =
         useContext(TreeAnimationFinish);
     const { baumWeg, setBaumWeg } = useContext(TreeAway);
+    const [height, setHeight] = useState(0);
 
     const gRef = useRef();
 
     useEffect(() => {
-        console.log(gRef.current.getBoundingClientRect().height);
+        console.log(gRef.current.getBoundingClientRect());
     }, []);
 
     return (
-        <div ref={ref} className="absolute w-[90%] sm:w-full h-full">
+        <div
+            data-height={height}
+            ref={ref}
+            className={`absolute w-[90%] sm:w-full h-full `}
+            // style={{ height: height + "px" }}
+        >
             {/* <Img src={BaumDoc} layout="fill"></Img> */}
 
             <SVG ref={gRef} closeMe={baumWeg}></SVG>
@@ -33,6 +39,7 @@ const Baum = (props, ref) => {
                     setTreeAnimationFinish(true);
                     // setBaumHeight(gRef.current.getBoundingClientRect().height);
                     setBaumDimensions(gRef.current.getBoundingClientRect());
+                    setHeight(gRef.current.getBoundingClientRect().height);
                 }}
                 onClick={() => {
                     setBaumWeg(true);

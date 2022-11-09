@@ -89,7 +89,11 @@ const Raster = (props) => {
     }, [treeAnimationFinish, userList, baumDimensions]);
 
     return (
-        <div ref={allRef} className="flex pt-[33%] pl-2 sm:pl-0 sm:left-0 sm:pt-0 sm:items-center h-full">
+        <div
+            ref={allRef}
+            className="flex pl-2 sm:pl-0 sm:left-0 sm:pt-0 sm:items-center h-full"
+            style={isMobile ? { paddingTop: baumDimensions.top + "px" } : null}
+        >
             <div
                 id="raster"
                 className=" z-40"
