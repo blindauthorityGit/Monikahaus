@@ -77,12 +77,13 @@ const Raster = (props) => {
                     arr[e].addEventListener("animationend", (e) => {
                         e.target.classList.remove("bounce-in-fwd");
                     });
+                    console.log(arr[e].children[0]);
                     // CLASS NAME FOR ::AFTER STYLING TOOLTIP
                     if (arr[e].children[0].classList.contains("draggable")) {
-                        arr[e].children[1].classList.add(switcher(userList[i].color));
+                        arr[e].children[2].classList.add(switcher(userList[i].color));
                         console.log("BUBUBU");
                     }
-                    arr[e].children[0].classList.add(switcher(userList[i].color));
+                    arr[e].children[1].classList.add(switcher(userList[i].color));
                 }, random);
             });
         }
@@ -119,8 +120,6 @@ const Raster = (props) => {
                                 counter = counter + 1;
 
                                 let claimed = userList.some((e) => e.id === counter - 1);
-                                // console.log(claimed, userList);
-                                // console.log(data.some((e) => e.id === counter - 1));
                                 return (
                                     <Kugel
                                         key={i + "kugel"}
@@ -153,9 +152,9 @@ const Raster = (props) => {
                                                 e.currentTarget.children[1].classList.add("scale-in-hor-right");
                                             }
                                             if (e.target.classList.contains("claimedKugel")) {
-                                                e.target.children[0].style.transform = "scale(0.8)";
-                                                e.target.children[0].classList.remove("hidden");
-                                                e.target.children[0].classList.add("scale-in-hor-right");
+                                                e.target.children[1].style.transform = "scale(0.8)";
+                                                e.target.children[1].classList.remove("hidden");
+                                                e.target.children[1].classList.add("scale-in-hor-right");
                                             }
                                         }}
                                         onMouseLeave={(e) => {
@@ -164,8 +163,8 @@ const Raster = (props) => {
                                                 e.currentTarget.children[1].classList.add("hidden");
                                             }
                                             if (e.target.classList.contains("claimedKugel")) {
-                                                e.target.children[0].classList.remove("block");
-                                                e.target.children[0].classList.add("hidden");
+                                                e.target.children[1].classList.remove("block");
+                                                e.target.children[1].classList.add("hidden");
                                             }
                                         }}
                                         toolTiponMouseLeave={(e) => {

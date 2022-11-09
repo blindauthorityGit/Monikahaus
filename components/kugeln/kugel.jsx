@@ -38,11 +38,12 @@ const Kugel = (props, ref) => {
             data-isWinner={props.winner}
         >
             <>
-                {props.name}
+                <div className="hidden sm:block pointer-events-none">{props.name}</div>
+                {/* {props.name} */}
                 {props.children}
             </>
             <ToolTip
-                klasse={`absolute tooltip hidden z-20 right-[${props.abstand}rem] bg-black py-8 px-10 min-w-[20rem] font-bold rounded-xl ${props.toolTipColor} ${props.toolTipAfterColor}`}
+                klasse={`absolute tooltip hidden z-20 sm:right-[${props.abstand}rem] bg-black py-2 sm:py-6 px-4 sm:px-8 min-w-[8rem] sm:min-w-[20rem] font-bold rounded-xl ${props.toolTipColor} ${props.toolTipAfterColor}`}
                 name={props.fullName}
                 sum={props.sum}
                 comment={props.comment}
