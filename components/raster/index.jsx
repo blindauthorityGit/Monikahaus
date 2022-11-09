@@ -8,6 +8,7 @@ import { anzahlRows } from "../../config";
 
 import Draggable from "../dragNDrop/draggable";
 import { FaCommentsDollar } from "react-icons/fa";
+import { isBrowser, isMobile } from "react-device-detect";
 
 // import { useColorStore } from "../zustand";
 // const draggableMarkup = (
@@ -88,7 +89,7 @@ const Raster = (props) => {
     }, [treeAnimationFinish, userList, baumDimensions]);
 
     return (
-        <div ref={allRef} className="flex items-center h-full">
+        <div ref={allRef} className="flex pt-[33%] pl-2 sm:pl-0 sm:left-0 sm:pt-0 sm:items-center h-full">
             <div
                 id="raster"
                 className=" z-40"

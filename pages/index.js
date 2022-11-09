@@ -238,7 +238,7 @@ export default function Home() {
                                                     setBaumDimensions,
                                                 }}
                                             >
-                                                <div className="left col-span-12 md:col-span-6 flex relative">
+                                                <div className="left px-5 sm:px-0 col-span-12 md:col-span-6 flex relative">
                                                     <Raster
                                                         opacity={opacity}
                                                         width={rasterDimensions.width}

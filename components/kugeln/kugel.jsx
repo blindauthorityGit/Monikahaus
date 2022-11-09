@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, forwardRef } from "react";
 import { motion } from "framer-motion";
 import ToolTip from "./toolTip";
 import { useDroppable } from "@dnd-kit/core";
+import { isBrowser, isMobile } from "react-device-detect";
 
 import Droppable from "../dragNDrop/droppable";
 
@@ -21,7 +22,7 @@ const Kugel = (props, ref) => {
 
     return (
         <div
-            className={`kugel relative mx-3 flex h-full items-center text-bold ${
+            className={`kugel relative mx-1 sm:mx-3 flex h-full items-center text-bold ${
                 isOver ? "bg-red-600 " : ""
             } justify-center text-white ${props.size} ${props.klasse} rounded-full ${props.color} ${props.textColor}`}
             id={props.id}

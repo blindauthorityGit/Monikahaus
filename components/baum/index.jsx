@@ -23,7 +23,7 @@ const Baum = (props, ref) => {
     }, []);
 
     return (
-        <div ref={ref} className="absolute w-full h-full">
+        <div ref={ref} className="absolute w-[90%] sm:w-full h-full">
             {/* <Img src={BaumDoc} layout="fill"></Img> */}
 
             <SVG ref={gRef} closeMe={baumWeg}></SVG>
