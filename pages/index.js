@@ -37,6 +37,7 @@ export default function Home() {
     const [rasterDimensions, setRasterDimensions] = useState({});
 
     const [treeAnimationFinish, setTreeAnimationFinish] = useState(false);
+    const [baumDimensions, setBaumDimensions] = useState({ width: 0, height: 0 });
     const [baumWeg, setBaumWeg] = useState(false);
     const [showUnclaimed, setShowUnclaimed] = useState(false);
     const [showOverlay, setShowOverlay] = useState(false);
@@ -113,15 +114,25 @@ export default function Home() {
 
         !isMobile ? (baumRef.current.children[0].style.left = "-20px") : null;
 
-        setRasterDimensions({
-            width: baumRef.current.children[0].clientWidth + "px",
-            height: (baumRef.current.children[0].clientHeight / 100) * 79 + "px",
-        });
+        console.log(baumRef.current.children[0].clientHeight);
+
+        // setRasterDimensions({
+        //     width: baumRef.current.children[0].clientWidth + "px",
+        //     height: (baumHeight / 100) * 79 + "px",
+        // });
         // window.addEventListener("resize", (e) => handleScroll(e, setRasterDimensions, baumRef));
         // return () => {
         //     window.removeEventListener("resize", handleScroll);
         // };
     }, []);
+
+    useEffect(() => {
+        console.log(baumDimensions, baumDimensions.width, baumDimensions.height);
+        setRasterDimensions({
+            width: baumDimensions.width + "px",
+            height: (baumDimensions.height / 100) * 79 + "px",
+        });
+    }, [baumDimensions]);
 
     return (
         <>
@@ -220,7 +231,12 @@ export default function Home() {
                                                 ></StartText>
                                             </div>
                                             <TreeAnimationFinish.Provider
-                                                value={{ treeAnimationFinish, setTreeAnimationFinish }}
+                                                value={{
+                                                    treeAnimationFinish,
+                                                    setTreeAnimationFinish,
+                                                    baumDimensions,
+                                                    setBaumDimensions,
+                                                }}
                                             >
                                                 <div className="left col-span-12 md:col-span-6 flex relative">
                                                     <Raster

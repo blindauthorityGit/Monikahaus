@@ -7,6 +7,7 @@ import switcher from "../../functions/switcher";
 import { anzahlRows } from "../../config";
 
 import Draggable from "../dragNDrop/draggable";
+import { FaCommentsDollar } from "react-icons/fa";
 
 // import { useColorStore } from "../zustand";
 // const draggableMarkup = (
@@ -26,6 +27,7 @@ const Raster = (props) => {
     let counter = 0;
 
     const { treeAnimationFinish, setTreeAnimationFinish } = useContext(TreeAnimationFinish);
+    const { baumDimensions, setBaumDimensions } = useContext(TreeAnimationFinish);
     const { showUnclaimed, setShowUnclaimed } = useContext(ShowUnclaimed);
     const { kugelColor, setKugelColor } = useContext(KugelColor);
     const { userList, setUserList } = useContext(UserList);
@@ -61,8 +63,9 @@ const Raster = (props) => {
         if (treeAnimationFinish) {
             let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
             let arrClaimedID = userList.map((e) => e.id);
-            setKugelWidth(arr[0].clientHeight);
-
+            setTimeout(() => {
+                setKugelWidth(Array.from(allRef.current.querySelectorAll(".kugel"))[0].clientHeight);
+            }, 100);
             arrClaimedID.map((e, i) => {
                 let random = Math.random() * 500;
                 setTimeout(() => {
@@ -82,7 +85,7 @@ const Raster = (props) => {
                 }, random);
             });
         }
-    }, [treeAnimationFinish, userList]);
+    }, [treeAnimationFinish, userList, baumDimensions]);
 
     return (
         <div ref={allRef} className="flex items-center h-full">

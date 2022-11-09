@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, forwardRef } from "react";
 import { motion } from "framer-motion";
 import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
 
-const SVG = (props) => {
+const SVG = (props, ref) => {
     const [closeMe, setCloseMe] = useState(props.closeMe);
     const [mobile, setMobile] = useState(false);
 
@@ -29,6 +29,7 @@ const SVG = (props) => {
                     opacity: 0,
                 }}
                 animate={{ opacity: 1 }}
+                ref={ref}
             >
                 <g id="Gruppe_204" data-name="Gruppe 204" transform="translate(-3908.159 -917.583)">
                     <motion.rect
@@ -148,4 +149,4 @@ const SVG = (props) => {
     );
 };
 
-export default SVG;
+export default forwardRef(SVG);
