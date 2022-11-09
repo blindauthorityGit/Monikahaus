@@ -30,7 +30,7 @@ import ThankYou from "../components/thankyou";
 import Goal from "../components/goal";
 import { testData } from "../dev";
 
-import { Fireworks } from "fireworks-js";
+import { isBrowser, isMobile } from "react-device-detect";
 
 export default function Home() {
     const [opacity, setOpacity] = useState(1);
@@ -97,11 +97,11 @@ export default function Home() {
             id: over ? over.id : null,
             winner: Array.from(document.querySelectorAll(".kugel"))[over.id].dataset.iswinner == "true" ? true : false,
         });
-        console.log(
-            userData,
-            over.id,
-            Array.from(document.querySelectorAll(".kugel"))[over.id].dataset.iswinner == "true" ? true : false
-        );
+        // console.log(
+        //     userData,
+        //     over.id,
+        //     Array.from(document.querySelectorAll(".kugel"))[over.id].dataset.iswinner == "true" ? true : false
+        // );
 
         // if (over.id < 14) {
         //     document.getElementById("Pfad_313").classList.add("bounce-right");
@@ -110,7 +110,9 @@ export default function Home() {
 
     useEffect(() => {
         setUserList(testData);
-        baumRef.current.children[0].style.left = "-20px";
+
+        !isMobile ? (baumRef.current.children[0].style.left = "-20px") : null;
+
         setRasterDimensions({
             width: baumRef.current.children[0].clientWidth + "px",
             height: (baumRef.current.children[0].clientHeight / 100) * 79 + "px",
@@ -202,9 +204,9 @@ export default function Home() {
                                     <ShowUnclaimed.Provider value={{ showUnclaimed, setShowUnclaimed }}>
                                         <MainContainer
                                             id="fireworksContainer"
-                                            width="container h-[80%] overflow-hidden"
+                                            width="container h-screen md:h-[80%] overflow-hidden"
                                         >
-                                            <div className="left col-span-6 relative">
+                                            <div className="left hidden md:block order-last sm:order-first col-span-12 md:col-span-6 relative">
                                                 <Goal data={userList} klasse="w-[472px] top-12 right-0 absolute"></Goal>
 
                                                 <StartText
@@ -220,7 +222,7 @@ export default function Home() {
                                             <TreeAnimationFinish.Provider
                                                 value={{ treeAnimationFinish, setTreeAnimationFinish }}
                                             >
-                                                <div className="left col-span-6 flex relative">
+                                                <div className="left col-span-12 md:col-span-6 flex relative">
                                                     <Raster
                                                         opacity={opacity}
                                                         width={rasterDimensions.width}
@@ -239,7 +241,7 @@ export default function Home() {
                 </ShowOverlay.Provider>
             </TreeAway.Provider>
 
-            <Boden></Boden>
+            {isMobile ? null : <Boden></Boden>}
         </>
     );
 }

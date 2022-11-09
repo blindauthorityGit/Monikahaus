@@ -27,7 +27,7 @@ const startInfo = {
     buttonText: "Jetzt spenden",
 };
 
-const anzahlRows = 10;
+const anzahlRows = 14;
 
 const Tree = () => {
     return Baum;

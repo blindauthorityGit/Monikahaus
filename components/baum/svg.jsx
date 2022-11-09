@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
 
 const SVG = (props) => {
     const [closeMe, setCloseMe] = useState(props.closeMe);
+    const [mobile, setMobile] = useState(false);
+
+    useEffect(() => {
+        console.log(isMobile);
+        setMobile(isMobile);
+    }, [isMobile]);
 
     return (
         <svg
@@ -10,7 +17,8 @@ const SVG = (props) => {
             xmlns="http://www.w3.org/2000/svg"
             width="100%"
             height="100%"
-            viewBox="0 0 526.157 794.811"
+            // viewBox="0 0 526.157 794.811"
+            viewBox={`0 0 526.157 ${mobile ? 1094 : 794.811}`}
         >
             <motion.g
                 // style={{ opacity: 0.5 }}
