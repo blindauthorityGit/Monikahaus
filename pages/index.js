@@ -247,6 +247,7 @@ export default function Home() {
                                                     ></Raster>
                                                     <Baum ref={baumRef}></Baum>
                                                 </div>
+                                                <Boden></Boden>
                                             </TreeAnimationFinish.Provider>
                                         </MainContainer>
                                     </ShowUnclaimed.Provider>
@@ -256,8 +257,6 @@ export default function Home() {
                     </UserList.Provider>
                 </ShowOverlay.Provider>
             </TreeAway.Provider>
-
-            {isMobile ? null : <Boden></Boden>}
         </>
     );
 }

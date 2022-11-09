@@ -1,12 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import BodenGraphic from "../../assets/boden.svg";
 import Present1 from "./presentOne";
 import Present2 from "./presentTwo";
 import SmallTree from "./smallTree";
+import { TreeAnimationFinish } from "../../helper/context";
+import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
 
 const Boden = (props) => {
+    const { treeAnimationFinish, setTreeAnimationFinish, baumDimensions, setBaumDimensions } =
+        useContext(TreeAnimationFinish);
+
     return (
-        <div className={`w-full absolute bottom-0 overflow z-20  ${props.klasse}`}>
+        <div
+            style={isMobile ? { top: baumDimensions.height + baumDimensions.top + "px" } : null}
+            className={`w-full absolute ${isMobile ? "" : "bottom-0"} bottom-0 overflow z-20  ${props.klasse}`}
+        >
             <img className=" z-30" src={BodenGraphic.src} alt="" />
             <Present1
                 initialX={0}
