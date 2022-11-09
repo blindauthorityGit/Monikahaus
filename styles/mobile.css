@@ -1,0 +1,15 @@
+@charset "UTF-8";
+@media only screen and (max-width: 500px) {
+  .tooltip::before {
+    content: "■";
+    position: absolute;
+    color: #000000;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+    font-size: 2rem;
+    top: -28px;
+    right: 40%;
+    z-index: 100;
+  }
+}
+/*# sourceMappingURL=mobile.css.map */

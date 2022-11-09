@@ -10,19 +10,19 @@ const ToolTip = (props, ref) => {
         >
             {props.avatrSrc ? (
                 <div className="grid grid-cols-12 items-center ">
-                    <div className="col-span-3 sm:col-span-4">
-                        <div className="avatar">
+                    <div className="col-span-12 sm:col-span-4">
+                        <div className="avatar w-12 sm:w-auto">
                             <img className="rounded-full" src={props.avatrSrc} alt="" />
                         </div>
                     </div>
-                    <div className="col-span-9 sm:col-span-8 pl-4">
-                        <div className="font-rucksack bold">{props.name}</div>
+                    <div className="col-span-12 sm:col-span-8 pl-4">
+                        <div className="font-rucksack sm:bold">{props.name}</div>
                         <div>EUR {props.sum} ,-</div>
                     </div>
                 </div>
             ) : (
                 <>
-                    <div className="font-rucksack bold">{props.name}</div>
+                    <div className="font-rucksack sm:bold">{props.name}</div>
                     <div>EUR {props.sum} ,-</div>
                 </>
             )}

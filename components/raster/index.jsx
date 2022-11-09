@@ -173,7 +173,8 @@ const Raster = (props) => {
                                         }}
                                         klasse={userList.some((e) => e.id === counter - 1) ? "claimedKugel" : null}
                                         toolTipStyle={{
-                                            right: kugelWidth + 16 + "px",
+                                            right: !isMobile ? kugelWidth + 16 + "px" : "",
+                                            top: isMobile ? kugelWidth + 16 + "px" : 0,
                                             background: userList.some((e) => e.id === counter - 1)
                                                 ? userList[getIndex(userList, counter - 1)].color.toLowerCase()
                                                 : "",
