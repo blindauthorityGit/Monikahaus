@@ -22,6 +22,7 @@ import { DndContext, closestCenter } from "@dnd-kit/core";
 // import { droppedZone, draggedZone, handleDragStart, handleDragEnd } from "../functions/dndFunctions";
 
 import StartText from "../components/layout/startText";
+import MobileButton from "../components/layout/mobileButton";
 import Overlay from "../components/utils/overlay.";
 import Modal from "../components/utils/modal";
 import FirstModal from "../components/modalContent/first";
@@ -246,7 +247,6 @@ export default function Home() {
                                                         }}
                                                     ></StartText>
                                                 </div>
-
                                                 <div className="left px-5 sm:px-0 col-span-12 md:col-span-6 flex relative">
                                                     <Raster
                                                         opacity={opacity}
@@ -255,9 +255,18 @@ export default function Home() {
                                                         parent={parent}
                                                     ></Raster>
                                                     <Baum ref={baumRef}></Baum>
-                                                </div>
+                                                </div>{" "}
+                                                <MobileButton
+                                                    klasse="absolute flex sm:hidden bottom-12 z-30  left-1/2 transform -translate-x-1/2 "
+                                                    buttonText={startInfo.buttonText}
+                                                    onClick={() => {
+                                                        setShowOverlay(true);
+                                                        setShowUnclaimed(true);
+                                                    }}
+                                                ></MobileButton>
                                             </MainContainer>
                                             {/* {isMobile ? <BodenMobile /> : <Boden></Boden>} */}
+
                                             <Boden></Boden>
                                         </TreeAnimationFinish.Provider>
                                     </ShowUnclaimed.Provider>
