@@ -13,12 +13,12 @@ const SVG = (props, ref) => {
 
     return (
         <svg
-            className="absolute overflow-hidden z-10"
+            className={`absolute overflow-hidden z-10 ${mobile ? " left-1/2 transform -translate-x-1/2 " : null}`}
             xmlns="http://www.w3.org/2000/svg"
-            width="100%"
+            width={mobile ? "80%" : "100%"}
             height="100%"
             // viewBox="0 0 526.157 794.811"
-            viewBox={`0 0 526.157 ${mobile ? 1094 : 794.811}`}
+            viewBox={`0 0 526.157 ${mobile ? 1294 : 794.811}`}
         >
             <motion.g
                 // style={{ opacity: 0.5 }}

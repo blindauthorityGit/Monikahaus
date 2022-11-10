@@ -250,7 +250,7 @@ export default function Home() {
                                                         }}
                                                     ></StartText>
                                                 </div>
-                                                <div className="left px-5 sm:px-0 col-span-12 md:col-span-6 flex relative">
+                                                <div className="left px-5 sm:px-0 col-span-12 md:col-span-6 flex justify-center relative">
                                                     <Raster
                                                         opacity={opacity}
                                                         width={rasterDimensions.width}
