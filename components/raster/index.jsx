@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { Kugel, Row } from "../kugeln";
+import dynamic from "next/dynamic";
+
+import { Row } from "../kugeln";
 
 import { ShowUnclaimed, KugelColor, TreeAnimationFinish, UserList } from "../../helper/context";
 import getIndex from "../../functions/getIndex";
@@ -16,6 +18,10 @@ import { isBrowser, isMobile } from "react-device-detect";
 //         Drag me
 //     </Draggable>
 // );
+
+const Kugel = dynamic(() => import("../kugeln/kugel"), {
+    ssr: false,
+});
 
 const Raster = (props) => {
     const rowCount = Array(anzahlRows).fill("");
@@ -154,7 +160,9 @@ const Raster = (props) => {
                                             if (e.target.classList.contains("claimedKugel")) {
                                                 e.target.children[1].style.transform = "scale(0.8)";
                                                 e.target.children[1].classList.remove("hidden");
-                                                e.target.children[1].classList.add("scale-in-hor-right");
+                                                e.target.children[1].classList.add(
+                                                    isMobile ? "scale-in-top" : "scale-in-hor-right"
+                                                );
                                             }
                                         }}
                                         onMouseLeave={(e) => {

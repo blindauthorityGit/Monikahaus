@@ -33,6 +33,11 @@
   animation: heartbeat 1.5s ease-in-out infinite both;
 }
 
+.scale-in-top {
+  -webkit-animation: scale-in-top 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: scale-in-top 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
 @-webkit-keyframes bounce-in-fwd {
   0% {
     -webkit-transform: scale(0);
@@ -492,6 +497,40 @@
     transform: scale(1);
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
+  }
+}
+
+@-webkit-keyframes scale-in-top {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform-origin: 50% 0;
+    transform-origin: 50% 0;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: 50% 0;
+    transform-origin: 50% 0;
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in-top {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform-origin: 50% 0;
+    transform-origin: 50% 0;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: 50% 0;
+    transform-origin: 50% 0;
+    opacity: 1;
   }
 }
 /*# sourceMappingURL=animations.css.map */
