@@ -33,7 +33,7 @@ const Boden = (props) => {
             ) : (
                 <img className=" z-30" src={BodenGraphic.src} alt="" />
             )}
-            {isMobile && <div className="bodenFull bg-[#f5f5f5] h-[82%] w-full top-[18%] absolute"></div>}
+            {isMobile && <div className="bodenFull bg-[#f5f5f5] h-[70%] w-full top-[30%] absolute"></div>}
             {isMobile ? (
                 treeAnimationFinish && (
                     <Present1
