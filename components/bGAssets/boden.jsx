@@ -117,20 +117,42 @@ const Boden = (props) => {
                 ></Present2>
             )}
 
-            <SmallTree
-                initialX={0}
-                initialY={200}
-                x={[0, 0, 0]}
-                y={[null, -2, 0]}
-                initialScale={1}
-                initialOpacity={0}
-                opacity={1}
-                scale={1}
-                type="spring"
-                delay={1.1}
-                duration={0.5}
-                klasse="top-[-4.5rem] left-[55%] transform z-[-1] rotate-[0deg]"
-            ></SmallTree>
+            {isMobile ? (
+                treeAnimationFinish && (
+                    <SmallTree
+                        initialX={0}
+                        initialY={200}
+                        x={[0, 0, 0]}
+                        y={[null, -2, 0]}
+                        initialRotate={0}
+                        rotate={7}
+                        initialScale={0.5}
+                        initialOpacity={0}
+                        opacity={1}
+                        scale={0.55}
+                        type="spring"
+                        delay={1.1}
+                        duration={0.5}
+                        klasse="top-[-3.65rem] left-[60%] transform z-[-1] rotate-[0deg]"
+                    ></SmallTree>
+                )
+            ) : (
+                <SmallTree
+                    initialX={0}
+                    initialY={200}
+                    x={[0, 0, 0]}
+                    y={[null, -2, 0]}
+                    initialScale={1}
+                    initialOpacity={0}
+                    opacity={1}
+                    scale={1}
+                    type="spring"
+                    delay={1.1}
+                    duration={0.5}
+                    klasse="top-[-4.5rem] left-[55%] transform z-[-1] rotate-[0deg]"
+                ></SmallTree>
+            )}
+
             <SmallTree
                 initialX={0}
                 initialY={100}
@@ -143,7 +165,7 @@ const Boden = (props) => {
                 type="spring"
                 delay={1.25}
                 duration={0.75}
-                klasse="top-[-3.85rem] left-[78%] transform z-[-1] scale-[0.6] rotate-[5deg]"
+                klasse="top-[-3.85rem] hidden sm:block left-[78%] transform z-[-1] scale-[0.6] rotate-[5deg]"
             ></SmallTree>
             <SmallTree
                 initialX={0}
@@ -157,22 +179,43 @@ const Boden = (props) => {
                 type="spring"
                 delay={1.35}
                 duration={0.75}
-                klasse="top-[-4rem] left-[82%] transform z-[-1] scale-[0.75] rotate-[5deg]"
+                klasse="top-[-4rem] left-[82%] hidden sm:block transform z-[-1] scale-[0.75] rotate-[5deg]"
             ></SmallTree>
-            <SmallTree
-                initialX={0}
-                initialY={100}
-                initialRotate={0}
-                rotate={-9}
-                x={[0, 0, 0]}
-                y={[null, -10, 5]}
-                initialScale={0.3}
-                scale={1.65}
-                type="spring"
-                delay={1.4}
-                duration={0.75}
-                klasse="top-[-2rem] left-[30%] transform z-[-1] scale-[1.75] rotate-[-8deg]"
-            ></SmallTree>
+
+            {isMobile ? (
+                treeAnimationFinish && (
+                    <SmallTree
+                        initialX={0}
+                        initialY={85}
+                        initialRotate={0}
+                        rotate={-7}
+                        x={[0, 0, 0]}
+                        y={[null, -10, 5]}
+                        initialScale={0.3}
+                        scale={1}
+                        type="spring"
+                        delay={1.4}
+                        duration={0.75}
+                        klasse="top-[-3.35rem] left-[33%] transform z-[-1] scale-[1.75] rotate-[-8deg]"
+                    ></SmallTree>
+                )
+            ) : (
+                <SmallTree
+                    initialX={0}
+                    initialY={100}
+                    initialRotate={0}
+                    rotate={-9}
+                    x={[0, 0, 0]}
+                    y={[null, -10, 5]}
+                    initialScale={0.3}
+                    scale={1.65}
+                    type="spring"
+                    delay={1.4}
+                    duration={0.75}
+                    klasse="top-[-2rem] left-[30%] transform z-[-1] scale-[1.75] rotate-[-8deg]"
+                ></SmallTree>
+            )}
+
             <SmallTree
                 initialX={0}
                 initialY={100}
