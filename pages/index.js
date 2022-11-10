@@ -1,11 +1,12 @@
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import React, { useState, useEffect, useRef } from "react";
 import MainContainer from "../components/layout/mainContainer";
 import { startInfo } from "../config";
 
 import Raster from "../components/raster";
 import Baum from "../components/baum";
-import { Boden } from "../components/bGAssets";
+// import { Boden, BodenMobile } from "../components/bGAssets";
 
 import {
     TreeAnimationFinish,
@@ -31,6 +32,10 @@ import Goal from "../components/goal";
 import { testData } from "../dev";
 
 import { isBrowser, isMobile } from "react-device-detect";
+
+const Boden = dynamic(() => import("../components/bGAssets/boden"), {
+    ssr: false,
+});
 
 export default function Home() {
     const [opacity, setOpacity] = useState(1);
@@ -213,31 +218,35 @@ export default function Home() {
                                         </>
                                     )}
                                     <ShowUnclaimed.Provider value={{ showUnclaimed, setShowUnclaimed }}>
-                                        <MainContainer
-                                            id="fireworksContainer"
-                                            width="container h-screen md:h-[80%] overflow-hidden"
+                                        <TreeAnimationFinish.Provider
+                                            value={{
+                                                treeAnimationFinish,
+                                                setTreeAnimationFinish,
+                                                baumDimensions,
+                                                setBaumDimensions,
+                                            }}
                                         >
-                                            <div className="left hidden md:block order-last sm:order-first col-span-12 md:col-span-6 relative">
-                                                <Goal data={userList} klasse="w-[472px] top-12 right-0 absolute"></Goal>
-
-                                                <StartText
-                                                    headline={startInfo.headline}
-                                                    subline={startInfo.subline}
-                                                    buttonText={startInfo.buttonText}
-                                                    onClick={() => {
-                                                        setShowOverlay(true);
-                                                        setShowUnclaimed(true);
-                                                    }}
-                                                ></StartText>
-                                            </div>
-                                            <TreeAnimationFinish.Provider
-                                                value={{
-                                                    treeAnimationFinish,
-                                                    setTreeAnimationFinish,
-                                                    baumDimensions,
-                                                    setBaumDimensions,
-                                                }}
+                                            <MainContainer
+                                                id="fireworksContainer"
+                                                width="container h-screen md:h-[80%] overflow-hidden"
                                             >
+                                                <div className="left hidden md:block order-last sm:order-first col-span-12 md:col-span-6 relative">
+                                                    <Goal
+                                                        data={userList}
+                                                        klasse="w-[472px] top-12 right-0 absolute"
+                                                    ></Goal>
+
+                                                    <StartText
+                                                        headline={startInfo.headline}
+                                                        subline={startInfo.subline}
+                                                        buttonText={startInfo.buttonText}
+                                                        onClick={() => {
+                                                            setShowOverlay(true);
+                                                            setShowUnclaimed(true);
+                                                        }}
+                                                    ></StartText>
+                                                </div>
+
                                                 <div className="left px-5 sm:px-0 col-span-12 md:col-span-6 flex relative">
                                                     <Raster
                                                         opacity={opacity}
@@ -247,9 +256,10 @@ export default function Home() {
                                                     ></Raster>
                                                     <Baum ref={baumRef}></Baum>
                                                 </div>
-                                                <Boden></Boden>
-                                            </TreeAnimationFinish.Provider>
-                                        </MainContainer>
+                                            </MainContainer>
+                                            {/* {isMobile ? <BodenMobile /> : <Boden></Boden>} */}
+                                            <Boden></Boden>
+                                        </TreeAnimationFinish.Provider>
                                     </ShowUnclaimed.Provider>
                                 </DndContext>
                             </UserData.Provider>

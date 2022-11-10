@@ -7,7 +7,7 @@ import SmallTree from "./smallTree";
 import { TreeAnimationFinish } from "../../helper/context";
 import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
 
-const Boden = (props) => {
+const BodenMobile = (props) => {
     const { treeAnimationFinish, setTreeAnimationFinish, baumDimensions, setBaumDimensions } =
         useContext(TreeAnimationFinish);
 
@@ -20,47 +20,23 @@ const Boden = (props) => {
             style={isMobile ? { top: baumDimensions.height + baumDimensions.top + "px" } : null}
             className={`w-full absolute ${isMobile ? "" : "bottom-0"}  bottom-0 overflow z-20  ${props.klasse}`}
         >
-            {isMobile ? (
-                <img className=" z-30" src={BodenGraphicMobile.src} alt="" />
-            ) : (
-                <img className=" z-30" src={BodenGraphic.src} alt="" />
-            )}
-            {isMobile && <div className="bodenFull bg-[#f5f5f5] h-[82%] w-full top-[18%] absolute"></div>}
-            {isMobile ? (
-                treeAnimationFinish && (
-                    <Present1
-                        initialX={isMobile ? 10000 : 0}
-                        initialY={isMobile ? 90 : 138}
-                        initialRotate={0}
-                        rotate={5}
-                        x={[0, 0, 0]}
-                        y={[null, -2, 0]}
-                        initialScale={isMobile ? 0.5 : 1}
-                        scale={isMobile ? 0.5 : 1}
-                        type="spring"
-                        delay={1}
-                        duration={0.5}
-                        klasse={`top-[-6rem] ${isMobile ? "left-[3%]" : "left-[37%]"} transform z-[-1] rotate-[6deg]`}
-                        // style={isMobile ? { left: "7%" } : null}
-                    ></Present1>
-                )
-            ) : (
-                <Present1
-                    initialX={0}
-                    initialY={138}
-                    initialRotate={0}
-                    rotate={5}
-                    x={[0, 0, 0]}
-                    y={[null, -2, 0]}
-                    initialScale={1}
-                    scale={1}
-                    type="spring"
-                    delay={1}
-                    duration={0.5}
-                    klasse={`top-[-6rem] left-[37%] transform z-[-1] rotate-[6deg]`}
-                    // style={isMobile ? { left: "7%" } : null}
-                ></Present1>
-            )}
+            <img className=" z-30" src={BodenGraphicMobile.src} alt="" />
+
+            <Present1
+                initialX={isMobile ? 1000 : 0}
+                initialY={isMobile ? 0 : 138}
+                initialRotate={0}
+                rotate={5}
+                x={[0, 0, 0]}
+                y={[null, -2, 0]}
+                initialScale={isMobile ? 0.5 : 1}
+                scale={isMobile ? 0.5 : 1}
+                type="spring"
+                delay={1}
+                duration={0.5}
+                klasse="top-[-6rem] left-[37%] transform z-[-1] rotate-[6deg]"
+                // style={isMobile ? { left: "7%" } : null}
+            ></Present1>
             <Present1
                 initialX={0}
                 initialY={138}
@@ -73,42 +49,22 @@ const Boden = (props) => {
                 type="spring"
                 delay={1.25}
                 duration={0.5}
-                klasse={`${isMobile ? "hidden" : "block"} top-[-7.5rem] right-[4%] transform z-[-1] rotate-[22deg]`}
+                klasse="top-[-7.5rem] right-[4%] transform z-[-1] rotate-[22deg]"
             ></Present1>
-            {isMobile ? (
-                treeAnimationFinish && (
-                    <Present2
-                        initialX={0}
-                        initialY={85}
-                        initialRotate={15}
-                        rotate={25}
-                        x={[0, 0, 0]}
-                        y={[null, -2, 0]}
-                        initialScale={isMobile ? 0.5 : 1}
-                        scale={isMobile ? 0.5 : 1}
-                        type="spring"
-                        delay={1.5}
-                        duration={0.5}
-                        klasse="top-[-3.2rem] left-[75%] transform z-[-1] rotate-[6deg]"
-                    ></Present2>
-                )
-            ) : (
-                <Present2
-                    initialX={0}
-                    initialY={130}
-                    initialRotate={0}
-                    rotate={5}
-                    x={[0, 0, 0]}
-                    y={[null, -2, 0]}
-                    initialScale={isMobile ? 0.5 : 1}
-                    scale={isMobile ? 0.5 : 1}
-                    type="spring"
-                    delay={1.5}
-                    duration={0.5}
-                    klasse="top-[-5rem] left-[45%] transform z-[-1] rotate-[6deg]"
-                ></Present2>
-            )}
-
+            <Present2
+                initialX={0}
+                initialY={130}
+                initialRotate={0}
+                rotate={5}
+                x={[0, 0, 0]}
+                y={[null, -2, 0]}
+                initialScale={isMobile ? 0.5 : 1}
+                scale={isMobile ? 0.5 : 1}
+                type="spring"
+                delay={1.5}
+                duration={0.5}
+                klasse="top-[-5rem] left-[45%] transform z-[-1] rotate-[6deg]"
+            ></Present2>
             <SmallTree
                 initialX={0}
                 initialY={200}
@@ -183,4 +139,4 @@ const Boden = (props) => {
     );
 };
 
-export default Boden;
+export default BodenMobile;

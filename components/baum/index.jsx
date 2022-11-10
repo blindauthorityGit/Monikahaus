@@ -21,6 +21,9 @@ const Baum = (props, ref) => {
 
     useEffect(() => {
         console.log(gRef.current.getBoundingClientRect());
+        setTimeout(() => {
+            console.log(gRef.current.getBoundingClientRect());
+        }, 200);
     }, []);
 
     return (
