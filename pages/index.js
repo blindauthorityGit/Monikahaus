@@ -37,6 +37,9 @@ import { isBrowser, isMobile } from "react-device-detect";
 const Boden = dynamic(() => import("../components/bGAssets/boden"), {
     ssr: false,
 });
+// const Baum = dynamic(() => import("../components/baum"), {
+//     ssr: false,
+// });
 
 export default function Home() {
     const [opacity, setOpacity] = useState(1);
@@ -257,7 +260,7 @@ export default function Home() {
                                                     <Baum ref={baumRef}></Baum>
                                                 </div>{" "}
                                                 <MobileButton
-                                                    klasse="absolute flex sm:hidden bottom-12 z-30  left-1/2 transform -translate-x-1/2 "
+                                                    klasse="absolute w-3/4 flex sm:hidden bottom-12 z-30  left-1/2 transform -translate-x-1/2 "
                                                     buttonText={startInfo.buttonText}
                                                     onClick={() => {
                                                         setShowOverlay(true);
