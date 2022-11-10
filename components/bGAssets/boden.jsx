@@ -29,8 +29,8 @@ const Boden = (props) => {
             {isMobile ? (
                 treeAnimationFinish && (
                     <Present1
-                        initialX={isMobile ? 10000 : 0}
-                        initialY={isMobile ? 90 : 138}
+                        initialX={0}
+                        initialY={90}
                         initialRotate={0}
                         rotate={5}
                         x={[0, 0, 0]}
