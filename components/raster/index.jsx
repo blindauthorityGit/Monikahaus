@@ -158,6 +158,8 @@ const Raster = (props) => {
                                                 e.currentTarget.children[1].classList.add("scale-in-hor-right");
                                             }
                                             if (e.target.classList.contains("claimedKugel")) {
+                                                // e.target.classList.add("pulsate-bck");
+                                                isMobile && (e.target.style.border = "3px solid white");
                                                 e.target.children[1].style.transform = "scale(0.8)";
                                                 e.target.children[1].classList.remove("hidden");
                                                 e.target.children[1].classList.add(
@@ -171,6 +173,9 @@ const Raster = (props) => {
                                                 e.currentTarget.children[1].classList.add("hidden");
                                             }
                                             if (e.target.classList.contains("claimedKugel")) {
+                                                isMobile && (e.target.style.border = "");
+
+                                                // e.target.classList.remove("pulsate-bck");
                                                 e.target.children[1].classList.remove("block");
                                                 e.target.children[1].classList.add("hidden");
                                             }

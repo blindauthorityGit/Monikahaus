@@ -33,7 +33,15 @@
     animation: heartbeat 1.5s ease-in-out infinite both;
 }
 
-.scale-in-top{-webkit-animation:scale-in-top .35s cubic-bezier(.25,.46,.45,.94) both;animation:scale-in-top .35s cubic-bezier(.25,.46,.45,.94) both}
+.scale-in-top {
+    -webkit-animation: scale-in-top 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: scale-in-top 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.pulsate-bck {
+    -webkit-animation: pulsate-bck 0.35s ease-in-out both;
+    animation: pulsate-bck 0.35s ease-in-out both;
+}
 
 @-webkit-keyframes bounce-in-fwd {
     0% {
@@ -508,4 +516,64 @@
     }
 }
 
-@-webkit-keyframes scale-in-top{0%{-webkit-transform:scale(0);transform:scale(0);-webkit-transform-origin:50% 0;transform-origin:50% 0;opacity:1}100%{-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:50% 0;transform-origin:50% 0;opacity:1}}@keyframes scale-in-top{0%{-webkit-transform:scale(0);transform:scale(0);-webkit-transform-origin:50% 0;transform-origin:50% 0;opacity:1}100%{-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:50% 0;transform-origin:50% 0;opacity:1}}
+@-webkit-keyframes scale-in-top {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        -webkit-transform-origin: 50% 0;
+        transform-origin: 50% 0;
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transform-origin: 50% 0;
+        transform-origin: 50% 0;
+        opacity: 1;
+    }
+}
+@keyframes scale-in-top {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        -webkit-transform-origin: 50% 0;
+        transform-origin: 50% 0;
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transform-origin: 50% 0;
+        transform-origin: 50% 0;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes pulsate-bck {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    50% {
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+@keyframes pulsate-bck {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    50% {
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
