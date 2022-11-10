@@ -24,7 +24,7 @@ import { DndContext, closestCenter } from "@dnd-kit/core";
 import StartText from "../components/layout/startText";
 import MobileButton from "../components/layout/mobileButton";
 import Overlay from "../components/utils/overlay.";
-import Modal from "../components/utils/modal";
+// import Modal from "../components/utils/modal";
 import FirstModal from "../components/modalContent/first";
 import DonatorList from "../components/modalContent/donatorList";
 import ThankYou from "../components/thankyou";
@@ -35,6 +35,9 @@ import { testData } from "../dev";
 import { isBrowser, isMobile } from "react-device-detect";
 
 const Boden = dynamic(() => import("../components/bGAssets/boden"), {
+    ssr: false,
+});
+const Modal = dynamic(() => import("../components/utils/modal"), {
     ssr: false,
 });
 // const Baum = dynamic(() => import("../components/baum"), {
