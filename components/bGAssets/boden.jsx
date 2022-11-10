@@ -12,13 +12,21 @@ const Boden = (props) => {
         useContext(TreeAnimationFinish);
 
     useEffect(() => {
-        console.log(isMobile);
+        console.log(window.innerHeight);
     }, []);
 
     return (
         <div
-            style={isMobile ? { top: baumDimensions.height + baumDimensions.top + "px" } : null}
-            className={`w-full absolute ${isMobile ? "" : "bottom-0"}  bottom-0 overflow z-20  ${props.klasse}`}
+            style={
+                isMobile
+                    ? !treeAnimationFinish
+                        ? { top: window.innerHeight - 150 + "px" }
+                        : { top: baumDimensions.height + baumDimensions.top + "px" }
+                    : null
+            }
+            className={`w-full top-[px] transition-all absolute ${
+                isMobile ? "" : "bottom-0"
+            }  bottom-0 overflow z-20  ${props.klasse}`}
         >
             {isMobile ? (
                 <img className=" z-30" src={BodenGraphicMobile.src} alt="" />
