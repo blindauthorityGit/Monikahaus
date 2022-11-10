@@ -180,12 +180,16 @@ export default function Home() {
                                                     setShowUnclaimed(false);
                                                 }}
                                             >
-                                                <FirstModal
-                                                    headline="Schenken Sie Hoffnung"
-                                                    activeId={activeId}
-                                                    isDropped={isDropped}
-                                                    isDragging={isDragging}
-                                                ></FirstModal>
+                                                {isMobile ? (
+                                                    "HALLO"
+                                                ) : (
+                                                    <FirstModal
+                                                        headline="Schenken Sie Hoffnung"
+                                                        activeId={activeId}
+                                                        isDropped={isDropped}
+                                                        isDragging={isDragging}
+                                                    ></FirstModal>
+                                                )}
                                             </Modal>
 
                                             <Overlay></Overlay>
