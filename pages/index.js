@@ -62,7 +62,7 @@ export default function Home() {
         color: "",
         spende: 0,
         fullName: "",
-        image: {},
+        image: "",
         comment: "",
         anon: false,
         winner: false,

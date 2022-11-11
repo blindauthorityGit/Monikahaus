@@ -62,6 +62,8 @@ const MobileFirst = (props) => {
     const thirdRef = useRef();
     const fourthRef = useRef();
     const fifthRef = useRef();
+    const sixthRef = useRef();
+    const seventhRef = useRef();
 
     const router = useRouter();
 
@@ -70,6 +72,18 @@ const MobileFirst = (props) => {
         spende: 0,
         fullName: "",
     });
+
+    function BtnDirector(backRef, forwardFef) {
+        backRef.current.classList.remove("hidden");
+        backRef.current.classList.add("block");
+        forwardFef.current.classList.remove("block");
+        forwardFef.current.classList.add("hidden");
+    }
+    function BtnDirectorFw(backRef, forwardFef) {
+        backRef.current.classList.add("hidden");
+        forwardFef.current.classList.remove("hidden");
+        forwardFef.current.classList.add("block");
+    }
 
     const redirectToCheckout = async () => {
         const {
@@ -141,10 +155,7 @@ const MobileFirst = (props) => {
                                 disabled={userData.color ? false : true}
                                 klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
                                 onClick={() => {
-                                    console.log("TEST");
-                                    firstRef.current.classList.add("hidden");
-                                    secondRef.current.classList.remove("hidden");
-                                    secondRef.current.classList.add("block");
+                                    BtnDirectorFw(firstRef, secondRef);
                                 }}
                             >
                                 Weiter
@@ -181,10 +192,7 @@ const MobileFirst = (props) => {
                                     disabled={userData.spende ? false : true}
                                     klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
                                     onClick={() => {
-                                        console.log("TEST");
-                                        secondRef.current.classList.add("hidden");
-                                        thirdRef.current.classList.remove("hidden");
-                                        thirdRef.current.classList.add("block");
+                                        BtnDirectorFw(secondRef, thirdRef);
                                     }}
                                 >
                                     Weiter
@@ -232,11 +240,7 @@ const MobileFirst = (props) => {
                                     disabled={false}
                                     klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
                                     onClick={() => {
-                                        console.log("TEST");
-                                        secondRef.current.classList.remove("hidden");
-                                        secondRef.current.classList.add("block");
-                                        thirdRef.current.classList.remove("block");
-                                        thirdRef.current.classList.add("hidden");
+                                        BtnDirector(secondRef, thirdRef);
                                     }}
                                 >
                                     Zurück
@@ -248,13 +252,9 @@ const MobileFirst = (props) => {
                                     klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
                                     onClick={() => {
                                         if (userData.anon) {
-                                            thirdRef.current.classList.add("hidden");
-                                            fifthRef.current.classList.remove("hidden");
-                                            fifthRef.current.classList.add("block");
+                                            BtnDirectorFw(thirdRef, seventhRef);
                                         } else {
-                                            thirdRef.current.classList.add("hidden");
-                                            fourthRef.current.classList.remove("hidden");
-                                            fourthRef.current.classList.add("block");
+                                            BtnDirectorFw(thirdRef, fourthRef);
                                         }
                                     }}
                                 >
@@ -263,6 +263,9 @@ const MobileFirst = (props) => {
                             </div>
                         </div>
                     </div>
+
+                    {/* NAME */}
+
                     <div ref={fourthRef} className="fourth hidden">
                         <div className="font-bold mb-4 text-xl">Ihre Daten</div>
                         <div className="topLine mb-4 text-base italic ">
@@ -289,11 +292,7 @@ const MobileFirst = (props) => {
                                     disabled={false}
                                     klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
                                     onClick={() => {
-                                        console.log("TEST");
-                                        secondRef.current.classList.remove("hidden");
-                                        secondRef.current.classList.add("block");
-                                        thirdRef.current.classList.remove("block");
-                                        thirdRef.current.classList.add("hidden");
+                                        BtnDirector(thirdRef, fourthRef);
                                     }}
                                 >
                                     Zurück
@@ -304,10 +303,7 @@ const MobileFirst = (props) => {
                                     disabled={anon ? false : true}
                                     klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
                                     onClick={() => {
-                                        console.log("TEST");
-                                        fourthRef.current.classList.add("hidden");
-                                        fifthRef.current.classList.remove("hidden");
-                                        fifthRef.current.classList.add("block");
+                                        BtnDirectorFw(fourthRef, fifthRef);
                                     }}
                                 >
                                     {userData.fullName ? "Weiter" : "Überspringen"}
@@ -315,16 +311,14 @@ const MobileFirst = (props) => {
                             </div>
                         </div>
                     </div>
+
+                    {/* BILD */}
+
                     <div ref={fifthRef} className="fifth hidden">
                         <div className="font-bold mb-4 text-xl">Ihre Daten</div>
                         <div className="topLine mb-4 text-base italic ">
                             Ihr Bild wird neben Ihrem Namen ang (optional)
                             <br />
-                            {/* <span className="text-xs leading-tight">
-                                {" "}
-                                Sie können Ihren Namen, ein Bild, die Spendensumme und ein Kommentar hinterlassen, das
-                                für andere sichtbar wird:
-                            </span> */}
                         </div>
                         <ImageUpload
                             anon={anon}
@@ -333,7 +327,6 @@ const MobileFirst = (props) => {
                             setKugelColor={setKugelColor}
                             dataTip="Ihr Avatar Bild (optional)"
                         ></ImageUpload>
-                        {/* <hr className="mt-6" /> */}
 
                         <div className="grid grid-cols-2 mt-12 w-full gap-4">
                             <div className={`w-full `}>
@@ -341,11 +334,7 @@ const MobileFirst = (props) => {
                                     disabled={false}
                                     klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
                                     onClick={() => {
-                                        console.log("TEST");
-                                        secondRef.current.classList.remove("hidden");
-                                        secondRef.current.classList.add("block");
-                                        thirdRef.current.classList.remove("block");
-                                        thirdRef.current.classList.add("hidden");
+                                        BtnDirector(fourthRef, fifthRef);
                                     }}
                                 >
                                     Zurück
@@ -356,17 +345,126 @@ const MobileFirst = (props) => {
                                     disabled={anon ? false : true}
                                     klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
                                     onClick={() => {
-                                        console.log("TEST");
-                                        secondRef.current.classList.add("hidden");
-                                        secondRef.current.classList.remove("hidden");
-                                        secondRef.current.classList.add("block");
+                                        BtnDirectorFw(fifthRef, sixthRef);
                                     }}
                                 >
-                                    {userData.fullName ? "Weiter" : "Überspringen"}
+                                    {userData.image ? "Weiter" : "Überspringen"}
                                 </ButtonReal>
                             </div>
                         </div>
                     </div>
+
+                    {/* COMMENT */}
+
+                    <div ref={sixthRef} className="sixth hidden">
+                        <div className="font-bold mb-4 text-xl">Ihre Daten</div>
+                        <div className="topLine mb-4 text-base italic ">
+                            Ihr Kommentar, max 60 Zeichen (optional)
+                            <br />
+                        </div>
+                        <Comment onChange={onChange} dataTip="Ihr Kommentar (optional)"></Comment>
+
+                        <div className="grid grid-cols-2 mt-12 w-full gap-4">
+                            <div className={`w-full `}>
+                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
+                                    disabled={false}
+                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
+                                    onClick={() => {
+                                        BtnDirector(fifthRef, sixthRef);
+                                    }}
+                                >
+                                    Zurück
+                                </ButtonReal>
+                            </div>
+                            <div className={`w-full bottom-2  ${anon ? "" : "opacity-30"}`}>
+                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
+                                    disabled={anon ? false : true}
+                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
+                                    onClick={() => {
+                                        BtnDirectorFw(sixthRef, seventhRef);
+                                    }}
+                                >
+                                    {userData.image ? "Weiter" : "Überspringen"}
+                                </ButtonReal>
+                            </div>
+                        </div>
+                    </div>
+                    {/* KUGEL */}
+
+                    <div ref={seventhRef} className="seventh hidden">
+                        <div className="font-bold mb-4 text-xl">Ihre Kugel</div>
+                        <div className="topLine mb-4 text-base italic ">
+                            Ziehen Sie Ihre Kugel auf ein freies Feld Ihrer Wahl oben auf den Baum!
+                            <br />
+                        </div>
+                        <div
+                            className={`${
+                                userData.color && userData.spende ? "scale-in-center" : "hidden"
+                            }  bg-white h-36 w-36  rounded-full shadow-xl  flex items-center justify-center`}
+                        >
+                            <div className="absolute top-8">DRAG ME</div>
+                            <Draggable
+                                id="draggable"
+                                value="bubu"
+                                style={{ width: size + "px", height: size + "px", background: kugelColor.color }}
+                                klasse={`${props.isDropped ? "hidden" : "block"} ${
+                                    props.isDragging ? "opacity-30" : ""
+                                } rounded-full flex items-center justify-center ${
+                                    kugelColor.color == "rgb(255, 255, 255)" || kugelColor.color == "rgb(220, 223, 220)"
+                                        ? "text-black border-4"
+                                        : "text-white"
+                                }`}
+                            >
+                                {anon
+                                    ? "Anon"
+                                    : name
+                                          .split(" ")
+                                          .map((n) => n[0])
+                                          .join(".")}
+                            </Draggable>{" "}
+                        </div>
+                        <div className="grid grid-cols-2 mt-12 w-full gap-4">
+                            <div className={`w-full `}>
+                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
+                                    disabled={false}
+                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
+                                    onClick={() => {
+                                        BtnDirector(fifthRef, sixthRef);
+                                    }}
+                                >
+                                    Zurück
+                                </ButtonReal>
+                            </div>
+                            <div className={`w-full bottom-2  ${anon ? "" : "opacity-30"}`}>
+                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
+                                    disabled={anon ? false : true}
+                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
+                                    onClick={() => {
+                                        BtnDirectorFw(sixthRef, seventhRef);
+                                    }}
+                                >
+                                    {userData.image ? "Weiter" : "Überspringen"}
+                                </ButtonReal>
+                            </div>
+                        </div>
+                    </div>
+                    {createPortal(
+                        <DragOverlay
+                            dropAnimation={{
+                                duration: 300,
+                                easing: "cubic-bezier(0.18, 0.67, 0.6, 1.22)",
+                            }}
+                        >
+                            {props.activeId ? (
+                                <Item
+                                    style={{ width: size + "px", height: size + "px", background: kugelColor.color }}
+                                    value={`Item ${props.activeId}`}
+                                    klasse="rounded-full"
+                                />
+                            ) : null}
+                        </DragOverlay>,
+                        document.body
+                    )}
                 </div>
             </MainContainer>
         </PayPalScriptProvider>

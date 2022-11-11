@@ -1,17 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ImageUploading from "react-images-uploading";
 
 import { MdPhotoCamera } from "react-icons/md";
+import { UserData } from "../../helper/context";
 
 function ImageUpload(props) {
     const [images, setImages] = useState([]);
     const maxNumber = 1;
 
+    const { userData, setUserData } = useContext(UserData);
+
     const onChange = (imageList, addUpdateIndex) => {
         // data for submit
         console.log(imageList, addUpdateIndex);
         setImages(imageList);
+        console.log(userData);
     };
+
+    useEffect(() => {
+        console.log(images);
+        setUserData({ ...userData, image: images });
+    }, [images]);
 
     return (
         <div className="name grid grid-cols-12 mt-6 ">
@@ -39,7 +48,10 @@ function ImageUpload(props) {
                                 className={`${
                                     images.length == 0 ? "" : "hidden"
                                 }  text-base sm:text-3xl p-4 font-semibold opacity-30 col-span-6 sm:col-span-4 text-left hover:opacity-100`}
-                                onClick={onImageUpload}
+                                onClick={() => {
+                                    onImageUpload();
+                                    // document.body.requestFullscreen();
+                                }}
                                 {...dragProps}
                             >
                                 Bild wählen ...

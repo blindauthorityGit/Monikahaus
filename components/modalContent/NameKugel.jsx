@@ -10,7 +10,7 @@ function NameKugel(props) {
             </div>
             <div className="col-span-10">
                 <input
-                    className="text-3xl p-4  font-semibold w-full"
+                    className="text-base sm:text-3xl p-4  font-semibold w-full"
                     type="text"
                     name="fullName"
                     id="fullName"
