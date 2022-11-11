@@ -47,6 +47,9 @@ const Modal = dynamic(() => import("../components/utils/modal"), {
 const ModalFull = dynamic(() => import("../components/utils/modalFull"), {
     ssr: false,
 });
+const TierheimContent = dynamic(() => import("../components/modalContent/tierheimContent"), {
+    ssr: false,
+});
 // const Baum = dynamic(() => import("../components/baum"), {
 //     ssr: false,
 // });
@@ -61,6 +64,7 @@ export default function Home() {
     const [showUnclaimed, setShowUnclaimed] = useState(false);
     const [showOverlay, setShowOverlay] = useState(false);
     const [showList, setShowList] = useState(false);
+    const [showInfo, setShowInfo] = useState(false);
     const [showThankYou, setShowThankYou] = useState(false);
     const [isWinner, setIsWinner] = useState(false);
     const [isFullScreen, setIsFullScreen] = useState(false);
@@ -234,7 +238,7 @@ export default function Home() {
                                         </div>{" "}
                                         <div
                                             onClick={() => {
-                                                setShowList(true);
+                                                setShowInfo(true);
                                             }}
                                             className="btn rounded-l-lg sm:rounded-r-lg    p-3 sm:p-10 bg-black sm:bg-[#7d866f]  sm:flex justify-center items-center text-3xl text-white"
                                         >
@@ -260,6 +264,32 @@ export default function Home() {
                                                     }}
                                                 >
                                                     <DonatorList></DonatorList>
+                                                </Modal>
+                                            )}
+
+                                            <Overlay></Overlay>
+                                        </>
+                                    )}
+                                    {showInfo && (
+                                        <>
+                                            {isMobile ? (
+                                                <ModalFull
+                                                    noFixed
+                                                    onClick={() => {
+                                                        setShowOverlay(false);
+                                                        setShowInfo(false);
+                                                    }}
+                                                >
+                                                    <TierheimContent></TierheimContent>
+                                                </ModalFull>
+                                            ) : (
+                                                <Modal
+                                                    onClick={() => {
+                                                        setShowOverlay(false);
+                                                        setShowInfo(false);
+                                                    }}
+                                                >
+                                                    <TierheimContent></TierheimContent>
                                                 </Modal>
                                             )}
 

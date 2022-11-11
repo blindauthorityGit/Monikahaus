@@ -45,8 +45,8 @@ const Baum = (props, ref) => {
                     setHeight(gRef.current.getBoundingClientRect().height);
                 }}
                 onClick={() => {
-                    setBaumWeg(true);
-                    console.log("BaumWeg");
+                    // setBaumWeg(true);
+                    // console.log("BaumWeg");
                 }}
             ></Kreis>
         </div>

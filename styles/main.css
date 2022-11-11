@@ -63,4 +63,8 @@ html, body, #__next {
   left: 40px;
   z-index: 1;
 }
+
+.textor p {
+  margin-bottom: 1rem;
+}
 /*# sourceMappingURL=main.css.map */
