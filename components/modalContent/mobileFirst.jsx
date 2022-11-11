@@ -134,7 +134,7 @@ const MobileFirst = (props) => {
                             wrapperKlasse="items-center"
                             isMobile={true}
                         ></ColorChoice>
-                        <div className={`w-full bottom-2 absolute ${userData.color ? "" : "opacity-30"}`}>
+                        <div className={`w-full mt-12 ${userData.color ? "" : "opacity-30"}`}>
                             <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
                                 disabled={userData.color ? false : true}
                                 klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
@@ -158,7 +158,7 @@ const MobileFirst = (props) => {
                             Wählen Sie Ihre Summe:
                         </div>
                         <MobileSecond onChange={onChange}></MobileSecond> {/* <hr className="mt-6" /> */}
-                        <div className="grid grid-cols-2 bottom-2 absolute w-full gap-4">
+                        <div className="grid grid-cols-2 mt-12 w-full gap-4">
                             <div className={`w-full `}>
                                 <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
                                     disabled={false}
@@ -195,11 +195,11 @@ const MobileFirst = (props) => {
                         <div className="topLine mb-10 text-base italic ">
                             Möchten Sie anonym bleiben oder Ihre Daten sichtbar machen?
                             <br />
-                            <span className="text-xs leading-tight">
+                            {/* <span className="text-xs leading-tight">
                                 {" "}
                                 Sie können Ihren Namen, ein Bild, die Spendensumme und ein Kommentar hinterlassen, das
                                 für andere sichtbar wird:
-                            </span>
+                            </span> */}
                         </div>
                         <AnonChoice
                             ref={anonRef}
@@ -219,7 +219,7 @@ const MobileFirst = (props) => {
                             }}
                         ></AnonChoice>
 
-                        <div className="grid grid-cols-2 bottom-2 absolute w-full gap-4">
+                        <div className="grid grid-cols-2 mt-12 w-full gap-4">
                             <div className={`w-full `}>
                                 <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
                                     disabled={false}
