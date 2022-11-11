@@ -1,11 +1,12 @@
 import React from "react";
+import { isBrowser, isMobile } from "react-device-detect";
 
 function ListItem(props) {
     return (
         <>
             <div
                 data-id={props.e.id}
-                className="wrapper flex items-center mb-4 hover:bg-[#f5f5f5]"
+                className="wrapper flex items-center mt-2 mb-4 hover:bg-[#f5f5f5]"
                 onMouseOver={(e) => {
                     props.onHover(e);
                 }}
@@ -24,11 +25,17 @@ function ListItem(props) {
                     <strong>{props.e.name}</strong>
                     <br />
                     Spende: EUR {props.e.sum},-
+                    {props.e.comment && (
+                        <div className="farRight sm:hidden mt-2 text-xs border p-2 sm:p-4 bg-[lightgray]">
+                            {props.e.comment}
+                        </div>
+                    )}
                 </div>
                 {props.e.comment && (
-                    <div className="farRight text-xs border p-2 sm:p-4 bg-[lightgray]">{props.e.comment}</div>
+                    <div className="farRight hidden sm:block text-xs border p-2 sm:p-4 bg-[lightgray]">
+                        {props.e.comment}
+                    </div>
                 )}
-                <hr />
             </div>
             <hr />
         </>

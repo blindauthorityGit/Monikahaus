@@ -4,6 +4,7 @@ import { testData } from "../../dev";
 import { KugelColor, UserList } from "../../helper/context";
 import ReactPaginate from "react-paginate";
 import ListItem from "./listItem";
+import { isBrowser, isMobile } from "react-device-detect";
 
 const DonatorList = () => {
     const { kugelColor, setKugelColor } = useContext(KugelColor);
@@ -13,7 +14,7 @@ const DonatorList = () => {
     const [items, setItems] = useState(null);
     const [currentPage, setCurrentPage] = useState(0);
 
-    const itemsPerPage = 7;
+    const itemsPerPage = 5;
 
     function sliceIntoChunks(arr, chunkSize) {
         const res = [];

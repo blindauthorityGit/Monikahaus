@@ -24,15 +24,17 @@ import Overlay from "../components/utils/overlay.";
 // import Modal from "../components/utils/modal";
 import FirstModal from "../components/modalContent/first";
 import MobileFirst from "../components/modalContent/mobileFirst";
-import DonatorList from "../components/modalContent/donatorList";
 import ThankYou from "../components/thankyou";
-import { MdPeople } from "react-icons/md";
+import { MdPeople, MdInfoOutline } from "react-icons/md";
 
 import Goal from "../components/goal";
 import { testData } from "../dev";
 
 import { isBrowser, isMobile } from "react-device-detect";
 
+const DonatorList = dynamic(() => import("../components/modalContent/donatorList"), {
+    ssr: false,
+});
 const Raster = dynamic(() => import("../components/raster"), {
     ssr: false,
 });
@@ -221,6 +223,15 @@ export default function Home() {
                                             <Overlay></Overlay>
                                         </>
                                     )}
+                                    <div
+                                        onClick={() => {
+                                            setShowList(true);
+                                        }}
+                                        className="btn rounded-l-lg sm:rounded-r-lg right-0 sm:right-auto top-[22%] sm:top-0 z-50 p-3 sm:p-10 bg-black sm:bg-[#7d866f] absolute sm:flex justify-center items-center text-3xl text-white"
+                                    >
+                                        <MdInfoOutline></MdInfoOutline>
+                                    </div>
+
                                     <div
                                         onClick={() => {
                                             setShowList(true);
