@@ -84,11 +84,9 @@ const Raster = (props) => {
                     arr[e].addEventListener("animationend", (e) => {
                         e.target.classList.remove("bounce-in-fwd");
                     });
-                    console.log(arr[e].children[0]);
                     // CLASS NAME FOR ::AFTER STYLING TOOLTIP
                     if (arr[e].children[0].classList.contains("draggable")) {
                         arr[e].children[2].classList.add(switcher(userList[i].color));
-                        console.log("BUBUBU");
                     }
                     arr[e].children[1].classList.add(switcher(userList[i].color));
                 }, random);

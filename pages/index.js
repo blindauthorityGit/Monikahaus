@@ -224,7 +224,7 @@ export default function Home() {
                                         onClick={() => {
                                             setShowList(true);
                                         }}
-                                        className="btn hidden z-50 p-10 bg-[#7d866f] absolute sm:flex justify-center items-center text-3xl text-white"
+                                        className="btn right-0 sm:right-auto top-1/3 sm:top-0 z-50 p-3 sm:p-10 bg-black sm:bg-[#7d866f] absolute sm:flex justify-center items-center text-3xl text-white"
                                     >
                                         +
                                     </div>
@@ -306,6 +306,9 @@ export default function Home() {
 
                                                         isMobile ? document.body.requestFullscreen() : null;
                                                         isMobile ? setIsFullScreen(true) : null;
+                                                        setBaumDimensions(
+                                                            baumRef.current.children[0].children[0].getBoundingClientRect()
+                                                        );
                                                     }}
                                                 ></MobileButton>
                                             </MainContainer>
