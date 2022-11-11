@@ -306,6 +306,10 @@ export default function Home() {
                                                     ></Raster>
                                                     <Baum ref={baumRef}></Baum>
                                                 </div>{" "}
+                                                {/* GOALS MOBILE */}
+                                                <div className="sm:hidden absolute w-2/3 top-2  left-1/2 transform -translate-x-1/2">
+                                                    <Goal data={userList} klasse=""></Goal>
+                                                </div>
                                                 {/* STARTTEST MOBILE */}
                                                 <div className="absolute sm:hidden bottom-36 z-40 w-full text-center  left-1/2 transform -translate-x-1/2 text-xl font-bold ">
                                                     {startInfo.headline}
