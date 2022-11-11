@@ -3,8 +3,6 @@ import dynamic from "next/dynamic";
 import React, { useState, useEffect, useRef } from "react";
 import MainContainer from "../components/layout/mainContainer";
 import { startInfo } from "../config";
-
-// import Raster from "../components/raster";
 import Baum from "../components/baum";
 // import { Boden, BodenMobile } from "../components/bGAssets";
 
@@ -19,7 +17,6 @@ import {
 } from "../helper/context";
 
 import { DndContext, closestCenter } from "@dnd-kit/core";
-// import { droppedZone, draggedZone, handleDragStart, handleDragEnd } from "../functions/dndFunctions";
 
 import StartText from "../components/layout/startText";
 import MobileButton from "../components/layout/mobileButton";
@@ -29,6 +26,7 @@ import FirstModal from "../components/modalContent/first";
 import MobileFirst from "../components/modalContent/mobileFirst";
 import DonatorList from "../components/modalContent/donatorList";
 import ThankYou from "../components/thankyou";
+import { MdPeople } from "react-icons/md";
 
 import Goal from "../components/goal";
 import { testData } from "../dev";
@@ -42,6 +40,9 @@ const Boden = dynamic(() => import("../components/bGAssets/boden"), {
     ssr: false,
 });
 const Modal = dynamic(() => import("../components/utils/modal"), {
+    ssr: false,
+});
+const ModalFull = dynamic(() => import("../components/utils/modalFull"), {
     ssr: false,
 });
 // const Baum = dynamic(() => import("../components/baum"), {
@@ -224,20 +225,32 @@ export default function Home() {
                                         onClick={() => {
                                             setShowList(true);
                                         }}
-                                        className="btn right-0 sm:right-auto top-1/3 sm:top-0 z-50 p-3 sm:p-10 bg-black sm:bg-[#7d866f] absolute sm:flex justify-center items-center text-3xl text-white"
+                                        className="btn rounded-l-lg sm:rounded-r-lg right-0 sm:right-auto top-[15%] sm:top-0 z-50 p-3 sm:p-10 bg-black sm:bg-[#7d866f] absolute sm:flex justify-center items-center text-3xl text-white"
                                     >
-                                        +
+                                        <MdPeople></MdPeople>
                                     </div>
                                     {showList && (
                                         <>
-                                            <Modal
-                                                onClick={() => {
-                                                    setShowOverlay(false);
-                                                    setShowList(false);
-                                                }}
-                                            >
-                                                <DonatorList></DonatorList>
-                                            </Modal>
+                                            {isMobile ? (
+                                                <ModalFull
+                                                    onClick={() => {
+                                                        setShowOverlay(false);
+                                                        setShowList(false);
+                                                    }}
+                                                >
+                                                    <DonatorList></DonatorList>
+                                                </ModalFull>
+                                            ) : (
+                                                <Modal
+                                                    onClick={() => {
+                                                        setShowOverlay(false);
+                                                        setShowList(false);
+                                                    }}
+                                                >
+                                                    <DonatorList></DonatorList>
+                                                </Modal>
+                                            )}
+
                                             <Overlay></Overlay>
                                         </>
                                     )}

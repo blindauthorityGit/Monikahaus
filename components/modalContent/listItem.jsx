@@ -14,14 +14,20 @@ function ListItem(props) {
                 }}
             >
                 <div className="left pr-6">
-                    <img className="rounded-full h-24" src={`https://i.pravatar.cc/300?img=${props.e.id}`} alt="" />
+                    <img
+                        className="rounded-full h-16 sm:h-24"
+                        src={`https://i.pravatar.cc/300?img=${props.e.id}`}
+                        alt=""
+                    />
                 </div>
-                <div className="right w-64">
+                <div className="right text-sm sm:text-base w-48 sm:w-64">
                     <strong>{props.e.name}</strong>
                     <br />
                     Spende: EUR {props.e.sum},-
                 </div>
-                {props.e.comment && <div className="farRight border p-4 bg-[lightgray]">{props.e.comment}</div>}
+                {props.e.comment && (
+                    <div className="farRight text-xs border p-2 sm:p-4 bg-[lightgray]">{props.e.comment}</div>
+                )}
                 <hr />
             </div>
             <hr />

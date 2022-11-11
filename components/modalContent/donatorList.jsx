@@ -55,7 +55,7 @@ const DonatorList = () => {
 
     return (
         <MainContainer width="fixed relative h-full">
-            <div className="col-span-12">
+            <div className="col-span-12 pt-10 sm:pt-0">
                 {items && (
                     <>
                         {items[currentPage].map((e, i) => {
