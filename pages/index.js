@@ -180,6 +180,7 @@ export default function Home() {
                                                 onClick={() => {
                                                     setShowOverlay(false);
                                                     setShowUnclaimed(false);
+                                                    document.exitFullscreen();
                                                 }}
                                             >
                                                 {isMobile ? (
@@ -279,7 +280,6 @@ export default function Home() {
                                                     onClick={() => {
                                                         setShowOverlay(true);
                                                         setShowUnclaimed(true);
-
                                                         document.body.requestFullscreen();
                                                     }}
                                                 ></MobileButton>
