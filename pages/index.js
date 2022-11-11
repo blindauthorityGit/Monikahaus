@@ -280,7 +280,7 @@ export default function Home() {
                                                         setShowOverlay(true);
                                                         setShowUnclaimed(true);
 
-                                                        window.scrollTo(0, document.body.scrollHeight);
+                                                        document.body.requestFullscreen();
                                                     }}
                                                 ></MobileButton>
                                             </MainContainer>
