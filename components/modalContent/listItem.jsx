@@ -6,7 +6,7 @@ function ListItem(props) {
         <>
             <div
                 data-id={props.e.id}
-                className="wrapper flex items-center mt-2 mb-4 hover:bg-[#f5f5f5]"
+                className="wrapper w-full flex items-center mt-2 mb-4 hover:bg-[#f5f5f5]"
                 onMouseOver={(e) => {
                     props.onHover(e);
                 }}
