@@ -60,6 +60,8 @@ const MobileFirst = (props) => {
     const firstRef = useRef();
     const secondRef = useRef();
     const thirdRef = useRef();
+    const fourthRef = useRef();
+    const fifthRef = useRef();
 
     const router = useRouter();
 
@@ -205,19 +207,90 @@ const MobileFirst = (props) => {
                             ref={anonRef}
                             onClickNonAnon={(e) => {
                                 anonRef.current.children[0].classList.add("bg-black", "text-white");
+                                document.querySelector("#nonAnon").classList.add("bg-black", "text-white");
+                                document.querySelector("#anon").classList.remove("bg-black", "text-white");
                                 anonRef.current.children[1].classList.remove("bg-black", "text-white");
                                 setUserData({ ...userData, anon: false });
                                 setAnon(true);
-                                console.log(userData);
+                                console.log(anonRef.current.children[0].classList);
                             }}
                             onClickAnon={(e) => {
                                 anonRef.current.children[1].classList.add("bg-black", "text-white");
                                 anonRef.current.children[0].classList.remove("bg-black", "text-white");
+                                document.querySelector("#nonAnon").classList.remove("bg-black", "text-white");
+                                document.querySelector("#anon").classList.add("bg-black", "text-white");
+
                                 setUserData({ ...userData, anon: true });
                                 setAnon(true);
                                 console.log(userData);
                             }}
                         ></AnonChoice>
+
+                        <div className="grid grid-cols-2 mt-12 w-full gap-4">
+                            <div className={`w-full `}>
+                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
+                                    disabled={false}
+                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
+                                    onClick={() => {
+                                        console.log("TEST");
+                                        secondRef.current.classList.remove("hidden");
+                                        secondRef.current.classList.add("block");
+                                        thirdRef.current.classList.remove("block");
+                                        thirdRef.current.classList.add("hidden");
+                                    }}
+                                >
+                                    Zurück
+                                </ButtonReal>
+                            </div>
+                            <div className={`w-full bottom-2  ${anon ? "" : "opacity-30"}`}>
+                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
+                                    disabled={anon ? false : true}
+                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
+                                    onClick={() => {
+                                        if (userData.anon) {
+                                            thirdRef.current.classList.add("hidden");
+                                            fifthRef.current.classList.remove("hidden");
+                                            fifthRef.current.classList.add("block");
+                                        } else {
+                                            thirdRef.current.classList.add("hidden");
+                                            fourthRef.current.classList.remove("hidden");
+                                            fourthRef.current.classList.add("block");
+                                        }
+                                    }}
+                                >
+                                    Weiter
+                                </ButtonReal>
+                            </div>
+                        </div>
+                    </div>
+                    <div ref={fourthRef} className="third hidden">
+                        <div className="font-bold mb-4 text-xl">Ihre Daten</div>
+                        <div className="topLine mb-10 text-base italic ">
+                            Diese Daten werden über Ihre Kugel inkl. der Spendensumme angezeigt
+                            <br />
+                            {/* <span className="text-xs leading-tight">
+                                {" "}
+                                Sie können Ihren Namen, ein Bild, die Spendensumme und ein Kommentar hinterlassen, das
+                                für andere sichtbar wird:
+                            </span> */}
+                        </div>
+                        <NameKugel
+                            setName={setName}
+                            kugelColor={kugelColor}
+                            setKugelColor={setKugelColor}
+                            onChange={onChange}
+                            dataTip="Ihr Name, wird als Initialen auf der Kugel angezeigt"
+                        ></NameKugel>
+                        {/* <hr className="mt-6" /> */}
+                        <ImageUpload
+                            anon={anon}
+                            setAnon={setAnon}
+                            kugelColor={kugelColor}
+                            setKugelColor={setKugelColor}
+                            dataTip="Ihr Avatar Bild (optional)"
+                        ></ImageUpload>
+                        {/* <hr className="mt-6" /> */}
+                        <Comment onChange={onChange} dataTip="Ihr Kommentar (optional)"></Comment>
 
                         <div className="grid grid-cols-2 mt-12 w-full gap-4">
                             <div className={`w-full `}>
