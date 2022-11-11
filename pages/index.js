@@ -279,7 +279,8 @@ export default function Home() {
                                                     onClick={() => {
                                                         setShowOverlay(true);
                                                         setShowUnclaimed(true);
-                                                        window.scrollTo(0, 1);
+
+                                                        window.scrollTo(0, document.body.scrollHeight);
                                                     }}
                                                 ></MobileButton>
                                             </MainContainer>
