@@ -26,6 +26,7 @@ import MobileButton from "../components/layout/mobileButton";
 import Overlay from "../components/utils/overlay.";
 // import Modal from "../components/utils/modal";
 import FirstModal from "../components/modalContent/first";
+import MobileFirst from "../components/modalContent/mobileFirst";
 import DonatorList from "../components/modalContent/donatorList";
 import ThankYou from "../components/thankyou";
 
@@ -181,7 +182,12 @@ export default function Home() {
                                                 }}
                                             >
                                                 {isMobile ? (
-                                                    "HALLO"
+                                                    <MobileFirst
+                                                        headline="Schenken Sie Hoffnung"
+                                                        activeId={activeId}
+                                                        isDropped={isDropped}
+                                                        isDragging={isDragging}
+                                                    ></MobileFirst>
                                                 ) : (
                                                     <FirstModal
                                                         headline="Schenken Sie Hoffnung"

@@ -25,6 +25,10 @@ import { testData } from "../../dev";
 import axios from "axios";
 import { Fireworks } from "fireworks-js";
 
+import MobileSecond from "./mobileSecond";
+import Button from "../utils/buttons";
+import { ButtonReal } from "../utils/buttonReal";
+
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const MobileFirst = (props) => {
@@ -35,6 +39,9 @@ const MobileFirst = (props) => {
     const [value, setValue] = useState(10);
     const [name, setName] = useState("");
     const [anon, setAnon] = useState(false);
+
+    //BUTTON STUFF
+    const [firstBtn, setFirstBtn] = useState(true);
 
     // PAYMENT STUFF
     const [isPayed, setIsPayed] = useState(false);
@@ -93,7 +100,8 @@ const MobileFirst = (props) => {
 
     useEffect(() => {
         let arr = Array.from(document.querySelectorAll(".kugel"));
-        setSize(arr[0].clientHeight);
+        setSize(36);
+        // setSize(arr[0].clientHeight);
     }, [treeAnimationFinish]);
 
     const initialOptions = {
@@ -105,12 +113,14 @@ const MobileFirst = (props) => {
 
     return (
         <PayPalScriptProvider options={initialOptions}>
-            <MainContainer width="fixed relative h-full">
-                <div className="col-span-12">
+            <MainContainer noGap={true} width="fixed relative h-full">
+                <div className="col-span-12 relative">
                     <div ref={firstRef} className="wrapper">
-                        <H2 klasse="font-bold mb-8">{props.headline}</H2>
-                        <div className="topLine mb-10 text-lg italic">
-                            Wählen Sie die Farbe Ihrer Kugel, die Spendensumme weitere Infos
+                        <div className="font-bold mb-4 text-xl">{props.headline}</div>
+                        <div className="topLine mb-10 text-base italic">
+                            Gestalten Sie Ihre Spendenkugel!
+                            <br />
+                            Wählen Sie Ihre Farbe:
                         </div>
                         <ColorChoice
                             size={size}
@@ -118,177 +128,26 @@ const MobileFirst = (props) => {
                             ballRef={ballRef}
                             onChangeColor={onChangeColor}
                             dataTip="Die Farbe Ihrer Kugel"
+                            wrapperKlasse="items-center"
+                            isMobile={true}
                         ></ColorChoice>
-                        {/* <hr className="mt-6" /> */}
-                        <SpendenSumme dataTip="Ihre Spende in EURO" onChange={onChange}></SpendenSumme>
-                        {/* <hr className="mt-6" /> */}
-                        <NameKugel
-                            setName={setName}
-                            kugelColor={kugelColor}
-                            setKugelColor={setKugelColor}
-                            onChange={onChange}
-                            dataTip="Ihr Name, wird als Initialen auf der Kugel angezeigt"
-                        ></NameKugel>
-                        {/* <hr className="mt-6" /> */}
-                        <ImageUpload
-                            anon={anon}
-                            setAnon={setAnon}
-                            kugelColor={kugelColor}
-                            setKugelColor={setKugelColor}
-                            dataTip="Ihr Avatar Bild (optional)"
-                        ></ImageUpload>
-                        {/* <hr className="mt-6" /> */}
-                        <Comment onChange={onChange} dataTip="Ihr Kommentar (optional)"></Comment>
-                        <div className="anonym mt-8">
-                            <div className="wrapper flex items-center">
-                                <img
-                                    data-tip="Ihr Name und Spendenbeitrag werden nicht<br /> auf der Kugel und der Spenderliste angezeigt"
-                                    data-iscapture="true"
-                                    multiline={true}
-                                    src={QMark.src}
-                                    className="pr-4"
-                                    alt=""
-                                />
-                                <input
-                                    className="text-lg p-8 border font-semibold "
-                                    type="checkbox"
-                                    name="anon"
-                                    id="anon"
-                                    placeholder="Ihr Name"
-                                    onChange={(e) => {
-                                        anon ? setAnon(false) : setAnon(true);
-                                        anon
-                                            ? setKugelColor({ ...kugelColor, anon: false })
-                                            : setKugelColor({ ...kugelColor, anon: true });
-                                    }}
-                                />{" "}
-                                <label className="ml-4 text-lg" htmlFor="anon">
-                                    Anonyme Spende?
-                                </label>
-                            </div>
-                        </div>
-                        <div
-                            className={`${
-                                userData.color && userData.spende && userData.fullName ? "scale-in-center" : "hidden"
-                            } absolute bg-white h-48 w-48 right-[-190px] rounded-full shadow-xl top-[35%] flex items-center justify-center`}
-                        >
-                            <div className="absolute top-8">DRAG ME</div>
-                            <Draggable
-                                id="draggable"
-                                value="bubu"
-                                style={{ width: size + "px", height: size + "px", background: kugelColor.color }}
-                                klasse={`${props.isDropped ? "hidden" : "block"} ${
-                                    props.isDragging ? "opacity-30" : ""
-                                } rounded-full flex items-center justify-center ${
-                                    kugelColor.color == "rgb(255, 255, 255)" || kugelColor.color == "rgb(220, 223, 220)"
-                                        ? "text-black border-4"
-                                        : "text-white"
-                                }`}
+                        <div className={`w-full bottom-2 absolute ${userData.color ? "" : "opacity-30"}`}>
+                            <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
+                                disabled={userData.color ? false : true}
+                                klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
+                                onClick={() => {
+                                    console.log("TEST");
+                                }}
                             >
-                                {anon
-                                    ? "Anon"
-                                    : name
-                                          .split(" ")
-                                          .map((n) => n[0])
-                                          .join(".")}
-                            </Draggable>{" "}
+                                Weiter
+                            </ButtonReal>
                         </div>
+                        {/* <hr className="mt-6" /> */}
                     </div>
-                    <div className="flex justify-end">
-                        <button
-                            disabled={
-                                userData.color && userData.spende && userData.fullName && userData.id ? false : true
-                            }
-                            className={`${
-                                userData.color && userData.spende && userData.fullName && userData.id
-                                    ? `bg-[${colors.primaryColor}]`
-                                    : "opacity-30"
-                            } absolute bottom-0 border px-12 py-4 font-bold`}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                console.log(userData);
-                                objectMapper(userData);
-                                firstRef.current.classList.add("hidden");
-                                secondRef.current.classList.remove("hidden");
-                            }}
-                        >
-                            Weiter
-                        </button>
+                    <div className="second hidden">
+                        <MobileSecond onChange={onChange}></MobileSecond> {/* <hr className="mt-6" /> */}
                     </div>
-                    {/* KLASSE HIDDEN NOCH BUGGY */}
-                    {createPortal(
-                        <DragOverlay
-                            dropAnimation={{
-                                duration: 300,
-                                easing: "cubic-bezier(0.18, 0.67, 0.6, 1.22)",
-                            }}
-                        >
-                            {props.activeId ? (
-                                <Item
-                                    style={{ width: size + "px", height: size + "px", background: kugelColor.color }}
-                                    value={`Item ${props.activeId}`}
-                                    klasse="rounded-full"
-                                />
-                            ) : null}
-                        </DragOverlay>,
-                        document.body
-                    )}
-                    <ReactTooltip multiline={true} />
                 </div>
-                <div
-                    ref={secondRef}
-                    id="sumWrapper"
-                    data-sum={Number(userData.spende)}
-                    className="second hidden col-span-12"
-                >
-                    <PayPalButtons
-                        createOrder={(data, actions) => {
-                            console.log(window.localStorage.getItem(""));
-                            return actions.order.create({
-                                purchase_units: [
-                                    {
-                                        amount: {
-                                            value: Number(window.localStorage.getItem("spende")),
-                                            // value: document.querySelector("#sumWrapper").dataset.sum,
-                                        },
-                                    },
-                                ],
-                            });
-                        }}
-                        onApprove={(data, actions) => {
-                            console.log(data);
-                            return actions.order.capture().then((details) => {
-                                console.log(details);
-                                setIsPayed(true);
-                                const name = details.payer.name.given_name;
-                                const newUser = {
-                                    anon: Boolean(window.localStorage.getItem("anon")),
-                                    color: window.localStorage.getItem("color"),
-                                    email: details.payer.email_adress,
-                                    name: window.localStorage.getItem("fullName"),
-                                    id: Number(window.localStorage.getItem("id")),
-                                    image: window.localStorage.getItem("image"),
-                                    sum: Number(window.localStorage.getItem("spende")),
-                                    winner: window.localStorage.getItem("winner"),
-                                    comment: window.localStorage.getItem("comment"),
-                                    claimed: true,
-                                };
-                                setUserList((current) => [...current, newUser]);
-                                console.log(newUser, userList);
-                                router.push({
-                                    pathname: "/",
-                                    query: { id: newUser.id, name: newUser.name, winner: newUser.winner },
-                                });
-                                setShowOverlay(false);
-                                setShowUnclaimed(false);
-                                setShowThankYou(true);
-                                {
-                                    window.localStorage.getItem("winner") == "true" ? setIsWinner(true) : null;
-                                }
-                            });
-                        }}
-                    />
-                </div>{" "}
             </MainContainer>
         </PayPalScriptProvider>
     );

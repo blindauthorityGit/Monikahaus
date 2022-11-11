@@ -4,7 +4,7 @@ import { MdFormatColorFill } from "react-icons/md";
 
 function ColorChoice(props) {
     return (
-        <div className="colors w-3/4">
+        <div className={`colors ${props.isMobile ? "w-full" : "w-3/4"}`}>
             <div className="grid grid-cols-12">
                 <div className="col-span-3 flex items-center">
                     <div data-tip={props.dataTip} className="text-5xl font-black opacity-50">
@@ -12,7 +12,7 @@ function ColorChoice(props) {
                     </div>
                 </div>
                 <div className="col-span-9">
-                    <div className="wrapper flex justify-between" ref={props.ballRef}>
+                    <div className={`wrapper flex justify-between ${props.wrapperKlasse}`} ref={props.ballRef}>
                         {colors.bgColors.map((e, i) => {
                             return (
                                 <div
