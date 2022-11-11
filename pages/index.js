@@ -309,16 +309,16 @@ export default function Home() {
                                                 {/* GOALS MOBILE */}
                                                 {baumDimensions.height > 300 && (
                                                     <div
-                                                        style={{ top: baumDimensions.height + 120 + "px" }}
-                                                        className={`sm:hidden z-30 absolute w-2/3 left-1/2 transform -translate-x-1/2`}
+                                                        // style={{ top: baumDimensions.height + 120 + "px" }}
+                                                        className={`sm:hidden z-30 absolute bottom-36 w-2/3 left-1/2 transform -translate-x-1/2`}
                                                     >
                                                         <Goal data={userList} klasse=""></Goal>
                                                     </div>
                                                 )}
                                                 {/* STARTTEST MOBILE */}
-                                                <div className="absolute sm:hidden bottom-36 z-40 w-full text-center  left-1/2 transform -translate-x-1/2 text-xl font-bold ">
+                                                {/* <div className="absolute sm:hidden bottom-36 z-40 w-full text-center  left-1/2 transform -translate-x-1/2 text-xl font-bold ">
                                                     {startInfo.headline}
-                                                </div>
+                                                </div> */}
                                                 <MobileButton
                                                     klasse="absolute w-3/4 flex sm:hidden bottom-12 z-30  left-1/2 transform -translate-x-1/2 "
                                                     buttonText={startInfo.buttonText}
