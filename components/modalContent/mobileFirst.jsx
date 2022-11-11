@@ -98,6 +98,16 @@ const MobileFirst = (props) => {
         }
     };
 
+    function unclaimedHighlight() {
+        let arr = Array.from(document.querySelectorAll(".kugel")).filter((e) => !e.classList.contains("claimedKugel"));
+        arr.map((e, i) => {
+            let random = Math.random() * 500;
+            setTimeout(() => {
+                e.classList.add("pulsate-bck");
+            }, random);
+        });
+    }
+
     // const { value } = value;
 
     const onChangeColor = (e) => {
@@ -200,6 +210,9 @@ const MobileFirst = (props) => {
                             </div>
                         </div>
                     </div>
+
+                    {/* ANON */}
+
                     <div ref={thirdRef} className="third hidden">
                         <div className="font-bold mb-4 text-xl">Ihre Daten</div>
                         <div className="topLine mb-10 text-base italic ">
@@ -253,6 +266,7 @@ const MobileFirst = (props) => {
                                     onClick={() => {
                                         if (userData.anon) {
                                             BtnDirectorFw(thirdRef, seventhRef);
+                                            unclaimedHighlight();
                                         } else {
                                             BtnDirectorFw(thirdRef, fourthRef);
                                         }
@@ -409,7 +423,7 @@ const MobileFirst = (props) => {
                                 style={{ width: size + "px", height: size + "px", background: kugelColor.color }}
                                 klasse={`${props.isDropped ? "hidden" : "block"} ${
                                     props.isDragging ? "opacity-30" : ""
-                                } rounded-full flex items-center justify-center ${
+                                } rounded-full flex items-center justify-center touch-none ${
                                     kugelColor.color == "rgb(255, 255, 255)" || kugelColor.color == "rgb(220, 223, 220)"
                                         ? "text-black border-4"
                                         : "text-white"
@@ -459,7 +473,7 @@ const MobileFirst = (props) => {
                                 <Item
                                     style={{ width: size + "px", height: size + "px", background: kugelColor.color }}
                                     value={`Item ${props.activeId}`}
-                                    klasse="rounded-full"
+                                    klasse="rounded-full touch-none"
                                 />
                             ) : null}
                         </DragOverlay>,
