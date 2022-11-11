@@ -223,22 +223,23 @@ export default function Home() {
                                             <Overlay></Overlay>
                                         </>
                                     )}
-                                    <div
-                                        onClick={() => {
-                                            setShowList(true);
-                                        }}
-                                        className="btn rounded-l-lg sm:rounded-r-lg right-0 sm:right-auto top-[22%] sm:top-0 z-50 p-3 sm:p-10 bg-black sm:bg-[#7d866f] absolute sm:flex justify-center items-center text-3xl text-white"
-                                    >
-                                        <MdInfoOutline></MdInfoOutline>
-                                    </div>
-
-                                    <div
-                                        onClick={() => {
-                                            setShowList(true);
-                                        }}
-                                        className="btn rounded-l-lg sm:rounded-r-lg right-0 sm:right-auto top-[15%] sm:top-0 z-50 p-3 sm:p-10 bg-black sm:bg-[#7d866f] absolute sm:flex justify-center items-center text-3xl text-white"
-                                    >
-                                        <MdPeople></MdPeople>
+                                    <div className="btnWrapper absolute top-[22%] sm:top-0 right-0 sm:right-auto z-50">
+                                        <div
+                                            onClick={() => {
+                                                setShowList(true);
+                                            }}
+                                            className="btn mb-2 rounded-l-lg sm:rounded-r-lg  z-50 p-3 sm:p-10 bg-black sm:bg-[#7d866f]  sm:flex justify-center items-center text-3xl text-white"
+                                        >
+                                            <MdPeople></MdPeople>
+                                        </div>{" "}
+                                        <div
+                                            onClick={() => {
+                                                setShowList(true);
+                                            }}
+                                            className="btn rounded-l-lg sm:rounded-r-lg    p-3 sm:p-10 bg-black sm:bg-[#7d866f]  sm:flex justify-center items-center text-3xl text-white"
+                                        >
+                                            <MdInfoOutline></MdInfoOutline>
+                                        </div>
                                     </div>
                                     {showList && (
                                         <>

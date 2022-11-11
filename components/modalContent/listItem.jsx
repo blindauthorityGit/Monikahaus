@@ -21,7 +21,7 @@ function ListItem(props) {
                         alt=""
                     />
                 </div>
-                <div className="right text-sm sm:text-base w-48 sm:w-64">
+                <div className="right text-sm sm:text-base w-auto sm:w-64">
                     <strong>{props.e.name}</strong>
                     <br />
                     Spende: EUR {props.e.sum},-
@@ -35,9 +35,9 @@ function ListItem(props) {
                     <div className="farRight hidden sm:block text-xs border p-2 sm:p-4 bg-[lightgray]">
                         {props.e.comment}
                     </div>
-                )}
+                )}{" "}
+                <hr />
             </div>
-            <hr />
         </>
     );
 }
