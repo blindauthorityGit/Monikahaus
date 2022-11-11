@@ -67,7 +67,7 @@ export default function Home() {
         anon: false,
         winner: false,
         email: "",
-        id: 0,
+        id: null,
     });
     const [userList, setUserList] = useState(testData);
 
@@ -111,6 +111,7 @@ export default function Home() {
             id: over ? over.id : null,
             winner: Array.from(document.querySelectorAll(".kugel"))[over.id].dataset.iswinner == "true" ? true : false,
         });
+        console.log(userData.id);
         // console.log(
         //     userData,
         //     over.id,

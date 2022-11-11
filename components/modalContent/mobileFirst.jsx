@@ -64,6 +64,7 @@ const MobileFirst = (props) => {
     const fifthRef = useRef();
     const sixthRef = useRef();
     const seventhRef = useRef();
+    const eightRef = useRef();
 
     const router = useRouter();
 
@@ -423,18 +424,18 @@ const MobileFirst = (props) => {
                                 style={{ width: size + "px", height: size + "px", background: kugelColor.color }}
                                 klasse={`${props.isDropped ? "hidden" : "block"} ${
                                     props.isDragging ? "opacity-30" : ""
-                                } rounded-full flex items-center justify-center touch-none ${
+                                } rounded-full flex items-center justify-center touch-none pulsate-bck ${
                                     kugelColor.color == "rgb(255, 255, 255)" || kugelColor.color == "rgb(220, 223, 220)"
                                         ? "text-black border-4"
                                         : "text-white"
                                 }`}
                             >
-                                {anon
+                                {/* {anon
                                     ? "Anon"
                                     : name
                                           .split(" ")
                                           .map((n) => n[0])
-                                          .join(".")}
+                                          .join(".")} */}
                             </Draggable>{" "}
                         </div>
                         <div className="grid grid-cols-2 mt-12 w-full gap-4">
@@ -449,15 +450,87 @@ const MobileFirst = (props) => {
                                     Zurück
                                 </ButtonReal>
                             </div>
-                            <div className={`w-full bottom-2  ${anon ? "" : "opacity-30"}`}>
+                            <div className={`w-full bottom-2  ${userData.id ? "bg-blue-300" : "opacity-30"}`}>
                                 <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
                                     disabled={anon ? false : true}
                                     klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
                                     onClick={() => {
-                                        BtnDirectorFw(sixthRef, seventhRef);
+                                        BtnDirectorFw(seventhRef, eightRef);
+                                        objectMapper(userData);
                                     }}
                                 >
-                                    {userData.image ? "Weiter" : "Überspringen"}
+                                    Bezahlen
+                                </ButtonReal>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* PAYPAL */}
+
+                    <div ref={eightRef} className="eight hidden">
+                        <div className="font-bold mb-4 text-xl">Bezahlung</div>
+                        <div className="topLine mb-4 text-base italic ">
+                            Wählen Sie Ihre Bezahlart:
+                            <br />
+                        </div>
+                        <PayPalButtons
+                            createOrder={(data, actions) => {
+                                console.log(window.localStorage.getItem(""));
+                                return actions.order.create({
+                                    purchase_units: [
+                                        {
+                                            amount: {
+                                                value: Number(window.localStorage.getItem("spende")),
+                                                // value: document.querySelector("#sumWrapper").dataset.sum,
+                                            },
+                                        },
+                                    ],
+                                });
+                            }}
+                            onApprove={(data, actions) => {
+                                console.log(data);
+                                return actions.order.capture().then((details) => {
+                                    console.log(details);
+                                    setIsPayed(true);
+                                    const name = details.payer.name.given_name;
+                                    const newUser = {
+                                        anon: Boolean(window.localStorage.getItem("anon")),
+                                        color: window.localStorage.getItem("color"),
+                                        email: details.payer.email_adress,
+                                        name: window.localStorage.getItem("fullName"),
+                                        id: Number(window.localStorage.getItem("id")),
+                                        image: window.localStorage.getItem("image"),
+                                        sum: Number(window.localStorage.getItem("spende")),
+                                        winner: window.localStorage.getItem("winner"),
+                                        comment: window.localStorage.getItem("comment"),
+                                        claimed: true,
+                                    };
+                                    setUserList((current) => [...current, newUser]);
+                                    console.log(newUser, userList);
+                                    router.push({
+                                        pathname: "/",
+                                        query: { id: newUser.id, name: newUser.name, winner: newUser.winner },
+                                    });
+                                    setShowOverlay(false);
+                                    setShowUnclaimed(false);
+                                    setShowThankYou(true);
+                                    {
+                                        window.localStorage.getItem("winner") == "true" ? setIsWinner(true) : null;
+                                    }
+                                });
+                            }}
+                        />
+
+                        <div className="grid grid-cols-2 mt-12 w-full gap-4">
+                            <div className={`w-full `}>
+                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
+                                    disabled={false}
+                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
+                                    onClick={() => {
+                                        BtnDirector(fifthRef, sixthRef);
+                                    }}
+                                >
+                                    Zurück
                                 </ButtonReal>
                             </div>
                         </div>
