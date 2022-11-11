@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ImageUploading from "react-images-uploading";
 
-import { BsPersonCircle } from "react-icons/bs";
+import { MdPhotoCamera } from "react-icons/md";
 
 function ImageUpload(props) {
     const [images, setImages] = useState([]);
@@ -14,10 +14,10 @@ function ImageUpload(props) {
     };
 
     return (
-        <div className="name grid grid-cols-12 mt-6 ">
+        <div className="name grid grid-cols-12 mt-2 sm:mt-6 ">
             <div className="col-span-2 flex items-center">
-                <div data-tip={props.dataTip} className="text-5xl font-black opacity-50">
-                    <BsPersonCircle />{" "}
+                <div data-tip={props.dataTip} className="text-xl sm:text-5xl font-black opacity-50">
+                    <MdPhotoCamera />{" "}
                 </div>
             </div>
             <div className="col-span-10">
@@ -35,11 +35,11 @@ function ImageUpload(props) {
                         <div className="upload__image-wrapper grid grid-cols-12">
                             <button
                                 style={isDragging ? { color: "red" } : undefined}
-                                className="text-3xl p-4 font-semibold opacity-30 col-span-4 text-left hover:opacity-100"
+                                className="text-base sm:text-3xl p-4 font-semibold opacity-30 col-span-6 sm:col-span-4 text-left hover:opacity-100"
                                 onClick={onImageUpload}
                                 {...dragProps}
                             >
-                                Bild auswählen ...
+                                Bild wählen ...
                             </button>
                             &nbsp;
                             {/* <button onClick={onImageRemoveAll}>Remove all images</button> */}

@@ -263,10 +263,10 @@ const MobileFirst = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div ref={fourthRef} className="third hidden">
+                    <div ref={fourthRef} className="fourth hidden">
                         <div className="font-bold mb-4 text-xl">Ihre Daten</div>
-                        <div className="topLine mb-10 text-base italic ">
-                            Diese Daten werden über Ihre Kugel inkl. der Spendensumme angezeigt
+                        <div className="topLine mb-4 text-base italic ">
+                            Ihr Name wird als auf Ihren Kugel-Daten angezeigt (optional)
                             <br />
                             {/* <span className="text-xs leading-tight">
                                 {" "}
@@ -282,6 +282,50 @@ const MobileFirst = (props) => {
                             dataTip="Ihr Name, wird als Initialen auf der Kugel angezeigt"
                         ></NameKugel>
                         {/* <hr className="mt-6" /> */}
+
+                        <div className="grid grid-cols-2 mt-12 w-full gap-4">
+                            <div className={`w-full `}>
+                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
+                                    disabled={false}
+                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
+                                    onClick={() => {
+                                        console.log("TEST");
+                                        secondRef.current.classList.remove("hidden");
+                                        secondRef.current.classList.add("block");
+                                        thirdRef.current.classList.remove("block");
+                                        thirdRef.current.classList.add("hidden");
+                                    }}
+                                >
+                                    Zurück
+                                </ButtonReal>
+                            </div>
+                            <div className={`w-full bottom-2  ${anon ? "" : "opacity-30"}`}>
+                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
+                                    disabled={anon ? false : true}
+                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
+                                    onClick={() => {
+                                        console.log("TEST");
+                                        fourthRef.current.classList.add("hidden");
+                                        fifthRef.current.classList.remove("hidden");
+                                        fifthRef.current.classList.add("block");
+                                    }}
+                                >
+                                    {userData.fullName ? "Weiter" : "Überspringen"}
+                                </ButtonReal>
+                            </div>
+                        </div>
+                    </div>
+                    <div ref={fifthRef} className="fifth hidden">
+                        <div className="font-bold mb-4 text-xl">Ihre Daten</div>
+                        <div className="topLine mb-4 text-base italic ">
+                            Ihr Bild wird neben Ihrem Namen ang (optional)
+                            <br />
+                            {/* <span className="text-xs leading-tight">
+                                {" "}
+                                Sie können Ihren Namen, ein Bild, die Spendensumme und ein Kommentar hinterlassen, das
+                                für andere sichtbar wird:
+                            </span> */}
+                        </div>
                         <ImageUpload
                             anon={anon}
                             setAnon={setAnon}
@@ -290,7 +334,6 @@ const MobileFirst = (props) => {
                             dataTip="Ihr Avatar Bild (optional)"
                         ></ImageUpload>
                         {/* <hr className="mt-6" /> */}
-                        <Comment onChange={onChange} dataTip="Ihr Kommentar (optional)"></Comment>
 
                         <div className="grid grid-cols-2 mt-12 w-full gap-4">
                             <div className={`w-full `}>
@@ -319,7 +362,7 @@ const MobileFirst = (props) => {
                                         secondRef.current.classList.add("block");
                                     }}
                                 >
-                                    Weiter
+                                    {userData.fullName ? "Weiter" : "Überspringen"}
                                 </ButtonReal>
                             </div>
                         </div>
