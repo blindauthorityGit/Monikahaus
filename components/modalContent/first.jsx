@@ -89,6 +89,7 @@ const FirstModal = (props) => {
     const onChange = (e) => {
         setUserData({ ...userData, [e.target.name]: e.target.value });
         setDonateData({ ...donateData, [e.target.name]: e.target.value });
+        console.log(userData);
     };
 
     useEffect(() => {

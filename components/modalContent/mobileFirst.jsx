@@ -28,6 +28,7 @@ import { Fireworks } from "fireworks-js";
 import MobileSecond from "./mobileSecond";
 import Button from "../utils/buttons";
 import { ButtonReal } from "../utils/buttonReal";
+import AnonChoice from "./anonChoice";
 
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
@@ -55,8 +56,10 @@ const MobileFirst = (props) => {
     const { isWinner, setIsWinner } = useContext(ShowOverlay);
 
     const ballRef = useRef();
+    const anonRef = useRef();
     const firstRef = useRef();
     const secondRef = useRef();
+    const thirdRef = useRef();
 
     const router = useRouter();
 
@@ -137,6 +140,9 @@ const MobileFirst = (props) => {
                                 klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
                                 onClick={() => {
                                     console.log("TEST");
+                                    firstRef.current.classList.add("hidden");
+                                    secondRef.current.classList.remove("hidden");
+                                    secondRef.current.classList.add("block");
                                 }}
                             >
                                 Weiter
@@ -144,8 +150,106 @@ const MobileFirst = (props) => {
                         </div>
                         {/* <hr className="mt-6" /> */}
                     </div>
-                    <div className="second hidden">
+                    <div ref={secondRef} className="second hidden">
+                        <div className="font-bold mb-4 text-xl">Spendensumme</div>
+                        <div className="topLine mb-10 text-base italic">
+                            Wieviel möchten Sie spenden?
+                            <br />
+                            Wählen Sie Ihre Summe:
+                        </div>
                         <MobileSecond onChange={onChange}></MobileSecond> {/* <hr className="mt-6" /> */}
+                        <div className="grid grid-cols-2 bottom-2 absolute w-full gap-4">
+                            <div className={`w-full `}>
+                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
+                                    disabled={false}
+                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
+                                    onClick={() => {
+                                        console.log("TEST");
+                                        firstRef.current.classList.remove("hidden");
+                                        firstRef.current.classList.add("block");
+                                        secondRef.current.classList.remove("block");
+                                        secondRef.current.classList.add("hidden");
+                                    }}
+                                >
+                                    Zurück
+                                </ButtonReal>
+                            </div>
+                            <div className={`w-full bottom-2  ${userData.spende ? "" : "opacity-30"}`}>
+                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
+                                    disabled={userData.spende ? false : true}
+                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
+                                    onClick={() => {
+                                        console.log("TEST");
+                                        secondRef.current.classList.add("hidden");
+                                        thirdRef.current.classList.remove("hidden");
+                                        thirdRef.current.classList.add("block");
+                                    }}
+                                >
+                                    Weiter
+                                </ButtonReal>
+                            </div>
+                        </div>
+                    </div>
+                    <div ref={thirdRef} className="third hidden">
+                        <div className="font-bold mb-4 text-xl">Ihre Daten</div>
+                        <div className="topLine mb-10 text-base italic ">
+                            Möchten Sie anonym bleiben oder Ihre Daten sichtbar machen?
+                            <br />
+                            <span className="text-xs leading-tight">
+                                {" "}
+                                Sie können Ihren Namen, ein Bild, die Spendensumme und ein Kommentar hinterlassen, das
+                                für andere sichtbar wird:
+                            </span>
+                        </div>
+                        <AnonChoice
+                            ref={anonRef}
+                            onClickNonAnon={(e) => {
+                                anonRef.current.children[0].classList.add("bg-black", "text-white");
+                                anonRef.current.children[1].classList.remove("bg-black", "text-white");
+                                setUserData({ ...userData, anon: false });
+                                setAnon(true);
+                                console.log(userData);
+                            }}
+                            onClickAnon={(e) => {
+                                anonRef.current.children[1].classList.add("bg-black", "text-white");
+                                anonRef.current.children[0].classList.remove("bg-black", "text-white");
+                                setUserData({ ...userData, anon: true });
+                                setAnon(true);
+                                console.log(userData);
+                            }}
+                        ></AnonChoice>
+
+                        <div className="grid grid-cols-2 bottom-2 absolute w-full gap-4">
+                            <div className={`w-full `}>
+                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
+                                    disabled={false}
+                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
+                                    onClick={() => {
+                                        console.log("TEST");
+                                        secondRef.current.classList.remove("hidden");
+                                        secondRef.current.classList.add("block");
+                                        thirdRef.current.classList.remove("block");
+                                        thirdRef.current.classList.add("hidden");
+                                    }}
+                                >
+                                    Zurück
+                                </ButtonReal>
+                            </div>
+                            <div className={`w-full bottom-2  ${anon ? "" : "opacity-30"}`}>
+                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
+                                    disabled={anon ? false : true}
+                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
+                                    onClick={() => {
+                                        console.log("TEST");
+                                        secondRef.current.classList.add("hidden");
+                                        secondRef.current.classList.remove("hidden");
+                                        secondRef.current.classList.add("block");
+                                    }}
+                                >
+                                    Weiter
+                                </ButtonReal>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </MainContainer>

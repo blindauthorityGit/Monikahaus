@@ -43,6 +43,11 @@
   animation: pulsate-bck 0.35s ease-in-out both;
 }
 
+.slide-out-left {
+  -webkit-animation: slide-out-left 0.35s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  animation: slide-out-left 0.35s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+
 @-webkit-keyframes bounce-in-fwd {
   0% {
     -webkit-transform: scale(0);
@@ -566,6 +571,32 @@
   100% {
     -webkit-transform: scale(1);
     transform: scale(1);
+  }
+}
+
+@-webkit-keyframes slide-out-left {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(-1000px);
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-out-left {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(-1000px);
+    transform: translateX(-1000px);
+    opacity: 0;
   }
 }
 /*# sourceMappingURL=animations.css.map */
