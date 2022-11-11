@@ -4,6 +4,8 @@ import SuccessTop from "../../assets/successTop.svg";
 import SuccessTopRed from "../../assets/successTopRed.svg";
 import { H1 } from "../utils/headlines";
 import { MdOutlineClose } from "react-icons/md";
+import { isBrowser, isMobile } from "react-device-detect";
+
 const ThankYou = (props) => {
     return (
         <motion.div
@@ -14,7 +16,7 @@ const ThankYou = (props) => {
                 scale: 1,
                 rotate: 0,
             }}
-            animate={{ x: "50%", y: props.closeMe ? 700 : 20.685, scale: 1, rotate: 0 }}
+            animate={{ x: isMobile ? "20px" : "50%", y: props.closeMe ? 700 : 20.685, scale: 1, rotate: 0 }}
             transition={{ duration: "30ms", delay: 1.5, type: "spring" }}
             className={`fixed flex justify-start items-center flex-col h-full max-h-[90%] fade-in w-[90%] lg:w-[32%] min-h-[60%] ${
                 props.isWinner ? "bg-winner" : "bg-success"

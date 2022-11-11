@@ -60,7 +60,7 @@ const Raster = (props) => {
 
     const draggableMarkup = (
         <Draggable
-            klasse="rounded-full"
+            klasse="rounded-full touch-none"
             style={{ width: kugelWidth + "px", height: kugelWidth + "px" }}
             id="draggable"
         ></Draggable>
@@ -119,7 +119,7 @@ const Raster = (props) => {
                     return (
                         <Row
                             key={i + "nene"}
-                            klasse={`h-[${100 / anzahlRows}%] relative`}
+                            klasse={`h-[${100 / anzahlRows}%] relative ${isMobile ? "mb-[0.15rem]" : ""}`}
                             style={{ height: 100 / anzahlRows + "%" }}
                         >
                             {kugelCount.map((e, i) => {
@@ -238,7 +238,7 @@ const Raster = (props) => {
                                     >
                                         {props.parent === counter - 1 ? (
                                             <Draggable
-                                                klasse={`draggable rounded-full flex items-center justify-center ${
+                                                klasse={`draggable touch-none rounded-full flex items-center justify-center ${
                                                     kugelColor.color == "rgb(255, 255, 255)" ||
                                                     kugelColor.color == "rgb(220, 223, 220)"
                                                         ? "text-black border-4"

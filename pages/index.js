@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import MainContainer from "../components/layout/mainContainer";
 import { startInfo } from "../config";
 
-import Raster from "../components/raster";
+// import Raster from "../components/raster";
 import Baum from "../components/baum";
 // import { Boden, BodenMobile } from "../components/bGAssets";
 
@@ -35,6 +35,9 @@ import { testData } from "../dev";
 
 import { isBrowser, isMobile } from "react-device-detect";
 
+const Raster = dynamic(() => import("../components/raster"), {
+    ssr: false,
+});
 const Boden = dynamic(() => import("../components/bGAssets/boden"), {
     ssr: false,
 });
@@ -182,6 +185,17 @@ export default function Home() {
                                                     setShowOverlay(false);
                                                     setShowUnclaimed(false);
                                                     isMobile ? document.exitFullscreen() : null;
+                                                    setUserData({
+                                                        color: "",
+                                                        spende: 0,
+                                                        fullName: "",
+                                                        image: "",
+                                                        comment: "",
+                                                        anon: false,
+                                                        winner: false,
+                                                        email: "",
+                                                        id: null,
+                                                    });
                                                 }}
                                             >
                                                 {isMobile ? (
@@ -275,6 +289,10 @@ export default function Home() {
                                                     ></Raster>
                                                     <Baum ref={baumRef}></Baum>
                                                 </div>{" "}
+                                                {/* STARTTEST MOBILE */}
+                                                <div className="absolute sm:hidden bottom-36 z-40 w-full text-center  left-1/2 transform -translate-x-1/2 text-xl font-bold ">
+                                                    {startInfo.headline}
+                                                </div>
                                                 <MobileButton
                                                     klasse="absolute w-3/4 flex sm:hidden bottom-12 z-30  left-1/2 transform -translate-x-1/2 "
                                                     buttonText={startInfo.buttonText}
