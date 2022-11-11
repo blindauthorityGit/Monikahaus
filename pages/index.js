@@ -60,6 +60,7 @@ export default function Home() {
     const [showList, setShowList] = useState(false);
     const [showThankYou, setShowThankYou] = useState(false);
     const [isWinner, setIsWinner] = useState(false);
+    const [isFullScreen, setIsFullScreen] = useState(false);
     const [kugelColor, setKugelColor] = useState({ color: "", name: "", anon: false, id: 0 });
     const [userData, setUserData] = useState({
         color: "",
@@ -185,6 +186,7 @@ export default function Home() {
                                                     setShowOverlay(false);
                                                     setShowUnclaimed(false);
                                                     isMobile ? document.exitFullscreen() : null;
+                                                    setIsFullScreen(false);
                                                     setUserData({
                                                         color: "",
                                                         spende: 0,
@@ -258,6 +260,8 @@ export default function Home() {
                                                 setTreeAnimationFinish,
                                                 baumDimensions,
                                                 setBaumDimensions,
+                                                isFullScreen,
+                                                setIsFullScreen,
                                             }}
                                         >
                                             <MainContainer
@@ -301,6 +305,7 @@ export default function Home() {
                                                         setShowUnclaimed(true);
 
                                                         isMobile ? document.body.requestFullscreen() : null;
+                                                        isMobile ? setIsFullScreen(true) : null;
                                                     }}
                                                 ></MobileButton>
                                             </MainContainer>

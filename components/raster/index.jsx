@@ -35,6 +35,7 @@ const Raster = (props) => {
 
     const { treeAnimationFinish, setTreeAnimationFinish } = useContext(TreeAnimationFinish);
     const { baumDimensions, setBaumDimensions } = useContext(TreeAnimationFinish);
+    const { isFullScreen, setIsFullScreen } = useContext(TreeAnimationFinish);
     const { showUnclaimed, setShowUnclaimed } = useContext(ShowUnclaimed);
     const { kugelColor, setKugelColor } = useContext(KugelColor);
     const { userList, setUserList } = useContext(UserList);
@@ -99,7 +100,11 @@ const Raster = (props) => {
         <div
             ref={allRef}
             className="flex pl-2 sm:pl-0 sm:left-0 sm:pt-0 sm:items-center h-full"
-            style={isMobile ? { paddingTop: baumDimensions.top + "px" } : null}
+            style={
+                isMobile
+                    ? { paddingTop: isFullScreen ? baumDimensions.top + 10 + "px" : baumDimensions.top + "px" }
+                    : null
+            }
         >
             <div
                 id="raster"
