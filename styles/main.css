@@ -3,6 +3,14 @@ html, body, #__next {
   height: 100%;
 }
 
+::-webkit-backdrop {
+  background-color: white;
+}
+
+::backdrop {
+  background-color: white;
+}
+
 #Pfad_230 {
   background: red;
 }

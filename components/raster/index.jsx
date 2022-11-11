@@ -131,7 +131,9 @@ const Raster = (props) => {
                                         key={i + "kugel"}
                                         size={`w-[5%] h-[100%] ${
                                             showUnclaimed ? "opacity-30 scale-in-center" : "opacity-0"
-                                        } ${claimed ? "shadow-md" : "border-4 border-white border-dotted"} `}
+                                        } ${
+                                            claimed ? "shadow-md" : "border-2 sm:border-4 border-white border-dotted"
+                                        } `}
                                         onAnimationEnd={(e) => {
                                             e.target.classList.remove("scale-in-center");
                                         }}
