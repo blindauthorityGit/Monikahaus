@@ -32,36 +32,38 @@ function ImageUpload(props) {
                         dragProps,
                     }) => (
                         // write your building UI
-                        <div className="upload__image-wrapper grid grid-cols-12">
+
+                        <div className={`upload__image-wrapper  grid grid-cols-12`}>
                             <button
                                 style={isDragging ? { color: "red" } : undefined}
-                                className="text-base sm:text-3xl p-4 font-semibold opacity-30 col-span-6 sm:col-span-4 text-left hover:opacity-100"
+                                className={`${
+                                    images.length == 0 ? "" : "hidden"
+                                }  text-base sm:text-3xl p-4 font-semibold opacity-30 col-span-6 sm:col-span-4 text-left hover:opacity-100`}
                                 onClick={onImageUpload}
                                 {...dragProps}
                             >
                                 Bild wählen ...
                             </button>
-                            &nbsp;
                             {/* <button onClick={onImageRemoveAll}>Remove all images</button> */}
                             {imageList.map((image, index) => (
-                                <div key={index} className="image-item col-span-7 p-4 flex ">
+                                <div key={index} className="image-item col-span-12 sm:col-span-7 p-4 flex ">
                                     <div
                                         className="rounded-full h-20 w-20 bg-cover"
                                         height="80px"
                                         style={{ backgroundImage: `url(${image["data_url"]})` }}
                                         // src={image["data_url"]}
                                         alt=""
-                                        width="100"
+                                        width="80px"
                                     />
-                                    <div className="image-item__btn-wrapper ml-4">
+                                    <div className="image-item__btn-wrapper w-2/4 sm:w-full ml-4">
                                         <button
-                                            className="font-bold px-6 py-2 hover:bg-gray-200 bg-gray-100 rounded-xl"
+                                            className="font-bold px-6 py-2 hover:bg-gray-200 bg-gray-100 text-xs rounded-xl"
                                             onClick={() => onImageUpdate(index)}
                                         >
                                             Update
                                         </button>
                                         <button
-                                            className="font-bold mt-4 hover:bg-gray-200 px-6 py-2 bg-gray-100 rounded-xl"
+                                            className="font-bold mt-4 hover:bg-gray-200 px-6 py-2 bg-gray-100 text-xs rounded-xl"
                                             onClick={() => onImageRemove(index)}
                                         >
                                             Löschen
