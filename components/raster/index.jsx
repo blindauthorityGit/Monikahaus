@@ -100,7 +100,7 @@ const Raster = (props) => {
             className="flex pl-2 sm:pl-0 sm:left-0 sm:pt-0 sm:items-center h-full"
             style={
                 isMobile
-                    ? { paddingTop: isFullScreen ? baumDimensions.top + 10 + "px" : baumDimensions.top + "px" }
+                    ? { paddingTop: isFullScreen ? baumDimensions.top + 20 + "px" : baumDimensions.top + "px" }
                     : null
             }
         >
