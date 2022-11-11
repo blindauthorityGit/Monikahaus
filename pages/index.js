@@ -128,6 +128,7 @@ export default function Home() {
         !isMobile ? (baumRef.current.children[0].style.left = "-20px") : null;
 
         console.log(baumRef.current.children[0].clientHeight);
+        window.scrollTo(0, 1);
 
         // setRasterDimensions({
         //     width: baumRef.current.children[0].clientWidth + "px",
