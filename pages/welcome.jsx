@@ -10,6 +10,7 @@ import Welcome from "../assets/welcome.jpg";
 import OnBoardTree from "../assets/onBoardTree.svg";
 
 import MobileButton from "../components/layout/mobileButton";
+import Link from "next/link";
 
 // Import Swiper styles
 import "swiper/css";
@@ -87,11 +88,15 @@ export default function Home() {
 
                                         <p className="italic">Ihre Zahnärztin Dr. Katrin John & Team</p>
                                     </div>{" "}
-                                    <MobileButton
-                                        klasse=" w-full flex sm:hidden mt-6 mb-10 "
-                                        buttonText="Los gehts"
-                                        onClick={() => {}}
-                                    ></MobileButton>
+                                    <Link href="/donate">
+                                        <a>
+                                            <MobileButton
+                                                klasse=" w-full flex sm:hidden mt-6 mb-10 "
+                                                buttonText="Los gehts"
+                                                onClick={() => {}}
+                                            ></MobileButton>
+                                        </a>
+                                    </Link>
                                 </div>
                             </>
                         </SwiperSlide>
@@ -125,11 +130,15 @@ export default function Home() {
                                         unserem Baum!
                                     </p>
                                 </div>
-                                <MobileButton
-                                    klasse=" w-full flex sm:hidden mt-10 mb-10 "
-                                    buttonText="Los gehts"
-                                    onClick={() => {}}
-                                ></MobileButton>
+                                <Link href="/donate">
+                                    <a>
+                                        <MobileButton
+                                            klasse=" w-full flex sm:hidden mt-10 mb-10 "
+                                            buttonText="Los gehts"
+                                            onClick={() => {}}
+                                        ></MobileButton>
+                                    </a>
+                                </Link>
                             </div>
                         </SwiperSlide>
                     </div>
