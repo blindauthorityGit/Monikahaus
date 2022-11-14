@@ -7,6 +7,7 @@ import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import Welcome from "../assets/welcome.jpg";
+import OnBoardTree from "../assets/onBoardTree.svg";
 
 import MobileButton from "../components/layout/mobileButton";
 
@@ -31,24 +32,27 @@ export default function Home() {
             <Head>
                 <title>Site title</title>
             </Head>
-            <MainContainer noGap>
-                <div className="col-span-12 relative p-10">
-                    <Swiper
-                        // install Swiper modules
-                        modules={[Navigation, Pagination, Scrollbar, A11y]}
-                        spaceBetween={50}
-                        slidesPerView={1}
-                        navigation
-                        pagination={{ clickable: true }}
-                        scrollbar={{ draggable: true }}
-                        onSwiper={(swiper) => console.log(swiper)}
-                        onSlideChange={() => console.log("slide change")}
-                    >
-                        <SwiperSlide>
+
+            <Swiper
+                // install Swiper modules
+                modules={[Pagination, Scrollbar, A11y]}
+                spaceBetween={50}
+                slidesPerView={1}
+                pagination={{ clickable: true }}
+                scrollbar={{ draggable: true }}
+                onSwiper={(swiper) => console.log(swiper)}
+                onSlideChange={() => {
+                    window.scrollTo(0, 1);
+                }}
+                className="pb-6 "
+            >
+                <MainContainer>
+                    <div className="col-span-12 relative">
+                        <SwiperSlide className="p-10">
                             <>
                                 <div className="pb-8">
                                     <h1 className="text-2xl font-bold mb-8">
-                                        Ein Herz für Dreieicher Tiere. Bitte helfen Sie mit !
+                                        Ein Herz für Dreieicher Tiere. Bitte helfen Sie mit!
                                     </h1>
                                     <div className="text text-sm">
                                         <p>
@@ -91,11 +95,46 @@ export default function Home() {
                                 </div>
                             </>
                         </SwiperSlide>
-                        <SwiperSlide></SwiperSlide>
-                        <SwiperSlide></SwiperSlide>
-                    </Swiper>
-                </div>
-            </MainContainer>
+                        <SwiperSlide className="onboardOne h-full w-screen p-10">
+                            <div className="pb-8">
+                                <h1 className="text-2xl font-bold mb-8">Wie funktioniert der Spendenbaum?</h1>
+                                <div className="tree w-3/4">
+                                    <img src={OnBoardTree.src} alt="" />
+                                </div>
+                                <div className="text">
+                                    <p className="font-bold mt-6">Das Prinzip ist denkbar simpel!</p>
+                                    <p>
+                                        Schmücken Sie unseren Baum mit Ihrer großzügigen Spende und unterstützen Sie
+                                        damit das Tierheim Dreieich!
+                                    </p>
+                                    <p>
+                                        Klicken Sie auf den <strong>"Jetzt spenden"</strong> Button, gestalten Sie Ihre
+                                        Kugel und platzieren Sie schlussendlich die Kugel auf einem freien Platz am
+                                        Baum.
+                                    </p>
+                                    <p>Danach bleibt Ihre Kugel für alle sichtbar auf dem Baum!</p>
+                                    <p>
+                                        Sie können mit <strong> Ihrem Namen</strong> aufscheinen oder auch
+                                        <strong> anonym</strong> spenden.
+                                    </p>
+                                    <p className="font-bold mt-6">Ihre Spende lässt unseren Baum erstrahlen!</p>
+                                    <p>
+                                        Unsere Aktion läuft bis Weihnachten, danach wird die Spendensumme den Tierheim
+                                        Dreieich übergeben.
+                                        <br /> Ihre Spende bleibt danach auch noch weiterhin für alle sichtbar auf
+                                        unserem Baum!
+                                    </p>
+                                </div>
+                                <MobileButton
+                                    klasse=" w-full flex sm:hidden mt-10 mb-10 "
+                                    buttonText="Los gehts"
+                                    onClick={() => {}}
+                                ></MobileButton>
+                            </div>
+                        </SwiperSlide>
+                    </div>
+                </MainContainer>
+            </Swiper>
         </>
     );
 }
