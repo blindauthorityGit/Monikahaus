@@ -23,15 +23,15 @@ import { colors } from "../../config";
 import { testData } from "../../dev";
 
 import axios from "axios";
-import { Fireworks } from "fireworks-js";
 
 import MobileSecond from "./mobileSecond";
-import Button from "../utils/buttons";
 import { ButtonReal } from "../utils/buttonReal";
 import AnonChoice from "./anonChoice";
 
 import { db } from "../../pages/index";
 import { doc, setDoc } from "firebase/firestore/lite";
+
+import { TfiHandPointLeft } from "react-icons/tfi";
 
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
@@ -447,22 +447,28 @@ const MobileFirst = (props) => {
                     <div ref={seventhRef} className="seventh hidden">
                         <div className="font-bold mb-4 text-xl">Ihre Kugel</div>
                         <div className="topLine mb-4 text-base italic ">
-                            Ziehen Sie Ihre Kugel auf ein freies Feld Ihrer Wahl oben auf den Baum!
+                            Ziehen Sie Ihre Kugel auf ein freies Feld!
                             <br />
                         </div>
                         <div
                             className={`${
                                 userData.color && userData.spende ? "scale-in-center" : "hidden"
-                            }  bg-white h-36 w-36  rounded-full shadow-xl  flex items-center justify-center`}
+                            }    flex items-center  w-full`}
                         >
-                            <div className="absolute top-8">DRAG ME</div>
+                            <div
+                                className={`w-[45%] ${
+                                    userData.id ? "hidden" : ""
+                                } text-right pr-5 font-bold text-primaryColor`}
+                            >
+                                Rauf ziehen
+                            </div>
                             <Draggable
                                 id="draggable"
                                 value="bubu"
                                 style={{ width: size + "px", height: size + "px", background: kugelColor.color }}
                                 klasse={`${props.isDropped ? "hidden" : "block"} ${
                                     props.isDragging ? "opacity-30" : ""
-                                } rounded-full flex items-center justify-center touch-none pulsate-bck ${
+                                } rounded-full flex items-center justify-center touch-none heartbeat w-2/4  ${
                                     kugelColor.color == "rgb(255, 255, 255)" || kugelColor.color == "rgb(220, 223, 220)"
                                         ? "text-black border-4"
                                         : "text-white"
@@ -474,7 +480,13 @@ const MobileFirst = (props) => {
                                           .split(" ")
                                           .map((n) => n[0])
                                           .join(".")} */}
-                            </Draggable>{" "}
+                            </Draggable>
+                            <div className={`${userData.id ? "hidden" : ""} righ pl-5`}>
+                                <TfiHandPointLeft></TfiHandPointLeft>
+                            </div>
+                            {userData.id ? (
+                                <div className="super font-bold text-center w-full text-[#32cd32]">Super!</div>
+                            ) : null}
                         </div>
                         <div className="grid grid-cols-2 mt-10 w-full gap-4">
                             <div className={`w-full `}>
