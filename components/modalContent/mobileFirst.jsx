@@ -199,7 +199,7 @@ const MobileFirst = (props) => {
                             wrapperKlasse="items-center"
                             isMobile={true}
                         ></ColorChoice>
-                        <div className={`w-full mt-12 ${userData.color ? "" : "opacity-30"}`}>
+                        <div className={`w-full mt-10 ${userData.color ? "" : "opacity-30"}`}>
                             <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
                                 disabled={userData.color ? false : true}
                                 klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
@@ -214,13 +214,13 @@ const MobileFirst = (props) => {
                     </div>
                     <div ref={secondRef} className="second hidden">
                         <div className="font-bold mb-4 text-xl">Spendensumme</div>
-                        <div className="topLine mb-8 text-base italic">
+                        <div className="topLine mb-6 text-base italic">
                             Wieviel möchten Sie spenden?
                             <br />
                             Wählen Sie Ihre Summe:
                         </div>
                         <MobileSecond onChange={onChange}></MobileSecond> {/* <hr className="mt-6" /> */}
-                        <div className="grid grid-cols-2 mt-12 w-full gap-4">
+                        <div className="grid grid-cols-2 mt-10 w-full gap-4">
                             <div className={`w-full `}>
                                 <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
                                     disabled={false}
@@ -254,7 +254,7 @@ const MobileFirst = (props) => {
 
                     <div ref={thirdRef} className="third hidden">
                         <div className="font-bold mb-4 text-xl">Ihre Daten</div>
-                        <div className="topLine mb-10 text-base italic ">
+                        <div className="topLine mb-6 text-base italic ">
                             Möchten Sie anonym bleiben oder Ihre Daten sichtbar machen?
                             <br />
                             {/* <span className="text-xs leading-tight">
@@ -286,7 +286,7 @@ const MobileFirst = (props) => {
                             }}
                         ></AnonChoice>
 
-                        <div className="grid grid-cols-2 mt-12 w-full gap-4">
+                        <div className="grid grid-cols-2 mt-10 w-full gap-4">
                             <div className={`w-full `}>
                                 <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
                                     disabled={false}
@@ -339,7 +339,7 @@ const MobileFirst = (props) => {
                         ></NameKugel>
                         {/* <hr className="mt-6" /> */}
 
-                        <div className="grid grid-cols-2 mt-12 w-full gap-4">
+                        <div className="grid grid-cols-2 mt-10 w-full gap-4">
                             <div className={`w-full `}>
                                 <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
                                     disabled={false}
@@ -381,7 +381,7 @@ const MobileFirst = (props) => {
                             dataTip="Ihr Avatar Bild (optional)"
                         ></ImageUpload>
 
-                        <div className="grid grid-cols-2 mt-12 w-full gap-4">
+                        <div className="grid grid-cols-2 mt-10 w-full gap-4">
                             <div className={`w-full `}>
                                 <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
                                     disabled={false}
@@ -417,7 +417,7 @@ const MobileFirst = (props) => {
                         </div>
                         <Comment onChange={onChange} dataTip="Ihr Kommentar (optional)"></Comment>
 
-                        <div className="grid grid-cols-2 mt-12 w-full gap-4">
+                        <div className="grid grid-cols-2 mt-10 w-full gap-4">
                             <div className={`w-full `}>
                                 <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
                                     disabled={false}
@@ -476,7 +476,7 @@ const MobileFirst = (props) => {
                                           .join(".")} */}
                             </Draggable>{" "}
                         </div>
-                        <div className="grid grid-cols-2 mt-12 w-full gap-4">
+                        <div className="grid grid-cols-2 mt-10 w-full gap-4">
                             <div className={`w-full `}>
                                 <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
                                     disabled={false}
@@ -562,7 +562,7 @@ const MobileFirst = (props) => {
                             }}
                         />
 
-                        <div className="grid grid-cols-2 mt-12 w-full gap-4">
+                        <div className="grid grid-cols-2 mt-10 w-full gap-4">
                             <div className={`w-full `}>
                                 <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
                                     disabled={false}
