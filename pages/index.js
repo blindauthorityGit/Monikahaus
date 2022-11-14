@@ -39,7 +39,7 @@ export default function Index() {
                 modules={[Pagination, Scrollbar, A11y]}
                 spaceBetween={50}
                 slidesPerView={1}
-                pagination={{ clickable: true }}
+                pagination={{ clickable: true, type: "fraction" }}
                 scrollbar={{ draggable: true }}
                 onSwiper={(swiper) => console.log(swiper)}
                 onSlideChange={() => {
@@ -55,6 +55,7 @@ export default function Index() {
                                     <h1 className="text-2xl font-bold mb-8">
                                         Ein Herz für Dreieicher Tiere. Bitte helfen Sie mit!
                                     </h1>
+                                    <img className="mb-4" src={Welcome.src} alt="Welcome" />
                                     <div className="text text-sm">
                                         <p>
                                             Tierheime leisten großartige Arbeit! Sie sorgen dafür, dass jedes Tier
@@ -84,7 +85,6 @@ export default function Index() {
                                         </p>
 
                                         <p>Vielen Dank im Voraus!</p>
-                                        <img className="mb-4" src={Welcome.src} alt="Welcome" />
 
                                         <p className="italic">Ihre Zahnärztin Dr. Katrin John und Team</p>
                                     </div>{" "}
@@ -141,7 +141,9 @@ export default function Index() {
                                 </Link>
                             </div>
                         </SwiperSlide>
-                    </div>
+                    </div>{" "}
+                    <div className="swiper-pagination pagination-top"></div>
+                    <div className="swiper-pagination pagination-bottom"></div>
                 </MainContainer>
             </Swiper>
         </>
