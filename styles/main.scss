@@ -27,6 +27,13 @@ html, body, #__next {
     z-index: 999;
 }
 
+.text {
+    p {
+           margin-bottom: 0.75rem;
+ 
+    }
+}
+
 .tooltip::before {
     content: "■";
     position: absolute;
