@@ -180,7 +180,7 @@ export default function Home() {
 
         !isMobile ? (baumRef.current.children[0].style.left = "-20px") : null;
 
-        window.scrollTo(0, 1);
+        window.scrollTo(0, 0);
         console.log(app);
 
         // setRasterDimensions({
@@ -299,7 +299,7 @@ export default function Home() {
                                             onClick={() => {
                                                 setShowList(true);
                                             }}
-                                            className="btn mb-2 rounded-l-lg sm:rounded-r-lg  z-50 p-3 sm:p-10 bg-black sm:bg-[#7d866f]  sm:flex justify-center items-center text-3xl text-white"
+                                            className="btn mb-2 rounded-l-lg sm:rounded-r-lg  z-50 p-3 sm:p-10 bg-black sm:bg-[#7d866f]  sm:flex justify-center items-center text-2xl text-white"
                                         >
                                             <MdPeople></MdPeople>
                                         </div>{" "}
@@ -307,7 +307,7 @@ export default function Home() {
                                             onClick={() => {
                                                 setShowInfo(true);
                                             }}
-                                            className="btn rounded-l-lg sm:rounded-r-lg    p-3 sm:p-10 bg-black sm:bg-[#7d866f]  sm:flex justify-center items-center text-3xl text-white"
+                                            className="btn rounded-l-lg sm:rounded-r-lg    p-3 sm:p-10 bg-black sm:bg-[#7d866f]  sm:flex justify-center items-center text-2xl text-white"
                                         >
                                             <MdInfoOutline></MdInfoOutline>
                                         </div>

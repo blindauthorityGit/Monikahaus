@@ -241,7 +241,7 @@ const Raster = (props) => {
                                     >
                                         {props.parent === counter - 1 ? (
                                             <Draggable
-                                                klasse={`draggable touch-none rounded-full flex items-center justify-center ${
+                                                klasse={`draggable touch-none rounded-full indent-[9999px] sm:indent-0 flex items-center justify-center ${
                                                     kugelColor.color == "rgb(255, 255, 255)" ||
                                                     kugelColor.color == "rgb(220, 223, 220)"
                                                         ? "text-black border-4"
