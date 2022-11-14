@@ -420,7 +420,7 @@ export default function Home() {
                                                 {baumDimensions.height > 300 && (
                                                     <div
                                                         // style={{ top: baumDimensions.height + 120 + "px" }}
-                                                        className={`sm:hidden z-30 absolute bottom-36 w-2/3 left-1/2 transform -translate-x-1/2`}
+                                                        className={`sm:hidden z-30 absolute top-64 w-2/3 left-1/2 transform -translate-x-1/2`}
                                                     >
                                                         <Goal data={userList} klasse=""></Goal>
                                                     </div>
