@@ -63,7 +63,7 @@ const SVG = (props, ref) => {
                             scale: 0.75,
                             rotate: 0,
                         }}
-                        animate={{ x: 3806.77, y: props.closeMe ? 600 : 65.955, scale: 1, rotate: 0 }}
+                        animate={{ x: 3806.77, y: props.closeMe ? 600 : 65.955, scale: 1.02, rotate: 0 }}
                         transition={{ duration: props.duration, delay: 0.35, type: "spring" }}
                     />
                     <motion.path
