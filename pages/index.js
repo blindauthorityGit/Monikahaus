@@ -113,7 +113,7 @@ export default function Index() {
                                         damit das Tierheim Dreieich!
                                     </p>
                                     <p>
-                                        Klicken Sie auf den <strong>"Jetzt spenden"</strong> Button, gestalten Sie Ihre
+                                        Klicken Sie auf den <strong>Jetzt spenden</strong> Button, gestalten Sie Ihre
                                         Kugel und platzieren Sie schlussendlich die Kugel auf einem freien Platz am
                                         Baum.
                                     </p>
