@@ -25,6 +25,7 @@ import { testData } from "../../dev";
 import axios from "axios";
 
 import MobileSecond from "./mobileSecond";
+import ChooseSpace from "./chooseSpace";
 import { ButtonReal } from "../utils/buttonReal";
 import AnonChoice from "./anonChoice";
 
@@ -34,6 +35,7 @@ import { doc, setDoc } from "firebase/firestore/lite";
 import { TfiHandPointLeft } from "react-icons/tfi";
 
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { contains } from "@firebase/util";
 
 const MobileFirst = (props) => {
     const { treeAnimationFinish, setTreeAnimationFinish } = useContext(TreeAnimationFinish);
@@ -43,6 +45,7 @@ const MobileFirst = (props) => {
     const [value, setValue] = useState(10);
     const [name, setName] = useState("");
     const [anon, setAnon] = useState(false);
+    const [isChoice, setIsChoice] = useState(false);
 
     //BUTTON STUFF
     const [firstBtn, setFirstBtn] = useState(true);
@@ -71,6 +74,8 @@ const MobileFirst = (props) => {
 
     const router = useRouter();
 
+    useEffect(() => {}, [seventhRef.current]);
+
     const [donateData, setDonateData] = useState({
         color: "",
         spende: 0,
@@ -88,12 +93,6 @@ const MobileFirst = (props) => {
         forwardFef.current.classList.remove("hidden");
         forwardFef.current.classList.add("block");
     }
-
-    const redirectToCheckout = async () => {
-        const {
-            data: { id },
-        } = await axios.post("/api/checkout_sessions");
-    };
 
     const objectMapper = (object1) => {
         for (const [key, value] of Object.entries(object1)) {
@@ -136,6 +135,21 @@ const MobileFirst = (props) => {
         setSize(36);
         // setSize(arr[0].clientHeight);
     }, [treeAnimationFinish]);
+
+    useEffect(() => {
+        let arr = Array.from(document.querySelectorAll(".kugel")).filter((e) => !e.classList.contains("claimedKugel"));
+        isChoice
+            ? arr.map((e, i) => {
+                  let random = Math.random() * 1500;
+                  setTimeout(() => {
+                      e.classList.add("blinky");
+                  }, 300);
+                  e.onanimationend = () => {
+                      e.classList.remove("blinky");
+                  };
+              })
+            : "";
+    }, [isChoice]);
 
     const initialOptions = {
         "client-id": "AaX0OXb-afYDG23QpVOmNi6cPevWn_cTCyD_mmbcH87wYqbGmxlCZLdUTUbJ0WM4PAZEdT7tODT-z5m0",
@@ -305,6 +319,7 @@ const MobileFirst = (props) => {
                                     onClick={() => {
                                         if (userData.anon) {
                                             BtnDirectorFw(thirdRef, seventhRef);
+                                            setIsChoice(true);
                                             unclaimedHighlight();
                                         } else {
                                             BtnDirectorFw(thirdRef, fourthRef);
@@ -435,6 +450,7 @@ const MobileFirst = (props) => {
                                     klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
                                     onClick={() => {
                                         BtnDirectorFw(sixthRef, seventhRef);
+                                        setIsChoice(true);
                                     }}
                                 >
                                     {userData.image ? "Weiter" : "Überspringen"}
@@ -444,78 +460,18 @@ const MobileFirst = (props) => {
                     </div>
                     {/* KUGEL */}
 
-                    <div ref={seventhRef} className="seventh hidden">
-                        <div className="font-bold mb-4 text-xl">Ihre Kugel</div>
-                        <div className="topLine mb-4 text-base italic ">
-                            Ziehen Sie Ihre Kugel auf ein freies Feld!
-                            <br />
-                        </div>
-                        <div
-                            className={`${
-                                userData.color && userData.spende ? "scale-in-center" : "hidden"
-                            }    flex items-center  w-full`}
-                        >
-                            <div
-                                className={`w-[45%] ${
-                                    userData.id ? "hidden" : ""
-                                } text-right pr-5 font-bold text-primaryColor`}
-                            >
-                                Rauf ziehen
-                            </div>
-                            <Draggable
-                                id="draggable"
-                                value="bubu"
-                                style={{ width: size + "px", height: size + "px", background: kugelColor.color }}
-                                klasse={`${props.isDropped ? "hidden" : "block"} ${
-                                    props.isDragging ? "opacity-30" : ""
-                                } rounded-full flex items-center justify-center touch-none heartbeat w-2/4  ${
-                                    kugelColor.color == "rgb(255, 255, 255)" || kugelColor.color == "rgb(220, 223, 220)"
-                                        ? "text-black border-4"
-                                        : "text-white"
-                                }`}
-                            >
-                                {/* {anon
-                                    ? "Anon"
-                                    : name
-                                          .split(" ")
-                                          .map((n) => n[0])
-                                          .join(".")} */}
-                            </Draggable>
-                            <div className={`${userData.id ? "hidden" : ""} righ pl-5`}>
-                                <TfiHandPointLeft></TfiHandPointLeft>
-                            </div>
-                            {userData.id ? (
-                                <div className="super font-bold text-center w-full text-[#32cd32]">Super!</div>
-                            ) : null}
-                        </div>
-                        <div className="grid grid-cols-2 mt-10 w-full gap-4">
-                            <div className={`w-full `}>
-                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
-                                    disabled={false}
-                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
-                                    onClick={() => {
-                                        BtnDirector(sixthRef, seventhRef);
-                                    }}
-                                >
-                                    Zurück
-                                </ButtonReal>
-                            </div>
-                            <div className={`w-full bottom-2  ${userData.id ? "" : "opacity-30"}`}>
-                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
-                                    disabled={anon ? false : true}
-                                    klasse={`${
-                                        userData.id ? "bg-[#32cd32]" : "bg-black"
-                                    }  py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
-                                    onClick={() => {
-                                        BtnDirectorFw(seventhRef, eightRef);
-                                        objectMapper(userData);
-                                    }}
-                                >
-                                    Bezahlen
-                                </ButtonReal>
-                            </div>
-                        </div>
-                    </div>
+                    <ChooseSpace
+                        size={size}
+                        anon={anon}
+                        kugelColor={kugelColor}
+                        userData={userData}
+                        sixthRef={sixthRef}
+                        seventhRef={seventhRef}
+                        eightRef={eightRef}
+                        objectMapper={objectMapper}
+                        isDropped={props.isDropped}
+                        isDragging={props.isDragging}
+                    ></ChooseSpace>
 
                     {/* PAYPAL */}
 
