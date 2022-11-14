@@ -505,7 +505,7 @@ const MobileFirst = (props) => {
                                     disabled={anon ? false : true}
                                     klasse={`${
                                         userData.id ? "bg-[#32cd32]" : "bg-black"
-                                    } hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
+                                    }  py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
                                     onClick={() => {
                                         BtnDirectorFw(seventhRef, eightRef);
                                         objectMapper(userData);

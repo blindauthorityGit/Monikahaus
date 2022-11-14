@@ -294,7 +294,7 @@ export default function Home() {
                                             <Overlay></Overlay>
                                         </>
                                     )}
-                                    <div className="btnWrapper absolute top-[22%] sm:top-0 right-0 sm:right-auto z-50">
+                                    <div className="btnWrapper absolute top-[22%] sm:top-0 right-0 sm:right-auto z-30">
                                         <div
                                             onClick={() => {
                                                 setShowList(true);
