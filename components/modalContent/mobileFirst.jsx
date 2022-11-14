@@ -28,6 +28,7 @@ import MobileSecond from "./mobileSecond";
 import ChooseSpace from "./chooseSpace";
 import { ButtonReal } from "../utils/buttonReal";
 import AnonChoice from "./anonChoice";
+import { BtnDirector, BtnDirectorFw } from "../../functions/btnDirector";
 
 import { db } from "../../pages/index";
 import { doc, setDoc } from "firebase/firestore/lite";
@@ -81,18 +82,6 @@ const MobileFirst = (props) => {
         spende: 0,
         fullName: "",
     });
-
-    function BtnDirector(backRef, forwardFef) {
-        backRef.current.classList.remove("hidden");
-        backRef.current.classList.add("block");
-        forwardFef.current.classList.remove("block");
-        forwardFef.current.classList.add("hidden");
-    }
-    function BtnDirectorFw(backRef, forwardFef) {
-        backRef.current.classList.add("hidden");
-        forwardFef.current.classList.remove("hidden");
-        forwardFef.current.classList.add("block");
-    }
 
     const objectMapper = (object1) => {
         for (const [key, value] of Object.entries(object1)) {
@@ -566,5 +555,4 @@ const MobileFirst = (props) => {
         </PayPalScriptProvider>
     );
 };
-
 export default MobileFirst;

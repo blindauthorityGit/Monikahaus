@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { TfiHandPointLeft } from "react-icons/tfi";
 import Draggable from "../dragNDrop/draggable";
 import { ButtonReal } from "../utils/buttonReal";
+import { BtnDirector, BtnDirectorFw } from "../../functions/btnDirector";
 
 function ChooseSpace(props) {
     return (

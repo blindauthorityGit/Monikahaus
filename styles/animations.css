@@ -49,8 +49,8 @@
 }
 
 .blinky {
-  animation: blink 2s ease 0s 1 normal forwards;
-  -webkit-animation: blink 2s ease 0s 1 normal forwards;
+  animation: blink 4s ease 0s 1 normal forwards;
+  -webkit-animation: blink 4s ease 0s 1 normal forwards;
 }
 
 @-webkit-keyframes bounce-in-fwd {
