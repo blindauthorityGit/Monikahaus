@@ -63,7 +63,6 @@ const Goal = (props) => {
                                 {showCounter && <>EUR {sum},-</>}
                                 {/* EUR {sum},- */}
                             </div>
-                            ;
                         </motion.div>
                         <div className="wrapper relative flex">
                             {/* <div className="now pl-48 pt-4">EUR {sum},-</div> */}

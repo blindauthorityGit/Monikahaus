@@ -82,7 +82,7 @@ const TierheimContent = dynamic(() => import("../components/modalContent/tierhei
 //     ssr: false,
 // });
 export { db };
-export default function Home() {
+export default function Home({ spenderList }) {
     const [opacity, setOpacity] = useState(1);
     const [rasterDimensions, setRasterDimensions] = useState({});
 
@@ -110,7 +110,7 @@ export default function Home() {
         email: "",
         id: null,
     });
-    const [userList, setUserList] = useState(dev ? testData : []);
+    const [userList, setUserList] = useState(dev ? testData : spenderList);
 
     const baumRef = useRef();
 
@@ -166,16 +166,16 @@ export default function Home() {
 
     useEffect(() => {
         // setUserList(testData);
-
-        async function getData(db) {
-            const spenderCol = collection(db, "spender");
-            const spenderSnapshot = await getDocs(spenderCol);
-            const spenderList = spenderSnapshot.docs.map((doc) => doc.data());
-            console.log(spenderList);
-            return spenderList;
-        }
-        dev ? setUserList(testData) : setUserList(getData(db));
-        console.log(getData(db));
+        console.log(spenderList);
+        // async function getData(db) {
+        //     const spenderCol = collection(db, "spender");
+        //     const spenderSnapshot = await getDocs(spenderCol);
+        //     const spenderList = spenderSnapshot.docs.map((doc) => doc.data());
+        //     console.log(spenderList);
+        //     return spenderList;
+        // }
+        // dev ? setUserList(testData) : setUserList(getData(db));
+        // console.log(getData(db));
         // process.env.NEXT_DEV ? setUserList(testData) : setUserList(getData(db));
 
         !isMobile ? (baumRef.current.children[0].style.left = "-20px") : null;
@@ -412,7 +412,7 @@ export default function Home() {
                                                         width={rasterDimensions.width}
                                                         height={rasterDimensions.height}
                                                         parent={parent}
-                                                        data={data}
+                                                        data={userList}
                                                     ></Raster>
                                                     <Baum ref={baumRef}></Baum>
                                                 </div>{" "}
@@ -455,4 +455,17 @@ export default function Home() {
             </TreeAway.Provider>
         </>
     );
+}
+
+export async function getStaticProps() {
+    const spenderCol = collection(db, "spender");
+    const spenderSnapshot = await getDocs(spenderCol);
+    const spenderList = spenderSnapshot.docs.map((doc) => doc.data());
+
+    return {
+        props: {
+            spenderList,
+        },
+        revalidate: 1, // 10 seconds
+    };
 }

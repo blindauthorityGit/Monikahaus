@@ -110,6 +110,7 @@ const MobileFirst = (props) => {
         setChecked(e.currentTarget.dataset.id);
         setUserData({ ...userData, [e.currentTarget.id]: e.currentTarget.style.backgroundColor });
         setDonateData({ ...donateData, [e.currentTarget.id]: e.currentTarget.style.backgroundColor });
+        console.log(userData);
 
         setColor(e.currentTarget.style.backgroundColor);
         setKugelColor({ ...kugelColor, color: e.currentTarget.style.backgroundColor });
@@ -117,6 +118,7 @@ const MobileFirst = (props) => {
     const onChange = (e) => {
         setUserData({ ...userData, [e.target.name]: e.target.value });
         setDonateData({ ...donateData, [e.target.name]: e.target.value });
+        console.log(userData);
     };
 
     useEffect(() => {
@@ -275,7 +277,8 @@ const MobileFirst = (props) => {
                                 anonRef.current.children[1].classList.remove("bg-black", "text-white");
                                 setUserData({ ...userData, anon: false });
                                 setAnon(true);
-                                console.log(anonRef.current.children[0].classList);
+
+                                console.log(userData);
                             }}
                             onClickAnon={(e) => {
                                 anonRef.current.children[1].classList.add("bg-black", "text-white");
@@ -310,8 +313,10 @@ const MobileFirst = (props) => {
                                             BtnDirectorFw(thirdRef, seventhRef);
                                             setIsChoice(true);
                                             unclaimedHighlight();
+                                            console.log(userData);
                                         } else {
                                             BtnDirectorFw(thirdRef, fourthRef);
+                                            console.log(userData);
                                         }
                                     }}
                                 >
@@ -472,7 +477,7 @@ const MobileFirst = (props) => {
                         </div>
                         <PayPalButtons
                             createOrder={(data, actions) => {
-                                console.log(window.localStorage.getItem(""));
+                                console.log(window.localStorage.getItem("anon"));
                                 return actions.order.create({
                                     purchase_units: [
                                         {

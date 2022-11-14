@@ -55,7 +55,7 @@ function ChooseSpace(props) {
                     <div className="super font-bold text-center w-full text-[#32cd32]">Super!</div>
                 ) : null}
             </div>
-            <div className="grid grid-cols-2 mt-10 w-full gap-4">
+            <div className="grid grid-cols-2 mt-6 w-full gap-4">
                 <div className={`w-full `}>
                     <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
                         disabled={false}

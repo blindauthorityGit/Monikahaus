@@ -12,6 +12,8 @@ import Draggable from "../dragNDrop/draggable";
 import { FaCommentsDollar } from "react-icons/fa";
 import { isBrowser, isMobile } from "react-device-detect";
 
+import { IoPersonCircleSharp } from "react-icons/io";
+
 // import { useColorStore } from "../zustand";
 // const draggableMarkup = (
 //     <Draggable style={{ width: kugelWidth + "px", height: "68px" }} id="draggable">
@@ -150,6 +152,10 @@ const Raster = (props) => {
                                                     : "text-white"
                                                 : ""
                                         }
+                                        isAnon={
+                                            userList.some((e) => e.id === counter - 1) &&
+                                            userList[getIndex(userList, counter - 1)].anon
+                                        }
                                         avatrSrc={`https://i.pravatar.cc/300?img=${counter - 1}`}
                                         id={counter - 1}
                                         isClaimed={userList.some((e) => e.id === counter - 1) ? "true" : "false"}
@@ -202,7 +208,9 @@ const Raster = (props) => {
                                                 ? userList[getIndex(userList, counter - 1)].color.toLowerCase() ===
                                                       "#fff" ||
                                                   userList[getIndex(userList, counter - 1)].color.toLowerCase() ===
-                                                      "#dcdfdc"
+                                                      "#dcdfdc" ||
+                                                  !userList[getIndex(userList, counter - 1)].color.toLowerCase() ===
+                                                      "rgb(235, 69, 17)"
                                                     ? "text-black"
                                                     : "text-white"
                                                 : ""
@@ -219,7 +227,9 @@ const Raster = (props) => {
                                         // check ob Index in dem Kunden Array vorhanden ist
                                         fullName={
                                             userList.some((e) => e.id === counter - 1)
-                                                ? userList[getIndex(userList, counter - 1)].name
+                                                ? userList[getIndex(userList, counter - 1)].anon
+                                                    ? "Anonyme Spende"
+                                                    : userList[getIndex(userList, counter - 1)].name
                                                 : "KEIN NAME"
                                         }
                                         toolTipBG={

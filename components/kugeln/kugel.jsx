@@ -46,6 +46,7 @@ const Kugel = (props, ref) => {
                 klasse={`absolute tooltip hidden z-20 sm:right-[${props.abstand}rem] bg-black py-4 sm:py-6 px-4 sm:px-8 min-w-[10rem] sm:min-w-[20rem] sm:font-bold rounded-xl ${props.toolTipColor} ${props.toolTipAfterColor}`}
                 name={props.fullName}
                 sum={props.sum}
+                isAnon={props.isAnon}
                 comment={props.comment}
                 style={props.toolTipStyle}
                 ref={toolTipRef}

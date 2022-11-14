@@ -1,5 +1,6 @@
 import React, { useRef, forwardRef } from "react";
 import { isBrowser, isMobile } from "react-device-detect";
+import { BsPersonCircle } from "react-icons/bs";
 
 const ToolTip = (props, ref) => {
     return (
@@ -13,7 +14,13 @@ const ToolTip = (props, ref) => {
                 <div className="grid grid-cols-12 items-center ">
                     <div className="col-span-3 sm:col-span-4">
                         <div className="avatar w-8 sm:w-12 sm:w-auto">
-                            <img className="rounded-full" src={props.avatrSrc} alt="" />
+                            {props.isAnon ? (
+                                <div className="text-3xl">
+                                    <BsPersonCircle></BsPersonCircle>
+                                </div>
+                            ) : (
+                                <img className="rounded-full" src={props.avatrSrc} alt="" />
+                            )}
                         </div>
                     </div>
                     <div className="col-span-9 sm:col-span-8 pl-4 sm:pl-4 text-xs sm:text-base">
