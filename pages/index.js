@@ -388,7 +388,7 @@ export default function Home() {
                                         >
                                             <MainContainer
                                                 id="fireworksContainer"
-                                                width="container h-full md:h-[80%] overflow-hidden"
+                                                width="container h-full md:h-[80%] overflow-hidden relative"
                                             >
                                                 <div className="left hidden md:block order-last sm:order-first col-span-12 md:col-span-6 relative">
                                                     <Goal
