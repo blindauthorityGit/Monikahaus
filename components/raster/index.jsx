@@ -6,7 +6,7 @@ import { Row } from "../kugeln";
 import { ShowUnclaimed, KugelColor, TreeAnimationFinish, UserList } from "../../helper/context";
 import getIndex from "../../functions/getIndex";
 import switcher from "../../functions/switcher";
-import { anzahlRows } from "../../config";
+import { anzahlRows, dev } from "../../config";
 
 import Draggable from "../dragNDrop/draggable";
 import { FaCommentsDollar } from "react-icons/fa";
@@ -28,6 +28,7 @@ const Raster = (props) => {
 
     const [kugelWidth, setKugelWidth] = useState(5);
     const [animator, setAnimator] = useState("");
+    const [data, setData] = useState(props.data);
     // const [data, setData] = useState(testData);
     const allRef = useRef();
 
@@ -70,6 +71,7 @@ const Raster = (props) => {
     useEffect(() => {
         if (treeAnimationFinish) {
             let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
+
             let arrClaimedID = userList.map((e) => e.id);
             setTimeout(() => {
                 setKugelWidth(Array.from(allRef.current.querySelectorAll(".kugel"))[0].clientHeight);

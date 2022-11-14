@@ -30,6 +30,9 @@ import Button from "../utils/buttons";
 import { ButtonReal } from "../utils/buttonReal";
 import AnonChoice from "./anonChoice";
 
+import { db } from "../../pages/index";
+import { doc, setDoc } from "firebase/firestore/lite";
+
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const MobileFirst = (props) => {
@@ -140,6 +143,41 @@ const MobileFirst = (props) => {
         intent: "capture",
         // "data-client-token": "abc123xyz==",
     };
+
+    function createSpender(spender) {
+        fireBaseRef
+            .doc()
+            .set(spender)
+            .catch((err) => {
+                console.error(err);
+            });
+    }
+
+    async function dataDB(user, userData) {
+        await setDoc(doc(db, "spender", user), userData);
+    }
+    // async function dataTest(user, userData) {
+    //     await setDoc(doc(db, "spender", user), userData);
+    // }
+
+    useEffect(() => {
+        if (isPayed) {
+            const newUser = {
+                anon: Boolean(window.localStorage.getItem("anon")),
+                color: window.localStorage.getItem("color"),
+                email: details.payer.email_adress,
+                name: window.localStorage.getItem("fullName"),
+                id: Number(window.localStorage.getItem("id")),
+                image: window.localStorage.getItem("image"),
+                sum: Number(window.localStorage.getItem("spende")),
+                winner: window.localStorage.getItem("winner"),
+                comment: window.localStorage.getItem("comment"),
+                claimed: true,
+            };
+            dataDB("bubu", newUser);
+            console.log(newUser);
+        }
+    }, [isPayed]);
 
     return (
         <PayPalScriptProvider options={initialOptions}>
@@ -494,7 +532,6 @@ const MobileFirst = (props) => {
                                 return actions.order.capture().then((details) => {
                                     console.log(details);
                                     setIsPayed(true);
-                                    const name = details.payer.name.given_name;
                                     const newUser = {
                                         anon: Boolean(window.localStorage.getItem("anon")),
                                         color: window.localStorage.getItem("color"),
@@ -508,14 +545,16 @@ const MobileFirst = (props) => {
                                         claimed: true,
                                     };
                                     setUserList((current) => [...current, newUser]);
-                                    console.log(newUser, userList);
+                                    setShowThankYou(true);
+
+                                    // dataDB(newUser.colo, newUser);
+                                    // console.log(newUser, userList);
                                     router.push({
                                         pathname: "/",
                                         query: { id: newUser.id, name: newUser.name, winner: newUser.winner },
                                     });
                                     setShowOverlay(false);
                                     setShowUnclaimed(false);
-                                    setShowThankYou(true);
                                     {
                                         window.localStorage.getItem("winner") == "true" ? setIsWinner(true) : null;
                                     }

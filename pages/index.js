@@ -2,7 +2,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import React, { useState, useEffect, useRef } from "react";
 import MainContainer from "../components/layout/mainContainer";
-import { startInfo } from "../config";
+import { startInfo, dev } from "../config";
 import Baum from "../components/baum";
 // import { Boden, BodenMobile } from "../components/bGAssets";
 
@@ -30,7 +30,35 @@ import { MdPeople, MdInfoOutline } from "react-icons/md";
 import Goal from "../components/goal";
 import { testData } from "../dev";
 
+// import { app } from "../components/firebase";
+
 import { isBrowser, isMobile } from "react-device-detect";
+
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs, doc, setDoc, addDoc } from "firebase/firestore/lite";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+    apiKey: "AIzaSyCQAvM7L_wh22VQHwbq6IBT2Fyc01jIIHY",
+    authDomain: "spendenbaum-john.firebaseapp.com",
+    projectId: "spendenbaum-john",
+    storageBucket: "spendenbaum-john.appspot.com",
+    messagingSenderId: "987219338463",
+    appId: "1:987219338463:web:e23928a16b675c4bff356a",
+    measurementId: "G-08CDZPFB9W",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// const firebase = dynamic(() => import("../components/firebase"), {
+//     ssr: false,
+// });
 
 const DonatorList = dynamic(() => import("../components/modalContent/donatorList"), {
     ssr: false,
@@ -53,10 +81,12 @@ const TierheimContent = dynamic(() => import("../components/modalContent/tierhei
 // const Baum = dynamic(() => import("../components/baum"), {
 //     ssr: false,
 // });
-
+export { db };
 export default function Home() {
     const [opacity, setOpacity] = useState(1);
     const [rasterDimensions, setRasterDimensions] = useState({});
+
+    const [data, setData] = useState({});
 
     const [treeAnimationFinish, setTreeAnimationFinish] = useState(false);
     const [baumDimensions, setBaumDimensions] = useState({ width: 0, height: 0 });
@@ -80,7 +110,7 @@ export default function Home() {
         email: "",
         id: null,
     });
-    const [userList, setUserList] = useState(testData);
+    const [userList, setUserList] = useState(dev ? testData : []);
 
     const baumRef = useRef();
 
@@ -135,12 +165,23 @@ export default function Home() {
     }
 
     useEffect(() => {
-        setUserList(testData);
+        // setUserList(testData);
+
+        async function getData(db) {
+            const spenderCol = collection(db, "spender");
+            const spenderSnapshot = await getDocs(spenderCol);
+            const spenderList = spenderSnapshot.docs.map((doc) => doc.data());
+            console.log(spenderList);
+            return spenderList;
+        }
+        dev ? setUserList(testData) : setUserList(getData(db));
+        console.log(getData(db));
+        // process.env.NEXT_DEV ? setUserList(testData) : setUserList(getData(db));
 
         !isMobile ? (baumRef.current.children[0].style.left = "-20px") : null;
 
-        console.log(baumRef.current.children[0].clientHeight);
         window.scrollTo(0, 1);
+        console.log(app);
 
         // setRasterDimensions({
         //     width: baumRef.current.children[0].clientWidth + "px",
@@ -159,6 +200,32 @@ export default function Home() {
             height: (baumDimensions.height / 100) * 79 + "px",
         });
     }, [baumDimensions]);
+
+    async function dataDB(userData) {
+        await addDoc(collection(db, "spender"), userData);
+    }
+    // async function dataTest(user, userData) {
+    //     await setDoc(doc(db, "spender", user), userData);
+    // }
+
+    useEffect(() => {
+        if (showThankYou) {
+            const newUser = {
+                anon: Boolean(window.localStorage.getItem("anon")),
+                color: window.localStorage.getItem("color"),
+                // email: details.payer.email_adress,
+                name: window.localStorage.getItem("fullName"),
+                id: Number(window.localStorage.getItem("id")),
+                image: window.localStorage.getItem("image"),
+                sum: Number(window.localStorage.getItem("spende")),
+                winner: window.localStorage.getItem("winner"),
+                comment: window.localStorage.getItem("comment"),
+                claimed: true,
+            };
+            dataDB(newUser);
+            console.log(newUser);
+        }
+    }, [showThankYou]);
 
     return (
         <>
@@ -345,6 +412,7 @@ export default function Home() {
                                                         width={rasterDimensions.width}
                                                         height={rasterDimensions.height}
                                                         parent={parent}
+                                                        data={data}
                                                     ></Raster>
                                                     <Baum ref={baumRef}></Baum>
                                                 </div>{" "}

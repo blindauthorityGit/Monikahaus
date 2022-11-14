@@ -36,4 +36,6 @@ const Tree = () => {
 const showGoal = true;
 const goalSum = 1000;
 
-export { colors, Tree, anzahlRows, startInfo, goalSum, showGoal };
+const dev = true;
+
+export { colors, Tree, anzahlRows, startInfo, goalSum, showGoal, dev };
