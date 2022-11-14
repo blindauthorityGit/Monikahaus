@@ -185,7 +185,7 @@ const MobileFirst = (props) => {
                 <div className="col-span-12 relative">
                     <div ref={firstRef} className="wrapper">
                         <div className="font-bold mb-4 text-xl">{props.headline}</div>
-                        <div className="topLine mb-10 text-base italic">
+                        <div className="topLine mb-8 text-base italic">
                             Gestalten Sie Ihre Spendenkugel!
                             <br />
                             Wählen Sie Ihre Farbe:
@@ -214,7 +214,7 @@ const MobileFirst = (props) => {
                     </div>
                     <div ref={secondRef} className="second hidden">
                         <div className="font-bold mb-4 text-xl">Spendensumme</div>
-                        <div className="topLine mb-10 text-base italic">
+                        <div className="topLine mb-8 text-base italic">
                             Wieviel möchten Sie spenden?
                             <br />
                             Wählen Sie Ihre Summe:
