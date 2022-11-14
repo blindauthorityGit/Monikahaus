@@ -44,7 +44,7 @@ const Boden = (props) => {
                         x={[0, 0, 0]}
                         y={[null, -2, 0]}
                         initialScale={isMobile ? 0.5 : 1}
-                        scale={isMobile ? 0.5 : 1}
+                        scale={isMobile ? 0.35 : 1}
                         type="spring"
                         delay={1}
                         duration={0.5}
@@ -192,7 +192,7 @@ const Boden = (props) => {
                         x={[0, 0, 0]}
                         y={[null, -10, 5]}
                         initialScale={0.3}
-                        scale={1}
+                        scale={0.75}
                         type="spring"
                         delay={1.4}
                         duration={0.75}
