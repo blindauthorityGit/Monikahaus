@@ -437,7 +437,7 @@ export default function Home() {
                                                         setShowUnclaimed(true);
 
                                                         isMobile ? document.body.requestFullscreen() : null;
-                                                        isMobile ? setIsFullScreen(true) : null;
+                                                        // isMobile ? setIsFullScreen(true) : null;
                                                         setBaumDimensions(
                                                             baumRef.current.children[0].children[0].getBoundingClientRect()
                                                         );
