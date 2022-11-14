@@ -86,7 +86,7 @@ export default function Index() {
                                         <p>Vielen Dank im Voraus!</p>
                                         <img className="mb-4" src={Welcome.src} alt="Welcome" />
 
-                                        <p className="italic">Ihre Zahnärztin Dr. Katrin John & Team</p>
+                                        <p className="italic">Ihre Zahnärztin Dr. Katrin John und Team</p>
                                     </div>{" "}
                                     <Link href="/donate">
                                         <a>

@@ -86,7 +86,7 @@ export default function Home() {
                                         <p>Vielen Dank im Voraus!</p>
                                         <img className="mb-4" src={Welcome.src} alt="Welcome" />
 
-                                        <p className="italic">Ihre Zahnärztin Dr. Katrin John & Team</p>
+                                        <p className="italic">Ihre Zahnärztin Dr. Katrin John und Team</p>
                                     </div>{" "}
                                     <Link href="/donate">
                                         <a>
@@ -113,7 +113,7 @@ export default function Home() {
                                         damit das Tierheim Dreieich!
                                     </p>
                                     <p>
-                                        Klicken Sie auf den <strong>"Jetzt spenden"</strong> Button, gestalten Sie Ihre
+                                        Klicken Sie auf den <strong>Jetzt spenden</strong> Button, gestalten Sie Ihre
                                         Kugel und platzieren Sie schlussendlich die Kugel auf einem freien Platz am
                                         Baum.
                                     </p>
