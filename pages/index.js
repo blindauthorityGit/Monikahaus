@@ -259,8 +259,8 @@ export default function Home() {
                                                 onClick={() => {
                                                     setShowOverlay(false);
                                                     setShowUnclaimed(false);
-                                                    isMobile ? document.exitFullscreen() : null;
-                                                    setIsFullScreen(false);
+                                                    // isMobile ? document.exitFullscreen() : null;
+                                                    // setIsFullScreen(false);
                                                     setUserData({
                                                         color: "",
                                                         spende: 0,
@@ -436,7 +436,7 @@ export default function Home() {
                                                         setShowOverlay(true);
                                                         setShowUnclaimed(true);
 
-                                                        isMobile ? document.body.requestFullscreen() : null;
+                                                        // isMobile ? document.body.requestFullscreen() : null;
                                                         // isMobile ? setIsFullScreen(true) : null;
                                                         setBaumDimensions(
                                                             baumRef.current.children[0].children[0].getBoundingClientRect()
