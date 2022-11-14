@@ -14,7 +14,26 @@ const DonatorList = () => {
     const [items, setItems] = useState(null);
     const [currentPage, setCurrentPage] = useState(0);
 
-    const itemsPerPage = 5;
+    const [windowSize, setWindowSize] = useState(getWindowSize());
+
+    useEffect(() => {
+        function handleWindowResize() {
+            setWindowSize(getWindowSize());
+        }
+
+        window.addEventListener("resize", handleWindowResize);
+        console.log(windowSize.innerHeight);
+
+        return () => {
+            window.removeEventListener("resize", handleWindowResize);
+        };
+    }, []);
+    function getWindowSize() {
+        const { innerWidth, innerHeight } = window;
+        return { innerWidth, innerHeight };
+    }
+
+    const itemsPerPage = windowSize.innerHeight <= 640 ? 4 : 5;
 
     function sliceIntoChunks(arr, chunkSize) {
         const res = [];
