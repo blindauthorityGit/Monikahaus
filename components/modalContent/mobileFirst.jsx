@@ -169,6 +169,7 @@ const MobileFirst = (props) => {
 
     useEffect(() => {
         console.log(process.env.NEXT_PUBLIC_CLIENT_ID);
+        console.log(process.env.NEXT_PUBLIC_CLIENT_ID);
     }, []);
 
     return (
