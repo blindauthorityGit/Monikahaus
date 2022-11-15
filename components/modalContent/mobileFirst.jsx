@@ -143,7 +143,9 @@ const MobileFirst = (props) => {
     }, [isChoice]);
 
     const initialOptions = {
-        "client-id": "AaX0OXb-afYDG23QpVOmNi6cPevWn_cTCyD_mmbcH87wYqbGmxlCZLdUTUbJ0WM4PAZEdT7tODT-z5m0",
+        // "client-id": "ATGgjKrwMJBGH__4xP9Fwly9nF_Br7RjSTQuyLvsxhBc6D2ARfeu24i8fikw4TBM84OvV-B7pNMl51Rp",
+        "client-id": process.env.NEXT_PUBLIC_CLIENT_ID,
+        // "client-id": "AaX0OXb-afYDG23QpVOmNi6cPevWn_cTCyD_mmbcH87wYqbGmxlCZLdUTUbJ0WM4PAZEdT7tODT-z5m0",
         currency: "EUR",
         intent: "capture",
         // "data-client-token": "abc123xyz==",
@@ -166,23 +168,8 @@ const MobileFirst = (props) => {
     // }
 
     useEffect(() => {
-        if (isPayed) {
-            const newUser = {
-                anon: Boolean(window.localStorage.getItem("anon")),
-                color: window.localStorage.getItem("color"),
-                email: details.payer.email_adress,
-                name: window.localStorage.getItem("fullName"),
-                id: Number(window.localStorage.getItem("id")),
-                image: window.localStorage.getItem("image"),
-                sum: Number(window.localStorage.getItem("spende")),
-                winner: window.localStorage.getItem("winner"),
-                comment: window.localStorage.getItem("comment"),
-                claimed: true,
-            };
-            dataDB("bubu", newUser);
-            console.log(newUser);
-        }
-    }, [isPayed]);
+        console.log(process.env.NEXT_PUBLIC_CLIENT_ID);
+    }, []);
 
     return (
         <PayPalScriptProvider options={initialOptions}>
