@@ -25,7 +25,6 @@ const Baum = (props, ref) => {
             setBaumDimensions(gRef.current.getBoundingClientRect());
         }
         window.addEventListener("resize", handleResize);
-        handleResize();
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
