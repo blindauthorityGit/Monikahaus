@@ -32,7 +32,7 @@ export default function Index() {
     return (
         <>
             <Head>
-                <title>Unser Spendenbaum</title>
+                <title>Spendenbaum Dr John</title>
             </Head>
 
             <Swiper

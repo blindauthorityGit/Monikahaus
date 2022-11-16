@@ -230,7 +230,7 @@ export default function Home({ spenderList }) {
     return (
         <>
             <Head>
-                <title>Site title</title>
+                <title>Spendenbaum Dr John</title>
             </Head>
             <TreeAway.Provider value={{ baumWeg, setBaumWeg }}>
                 <ShowOverlay.Provider
