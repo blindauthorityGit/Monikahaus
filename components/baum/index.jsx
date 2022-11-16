@@ -20,10 +20,13 @@ const Baum = (props, ref) => {
     const gRef = useRef();
 
     useEffect(() => {
-        console.log(gRef.current.getBoundingClientRect());
-        setTimeout(() => {
-            console.log(gRef.current.getBoundingClientRect());
-        }, 200);
+        function handleResize() {
+            // Set window width/height to state
+            setBaumDimensions(gRef.current.getBoundingClientRect());
+        }
+        window.addEventListener("resize", handleResize);
+        handleResize();
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     return (
