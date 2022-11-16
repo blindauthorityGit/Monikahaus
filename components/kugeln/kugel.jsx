@@ -22,7 +22,7 @@ const Kugel = (props, ref) => {
 
     return (
         <div
-            className={`kugel relative mx-1 lg:mx-2 flex h-full items-center text-bold ${
+            className={`kugel relative mx-1 lg:mx-1 flex h-full items-center text-bold ${
                 isOver ? "bg-red-600 " : ""
             } justify-center text-white ${props.size} ${props.klasse} rounded-full ${props.color} ${props.textColor}`}
             id={props.id}

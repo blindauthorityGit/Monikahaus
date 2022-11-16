@@ -19,7 +19,7 @@ const ModalFull = (props) => {
                 props.noFixed
                     ? "absolute top-0 min-h-[100%]"
                     : "fixed bottom-6 sm:bottom-auto h-full max-h-[100%] min-h-[100%]"
-            }fade-in w-full lg:w-[45%]  bg-white p-8 lg:p-24 z-50 `}
+            }fade-in w-full lg:w-[45%]  bg-white p-8 lg:p-16 z-50 `}
         >
             <div
                 className="closer absolute top-6 right-6 text-4xl cursor-pointer transition hover:opacity-50 z-50"

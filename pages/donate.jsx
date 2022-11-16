@@ -391,12 +391,11 @@ export default function Home({ spenderList }) {
                                                 id="fireworksContainer"
                                                 width="container h-full min-h-[100%] lg:h-[80%] overflow-hidden relative"
                                             >
-                                                <div className="left pl-[25%] pt-[20%]  hidden lg:block order-last sm:order-first col-span-12 lg:col-span-6 relative">
+                                                <div className="left pl-[25%] pt-[15%]  hidden lg:block order-last sm:order-first col-span-12 lg:col-span-6 relative">
                                                     <Goal data={userList} klasse="w-full mb-16 "></Goal>
 
                                                     <StartText
                                                         headline={startInfo.headline}
-                                                        subline={startInfo.subline}
                                                         buttonText={startInfo.buttonText}
                                                         onClick={() => {
                                                             setShowOverlay(true);

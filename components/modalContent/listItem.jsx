@@ -23,24 +23,24 @@ function ListItem(props, ref) {
                         </div>
                     ) : (
                         <img
-                            className="rounded-full h-16 sm:h-24"
+                            className="rounded-full h-16 lg:h-24"
                             src={`https://i.pravatar.cc/300?img=${props.e.id}`}
                             alt="test"
                         />
                     )}
                 </div>
-                <div className="right text-sm sm:text-base w-auto sm:w-64">
+                <div className="right text-sm sm:text-base w-auto lg:w-64">
                     <strong>{!props.e.anon ? props.e.name : "Anonymer Spender"}</strong>
                     <br />
                     Spende: EUR {props.e.sum},-
                     {props.e.comment && (
-                        <div className="farRight sm:hidden mt-2 text-xs border p-2 sm:p-4 bg-[lightgray]">
+                        <div className="farRight lg:hidden mt-2 text-xs border p-2 lg:p-4 bg-[lightgray]">
                             {props.e.comment}
                         </div>
                     )}
                 </div>
                 {props.e.comment && (
-                    <div className="farRight comment hidden sm:block text-xs border p-2 sm:p-4 bg-[lightgray]">
+                    <div className="farRight comment hidden lg:block text-xs border p-2 lg:p-4 bg-[lightgray]">
                         {props.e.comment}
                     </div>
                 )}{" "}

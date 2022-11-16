@@ -121,8 +121,9 @@ const Raster = (props) => {
                           paddingTop:
                               baumDimensions.top +
                               document.querySelector("#Pfad_231").getBoundingClientRect().height -
-                              5 +
+                              22 +
                               "px",
+                          paddingLeft: "10px",
                       }
             }
         >

@@ -24,7 +24,7 @@ const Modal = (props) => {
             transition={{ duration: "30ms", delay: props.delay, type: "spring" }}
             className={`absolute lg:fixed h-[${
                 onlyHeight <= 640 ? 60 : 50
-            }%] bottom-6 lg:bottom-auto  lg:h-full max-h-[100%] fade-in w-full lg:w-[90%] lg:w-[45%] lg:min-h-[100%] bg-white p-8 lg:p-24 z-50 `}
+            }%] bottom-6 lg:bottom-auto  lg:h-full max-h-[100%] fade-in w-full lg:w-[90%] lg:w-[45%] lg:min-h-[100%] bg-white p-8 lg:p-16 z-50 `}
         >
             <div
                 className="closer absolute top-6 right-6 text-4xl cursor-pointer transition hover:opacity-50 z-50"

@@ -15,7 +15,7 @@ const AnonChoice = (props, ref) => {
                     <MdPersonPin></MdPersonPin>
                 </span>
 
-                <div className="text-2xl">Sichtbar</div>
+                <div className="text-2xl  lg:text-lg">Sichtbar</div>
             </div>
             <div
                 onChange={props.onChangeAnon}
@@ -26,7 +26,7 @@ const AnonChoice = (props, ref) => {
                 <span className="text-4xl">
                     <MdPersonOff></MdPersonOff>
                 </span>
-                <div className="text-2xl">Anonym</div>
+                <div className="text-2xl lg:text-lg">Anonym</div>
             </div>
         </div>
     );
