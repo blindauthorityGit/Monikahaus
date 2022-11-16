@@ -22,11 +22,9 @@ function ListItem(props, ref) {
                             <BsPersonCircle></BsPersonCircle>
                         </div>
                     ) : (
-                        <img
-                            className="rounded-full h-16 lg:h-24"
-                            src={`https://i.pravatar.cc/300?img=${props.e.id}`}
-                            alt="test"
-                        />
+                        <div className="text-6xl">
+                            <BsPersonCircle></BsPersonCircle>
+                        </div>
                     )}
                 </div>
                 <div className="right text-sm sm:text-base w-auto lg:w-64">

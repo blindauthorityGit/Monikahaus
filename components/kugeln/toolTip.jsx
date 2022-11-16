@@ -19,7 +19,9 @@ const ToolTip = (props, ref) => {
                                     <BsPersonCircle></BsPersonCircle>
                                 </div>
                             ) : (
-                                <img className="rounded-full" src={props.avatrSrc} alt="" />
+                                <div className="text-3xl md:text-4xl">
+                                    <BsPersonCircle></BsPersonCircle>
+                                </div>
                             )}
                         </div>
                     </div>

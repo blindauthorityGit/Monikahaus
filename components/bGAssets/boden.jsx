@@ -16,6 +16,18 @@ const Boden = (props) => {
     const onlyWidth = useWindowWidth();
     const onlyHeight = useWindowHeight();
 
+    const [realWidth, setRealWidth] = useState(0);
+
+    useEffect(() => {
+        setRealWidth(onlyWidth);
+        function handleResize() {
+            // Set window width/height to state
+            setRealWidth(onlyWidth);
+        }
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     useEffect(() => {
         console.log(window.innerHeight);
     }, []);
@@ -59,7 +71,7 @@ const Boden = (props) => {
                         x={[0, 0, 0]}
                         y={[null, -2, 0]}
                         initialScale={isMobile ? 0.5 : 1}
-                        scale={isMobile ? 0.35 : 1}
+                        scale={realWidth <= 500 ? 0.35 : 1}
                         type="spring"
                         delay={1}
                         duration={0.5}
