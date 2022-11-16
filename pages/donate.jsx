@@ -28,7 +28,7 @@ import FirstModal from "../components/modalContent/first";
 import MobileFirst from "../components/modalContent/mobileFirst";
 import ThankYou from "../components/thankyou";
 import { MdPeople, MdInfoOutline } from "react-icons/md";
-
+import Link from "next/link";
 import Goal from "../components/goal";
 import { testData } from "../dev";
 
@@ -447,7 +447,7 @@ export default function Home({ spenderList }) {
                                                     {startInfo.headline}
                                                 </div> */}
                                                 <MobileButton
-                                                    klasse="absolute w-3/4 flex lg:hidden bottom-12 md:bottom-24 z-30  left-1/2 transform -translate-x-1/2 "
+                                                    klasse="absolute w-3/4 flex lg:hidden bottom-16 md:bottom-24 z-30  left-1/2 transform -translate-x-1/2 "
                                                     buttonText={startInfo.buttonText}
                                                     onClick={() => {
                                                         setShowOverlay(true);
@@ -460,6 +460,11 @@ export default function Home({ spenderList }) {
                                                         );
                                                     }}
                                                 ></MobileButton>
+                                                <div className="imressum absolute bottom-3 right-[40%] md:bottom-6  md:right-12 z-50">
+                                                    <Link href="/impressum">
+                                                        <a>Impressum</a>
+                                                    </Link>
+                                                </div>
                                             </MainContainer>
                                             {/* {isMobile ? <BodenMobile /> : <Boden></Boden>} */}
 

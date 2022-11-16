@@ -71,7 +71,7 @@ const Boden = (props) => {
                         x={[0, 0, 0]}
                         y={[null, -2, 0]}
                         initialScale={isMobile ? 0.5 : 1}
-                        scale={realWidth <= 500 ? 0.35 : 1}
+                        scale={realWidth <= 768 ? 0.35 : 1}
                         type="spring"
                         delay={1}
                         duration={0.5}

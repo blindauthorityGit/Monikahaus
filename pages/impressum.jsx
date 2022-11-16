@@ -12,6 +12,7 @@ import OnBoardTree from "../assets/onBoardTree.svg";
 import MobileButton from "../components/layout/mobileButton";
 import Link from "next/link";
 import Home from "./donate";
+import { HiChevronLeft } from "react-icons/hi";
 
 // Import Swiper styles
 import "swiper/css";
@@ -48,13 +49,31 @@ export default function Impressum() {
                 }}
                 className="pb-6 "
             >
-                <MainContainer>
-                    <div className="col-span-12 relative">
-                        <h2>Impressum</h2>
-                        <hr />
+                <MainContainer width="container p-16">
+                    <Link href="/donate">
+                        <a className="text-4xl">
+                            <HiChevronLeft></HiChevronLeft>
+                        </a>
+                    </Link>
+                    <div className="col-span-12 relative text">
+                        <h2 className="text-4xl mb-8">Impressum</h2>
                         <p>
                             Dr. Katrin John<br></br>
                             Zahnärztin für Oralchirurgie
+                        </p>
+                        <p>
+                            Fahrgasse 33<br></br>
+                            63303 Dreieich
+                        </p>
+                        <p>
+                            Tel. 06103 / 844 66<br></br>
+                            Fax 06103 / 988 61 42<br></br>
+                            E‑Mail zahnarzt@praxis-dreieich.de<br></br>
+                            <a href="www.zahnarztpraxis-dreieich.de"> www.zahnarztpraxis-dreieich.de</a>
+                        </p>
+                        <h3 className="text-xl">Gestaltung und Programmierung der Website</h3>
+                        <p>
+                            <a href="https://www.sabocon.com">Sabocon</a>
                         </p>
                     </div>
                 </MainContainer>
