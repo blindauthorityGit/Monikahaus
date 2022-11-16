@@ -2,7 +2,7 @@
     .tooltip::before {
         content: "■";
         position: absolute;
-        color: #000000;
+        color: #fff;
         transform: rotate(45deg);
         font-size: 1.5rem;
         top: -20px;
@@ -15,7 +15,7 @@
     .tooltip::before {
         content: "■";
         position: absolute;
-        color: #000000;
+        color: #fff;
         transform: rotate(45deg);
         font-size: 1.5rem;
         top: -20px;
