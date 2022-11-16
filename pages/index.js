@@ -60,7 +60,7 @@ export default function Index() {
                                         <div className="col-span-12 lg:col-span-4">
                                             <img className="mb-4" src={Welcome.src} alt="Welcome" />
                                         </div>
-                                        <div className="col-span-8 lg-col-span-12">
+                                        <div className="col-span-12 lg-col-span-8">
                                             <div className="text text-sm">
                                                 <p>
                                                     Tierheime leisten großartige Arbeit! Sie sorgen dafür, dass jedes
