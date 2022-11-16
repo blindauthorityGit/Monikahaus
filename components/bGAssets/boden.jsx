@@ -6,14 +6,28 @@ import Present2 from "./presentTwo";
 import SmallTree from "./smallTree";
 import { TreeAnimationFinish } from "../../helper/context";
 import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
+import { useWindowSize, useWindowWidth, useWindowHeight } from "@react-hook/window-size";
 
 const Boden = (props) => {
     const { treeAnimationFinish, setTreeAnimationFinish, baumDimensions, setBaumDimensions } =
         useContext(TreeAnimationFinish);
 
+    const [width, height] = useWindowSize();
+    const onlyWidth = useWindowWidth();
+    const onlyHeight = useWindowHeight();
+
     useEffect(() => {
         console.log(window.innerHeight);
     }, []);
+
+    function widthCheck(width) {
+        if (width <= 768) {
+            return "920";
+        }
+        if (width >= 769) {
+            return "1025";
+        }
+    }
 
     return (
         <div
@@ -28,11 +42,12 @@ const Boden = (props) => {
                 isMobile ? "" : "bottom-0"
             }  bottom-0 overflow z-20  ${props.klasse}`}
         >
-            {isMobile ? (
-                <img className=" z-30" src={BodenGraphicMobile.src} alt="" />
-            ) : (
+            {onlyWidth >= 1024 ? (
                 <img className=" z-30" src={BodenGraphic.src} alt="" />
+            ) : (
+                <img className=" z-30" src={BodenGraphicMobile.src} alt="" />
             )}
+
             {isMobile && <div className="bodenFull bg-[#f5f5f5] h-[80%] w-full top-[20%] absolute"></div>}
             {isMobile ? (
                 treeAnimationFinish && (

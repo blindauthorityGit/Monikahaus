@@ -36,7 +36,7 @@ const ToolTip = (props, ref) => {
             )}
 
             {props.comment && (
-                <div className="mt-3 sm:mt-6 text-xs md:text-base italic font-light">{props.comment}</div>
+                <div className="mt-3 lg:mt-3 text-xs md:text-base italic font-light">{props.comment}</div>
             )}
         </div>
     );

@@ -1,15 +1,37 @@
 import React, { useState, useEffect, useRef, forwardRef } from "react";
 import { motion } from "framer-motion";
 import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
+import { useWindowSize, useWindowWidth, useWindowHeight } from "@react-hook/window-size";
 
 const SVG = (props, ref) => {
     const [closeMe, setCloseMe] = useState(props.closeMe);
     const [mobile, setMobile] = useState(false);
 
+    const [width, height] = useWindowSize();
+    const onlyWidth = useWindowWidth();
+    const onlyHeight = useWindowHeight();
+
+    const [realWidth, setRealWidth] = useState(0);
+
     useEffect(() => {
         console.log(isMobile);
         setMobile(isMobile);
     }, [isMobile]);
+
+    useEffect(() => {
+        console.log(onlyWidth);
+        console.log(widthCheck(onlyWidth));
+        setRealWidth(onlyWidth);
+    }, []);
+
+    function widthCheck(width) {
+        if (width <= 768) {
+            return "920";
+        }
+        if (width >= 769) {
+            return "1025";
+        }
+    }
 
     return (
         <svg
@@ -26,7 +48,7 @@ const SVG = (props, ref) => {
                 data-name="Gruppe 272"
                 // transform={`translate(3908.159 ${mobile ? "920.176" : "1025.176"}`}
                 // transform="translate(3908.159 1025.176)"
-                transform={`translate(3908.159 ${mobile ? "920" : "1025.176"})`}
+                transform={`translate(3908.159 ${realWidth <= 768 ? "920" : "1025"} )`}
                 initial={{
                     opacity: 0,
                 }}

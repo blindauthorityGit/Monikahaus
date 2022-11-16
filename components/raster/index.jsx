@@ -9,12 +9,10 @@ import { switcher, switcherRGB } from "../../functions/switcher";
 import { anzahlRows, dev } from "../../config";
 
 import Draggable from "../dragNDrop/draggable";
-import { FaCommentsDollar } from "react-icons/fa";
 import { isBrowser, isMobile } from "react-device-detect";
 
-import { IoPersonCircleSharp } from "react-icons/io";
+import { useWindowSize, useWindowWidth, useWindowHeight } from "@react-hook/window-size";
 
-// import { useColorStore } from "../zustand";
 // const draggableMarkup = (
 //     <Draggable style={{ width: kugelWidth + "px", height: "68px" }} id="draggable">
 //         Drag me
@@ -38,10 +36,17 @@ const Raster = (props) => {
 
     const { treeAnimationFinish, setTreeAnimationFinish } = useContext(TreeAnimationFinish);
     const { baumDimensions, setBaumDimensions } = useContext(TreeAnimationFinish);
-    const { isFullScreen, setIsFullScreen } = useContext(TreeAnimationFinish);
     const { showUnclaimed, setShowUnclaimed } = useContext(ShowUnclaimed);
     const { kugelColor, setKugelColor } = useContext(KugelColor);
     const { userList, setUserList } = useContext(UserList);
+
+    // HEIGHT UND WIDTH CHECKER FÜR MOBILE
+
+    const [width, height] = useWindowSize();
+    const onlyWidth = useWindowWidth();
+    const onlyHeight = useWindowHeight();
+
+    const [realWidth, setRealWidth] = useState(0);
 
     // OPACITY CHECK DROPZONE WHEN DROPPED
     useEffect(() => {
@@ -61,6 +66,11 @@ const Raster = (props) => {
             });
         }
     }, [props.parent]);
+
+    useEffect(() => {
+        setRealWidth(onlyWidth);
+        console.log(document.querySelector("#Pfad_231").clientHeight);
+    }, []);
 
     const draggableMarkup = (
         <Draggable
@@ -95,6 +105,7 @@ const Raster = (props) => {
                         arr[e].children[1].classList.add(switcherRGB(userList[i].color));
                     }
                 }, random);
+                console.log(document.querySelector("#Pfad_231").getBoundingClientRect().height);
             });
         }
     }, [treeAnimationFinish, userList, baumDimensions]);
@@ -102,9 +113,17 @@ const Raster = (props) => {
     return (
         <div
             ref={allRef}
-            className="flex pl-2 lg:pl-0 lg:left-0 pt-8 lg:pt-0 lg:items-center h-full"
+            className="flex pl-2 lg:pl-0 lg:left-0 pt-8 lg:pt-0  h-full"
             style={
-                isMobile ? { paddingTop: isFullScreen ? baumDimensions.top + "px" : baumDimensions.top + "px" } : null
+                realWidth <= 768
+                    ? { paddingTop: baumDimensions.top + "px" }
+                    : {
+                          paddingTop:
+                              baumDimensions.top +
+                              document.querySelector("#Pfad_231").getBoundingClientRect().height -
+                              5 +
+                              "px",
+                      }
             }
         >
             <div
@@ -132,7 +151,6 @@ const Raster = (props) => {
                                 counter = counter + 1;
 
                                 let claimed = userList.some((e) => e.id === counter - 1);
-                                console.log(userList[getIndex(userList, counter - 1)]);
                                 return (
                                     <Kugel
                                         key={i + "kugel"}
