@@ -294,12 +294,12 @@ export default function Home({ spenderList }) {
                                             <Overlay></Overlay>
                                         </>
                                     )}
-                                    <div className="btnWrapper absolute top-[22%] lg:top-0 right-0 lg:right-auto z-30">
+                                    <div className="btnWrapper absolute top-[22%] lg:top-8 right-0 lg:right-auto z-30">
                                         <div
                                             onClick={() => {
                                                 setShowList(true);
                                             }}
-                                            className="btn mb-2 rounded-l-lg lg:rounded-r-lg  z-50 p-3 lg:p-10 bg-black lg:bg-[#7d866f]  lg:flex justify-center items-center text-2xl text-white"
+                                            className="btn mb-2 mobile-only:rounded-l-lg lg:rounded-l-auto lg:rounded-r-lg  z-50 p-3 lg:p-6 bg-black  lg:flex justify-center items-center text-2xl text-white"
                                         >
                                             <MdPeople></MdPeople>
                                         </div>{" "}
@@ -307,7 +307,7 @@ export default function Home({ spenderList }) {
                                             onClick={() => {
                                                 setShowInfo(true);
                                             }}
-                                            className="btn rounded-l-lg lg:rounded-r-lg    p-3 lg:p-10 bg-black lg:bg-[#7d866f]  lg:flex justify-center items-center text-2xl text-white"
+                                            className="btn mobile-only:rounded-l-lg  lg:rounded-l-auto lg:rounded-r-lg  p-3 lg:p-6 bg-black  lg:flex justify-center items-center text-2xl text-white"
                                         >
                                             <MdInfoOutline></MdInfoOutline>
                                         </div>
@@ -391,11 +391,8 @@ export default function Home({ spenderList }) {
                                                 id="fireworksContainer"
                                                 width="container h-full min-h-[100%] lg:h-[80%] overflow-hidden relative"
                                             >
-                                                <div className="left hidden lg:block order-last sm:order-first col-span-12 lg:col-span-6 relative">
-                                                    <Goal
-                                                        data={userList}
-                                                        klasse="w-[472px] top-12 right-0 absolute"
-                                                    ></Goal>
+                                                <div className="left pl-[25%] pt-[20%]  hidden lg:block order-last sm:order-first col-span-12 lg:col-span-6 relative">
+                                                    <Goal data={userList} klasse="w-full mb-16 "></Goal>
 
                                                     <StartText
                                                         headline={startInfo.headline}

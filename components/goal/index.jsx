@@ -35,7 +35,7 @@ const Goal = (props) => {
     return (
         <>
             {showGoal && (
-                <div className={`${props.klasse}`}>
+                <div className={`${props.klasse} relative`}>
                     <div className="headline font-bold text-base sm:text-xl mb-2 sm:mb-4">Erreichtes Ziel</div>
                     <div
                         className={` ${

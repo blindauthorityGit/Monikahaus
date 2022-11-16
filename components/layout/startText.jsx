@@ -7,8 +7,8 @@ function StartText(props) {
     const { showUnclaimed, setShowUnclaimed } = useContext(ShowUnclaimed);
 
     return (
-        <div className="wrapper relative flex items-center h-full justify-center">
-            <div className="caller w-2/4">
+        <div className="wrapper relative flex justify-center">
+            <div className="caller">
                 <H1 klasse="text-3xl md:text-5xl lg:text-5xl xl:text-5xl 2xl:text-7xl 3xl:text-8xl">
                     {props.headline}
                 </H1>
