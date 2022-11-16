@@ -211,7 +211,7 @@ export default function Home({ spenderList }) {
     useEffect(() => {
         if (showThankYou) {
             const newUser = {
-                anon: Boolean(window.localStorage.getItem("anon")),
+                anon: window.localStorage.getItem("anon") === "true",
                 color: window.localStorage.getItem("color"),
                 // email: details.payer.email_adress,
                 name: window.localStorage.getItem("fullName"),
