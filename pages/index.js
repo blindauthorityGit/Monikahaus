@@ -57,7 +57,7 @@ export default function Index() {
                                         Ein Herz für Dreieicher Tiere. Bitte helfen Sie mit!
                                     </h1>
                                     <div className="grid grid-cols-12">
-                                        <div className="col-span-12 md:col-span-4">
+                                        <div className="col-span-12 lg:col-span-4">
                                             <img className="mb-4" src={Welcome.src} alt="Welcome" />
                                         </div>
                                         <div className="col-span-8">
@@ -94,7 +94,7 @@ export default function Index() {
 
                                                 <p className="italic">Ihre Zahnärztin Dr. Katrin John und Team</p>
                                             </div>{" "}
-                                            <div className="hidden md:block">
+                                            <div className="hidden lg:block">
                                                 <Link href="/donate">
                                                     <a>
                                                         <MobileButton
@@ -107,7 +107,7 @@ export default function Index() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="md:hidden">
+                                    <div className="lg:hidden">
                                         <Link href="/donate">
                                             <a>
                                                 <MobileButton

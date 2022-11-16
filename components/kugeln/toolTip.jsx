@@ -15,7 +15,7 @@ const ToolTip = (props, ref) => {
                     <div className="col-span-3 lg:col-span-4">
                         <div className="avatar w-8 sm:w-12 sm:w-auto">
                             {props.isAnon ? (
-                                <div className="text-3xl md:text-6xl">
+                                <div className="text-3xl md:text-4xl">
                                     <BsPersonCircle></BsPersonCircle>
                                 </div>
                             ) : (
