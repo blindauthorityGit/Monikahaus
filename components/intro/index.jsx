@@ -1,17 +1,16 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import React, { useState, useEffect, useRef } from "react";
-import MainContainer from "../components/layout/mainContainer";
-import { startInfo, dev } from "../config";
+import MainContainer from "../layout/mainContainer";
+import { startInfo, dev } from "../../config";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import Welcome from "../assets/welcome.jpg";
-import OnBoardTree from "../assets/onBoardTree.svg";
+import Welcome from "../../assets/welcome.jpg";
+import OnBoardTree from "../../assets/onBoardTree.svg";
 
-import MobileButton from "../components/layout/mobileButton";
+import MobileButton from "../layout/mobileButton";
 import Link from "next/link";
-import Home from "./donate";
 
 // Import Swiper styles
 import "swiper/css";
@@ -19,22 +18,18 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
-const Modal = dynamic(() => import("../components/utils/modal"), {
+const Modal = dynamic(() => import("../utils/modal"), {
     ssr: false,
 });
-const ModalFull = dynamic(() => import("../components/utils/modalFull"), {
+const ModalFull = dynamic(() => import("../utils/modalFull"), {
     ssr: false,
 });
 
-export default function Index() {
+export default function Intro(props) {
     const [opacity, setOpacity] = useState(1);
 
     return (
         <>
-            <Head>
-                <title>Unser Spendenbaum</title>
-            </Head>
-
             <Swiper
                 // install Swiper modules
                 modules={[Pagination, Scrollbar, A11y]}
@@ -52,12 +47,12 @@ export default function Index() {
                     <div className="col-span-12 relative">
                         <SwiperSlide className="p-10">
                             <>
-                                <div className="pb-8">
+                                <div className="pb-8 ">
                                     <h1 className="text-2xl font-bold mb-8">
                                         Ein Herz für Dreieicher Tiere. Bitte helfen Sie mit!
                                     </h1>
                                     <div className="grid grid-cols-12">
-                                        <div className="col-span-12 md:col-span-4">
+                                        <div className="col-span-4">
                                             <img className="mb-4" src={Welcome.src} alt="Welcome" />
                                         </div>
                                         <div className="col-span-8">
@@ -93,35 +88,19 @@ export default function Index() {
                                                 <p>Vielen Dank im Voraus!</p>
 
                                                 <p className="italic">Ihre Zahnärztin Dr. Katrin John und Team</p>
-                                            </div>{" "}
-                                            <div className="hidden md:block">
-                                                <Link href="/donate">
-                                                    <a>
-                                                        <MobileButton
-                                                            klasse=" w-full flex  mt-6 mb-10 "
-                                                            buttonText="Los gehts"
-                                                            onClick={() => {}}
-                                                        ></MobileButton>
-                                                    </a>
-                                                </Link>
                                             </div>
-                                        </div>
+                                        </div>{" "}
                                     </div>
-                                    <div className="md:hidden">
-                                        <Link href="/donate">
-                                            <a>
-                                                <MobileButton
-                                                    klasse=" w-full flex  mt-6 mb-10 "
-                                                    buttonText="Los gehts"
-                                                    onClick={() => {}}
-                                                ></MobileButton>
-                                            </a>
-                                        </Link>
-                                    </div>
+
+                                    <MobileButton
+                                        klasse=" w-full flex  mt-6 mb-10 "
+                                        buttonText="Los gehts"
+                                        onClick={props.onClick}
+                                    ></MobileButton>
                                 </div>
                             </>
                         </SwiperSlide>
-                        <SwiperSlide className="onboardOne h-full w-screen p-10">
+                        {/* <SwiperSlide className="onboardOne h-full w-screen p-10">
                             <div className="pb-8">
                                 <h1 className="text-2xl font-bold mb-8">Wie funktioniert der Spendenbaum?</h1>
                                 <div className="tree w-3/4">
@@ -161,7 +140,7 @@ export default function Index() {
                                     </a>
                                 </Link>
                             </div>
-                        </SwiperSlide>
+                        </SwiperSlide> */}
                     </div>{" "}
                     <div className="swiper-pagination pagination-top"></div>
                     <div className="swiper-pagination pagination-bottom"></div>

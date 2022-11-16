@@ -4,6 +4,7 @@ import { TfiHandPointLeft } from "react-icons/tfi";
 import Draggable from "../dragNDrop/draggable";
 import { ButtonReal } from "../utils/buttonReal";
 import { BtnDirector, BtnDirectorFw } from "../../functions/btnDirector";
+import { isBrowser, isMobile } from "react-device-detect";
 
 function ChooseSpace(props) {
     return (
@@ -23,7 +24,7 @@ function ChooseSpace(props) {
                         props.userData.id ? "hidden" : ""
                     } text-right pr-5 font-bold text-primaryColor`}
                 >
-                    Rauf ziehen
+                    {isMobile ? "Rauf ziehen" : "Rüber ziehen"}
                 </div>
                 <Draggable
                     id="draggable"
@@ -48,7 +49,7 @@ function ChooseSpace(props) {
                  .map((n) => n[0])
                  .join(".")} */}
                 </Draggable>
-                <div className={`${props.userData.id ? "hidden" : ""} righ pl-5`}>
+                <div className={`${props.userData.id ? "hidden" : ""} righ pl-5 text-3xl xl:text-5xl`}>
                     <TfiHandPointLeft></TfiHandPointLeft>
                 </div>
                 {props.userData.id ? (

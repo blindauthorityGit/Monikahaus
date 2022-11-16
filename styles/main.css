@@ -26,11 +26,11 @@ html, body, #__next {
 .tooltip::before {
   content: "■";
   position: absolute;
-  color: #000000;
+  color: #fff;
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
   font-size: 2rem;
-  top: 27%;
+  top: 5%;
   right: -14px;
   z-index: 100;
 }

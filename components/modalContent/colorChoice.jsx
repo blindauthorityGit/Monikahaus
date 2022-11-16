@@ -11,7 +11,7 @@ function ColorChoice(props) {
                         <MdFormatColorFill />
                     </div>
                 </div>
-                <div className="col-span-9">
+                <div className="col-span-9 md:col-span-6 xl:col-span-4">
                     <div className={`wrapper flex justify-between ${props.wrapperKlasse}`} ref={props.ballRef}>
                         {colors.bgColors.map((e, i) => {
                             return (

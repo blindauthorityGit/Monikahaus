@@ -129,7 +129,8 @@ const Raster = (props) => {
                               document.querySelector("#Pfad_231").getBoundingClientRect().height -
                               22 +
                               "px",
-                          paddingLeft: "10px",
+                          paddingLeft: isMobile ? "10px" : "",
+                          marginLeft: !isMobile ? "-10px" : "",
                       }
             }
         >

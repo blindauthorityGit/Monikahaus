@@ -46,7 +46,7 @@ const SVG = (props, ref) => {
             width={mobile ? "80%" : "100%"}
             height="100%"
             // viewBox="0 0 526.157 794.811"
-            viewBox={`0 0 526.157 ${mobile ? 1294 : 794.811}`}
+            viewBox={`0 0 526.157 ${mobile ? 1294 : 994.811}`}
         >
             <motion.g
                 // style={{ opacity: 0.5 }}

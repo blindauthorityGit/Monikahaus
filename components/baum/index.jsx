@@ -32,7 +32,7 @@ const Baum = (props, ref) => {
         <div
             data-height={height}
             ref={ref}
-            className={`absolute w-[90%] lg:w-full h-full pt-4 md:pt-8 `}
+            className={`absolute w-[90%] lg:w-full h-full pt-4 md:pt-8 xl:pt-0`}
             // style={{ height: height + "px" }}
         >
             {/* <Img src={BaumDoc} layout="fill"></Img> */}

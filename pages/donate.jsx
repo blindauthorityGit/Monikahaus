@@ -16,6 +16,8 @@ import {
     ShowOverlay,
 } from "../helper/context";
 
+import Intro from "../components/intro";
+
 import { DndContext, closestCenter } from "@dnd-kit/core";
 
 import StartText from "../components/layout/startText";
@@ -98,6 +100,7 @@ export default function Home({ spenderList }) {
     const [showThankYou, setShowThankYou] = useState(false);
     const [isWinner, setIsWinner] = useState(false);
     const [isFullScreen, setIsFullScreen] = useState(false);
+    const [showIntro, setShowIntro] = useState(!isMobile);
     const [kugelColor, setKugelColor] = useState({ color: "", name: "", anon: false, id: 0 });
     const [userData, setUserData] = useState({
         color: "",
@@ -113,6 +116,7 @@ export default function Home({ spenderList }) {
     const [userList, setUserList] = useState(dev ? testData : spenderList);
 
     const baumRef = useRef();
+    const containerRef = useRef();
 
     const [parent, setParent] = useState(null);
     const [isDropped, setIsDropped] = useState(false);
@@ -165,23 +169,17 @@ export default function Home({ spenderList }) {
     }
 
     useEffect(() => {
-        // setUserList(testData);
-        console.log(spenderList);
-        // async function getData(db) {
-        //     const spenderCol = collection(db, "spender");
-        //     const spenderSnapshot = await getDocs(spenderCol);
-        //     const spenderList = spenderSnapshot.docs.map((doc) => doc.data());
-        //     console.log(spenderList);
-        //     return spenderList;
-        // }
-        // dev ? setUserList(testData) : setUserList(getData(db));
-        // console.log(getData(db));
-        // process.env.NEXT_DEV ? setUserList(testData) : setUserList(getData(db));
-
         !isMobile ? (baumRef.current.children[0].style.left = "-20px") : null;
 
         window.scrollTo(0, 0);
-        console.log(app);
+
+        function handleResize() {
+            // Set window width/height to state
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        }
 
         // setRasterDimensions({
         //     width: baumRef.current.children[0].clientWidth + "px",
@@ -200,6 +198,8 @@ export default function Home({ spenderList }) {
             height: (baumDimensions.height / 100) * 79 + "px",
         });
     }, [baumDimensions]);
+
+    useEffect(() => {}, [containerRef.current]);
 
     async function dataDB(userData) {
         await addDoc(collection(db, "spender"), userData);
@@ -312,10 +312,31 @@ export default function Home({ spenderList }) {
                                             <MdInfoOutline></MdInfoOutline>
                                         </div>
                                     </div>
+                                    {/* {showIntro && (
+                                        <>
+                                            <ModalFull
+                                                noFixed
+                                                onClick={() => {
+                                                    setShowOverlay(false);
+                                                    setShowIntro(false);
+                                                }}
+                                            >
+                                                <Intro
+                                                    onClick={() => {
+                                                        setShowOverlay(false);
+                                                        setShowIntro(false);
+                                                    }}
+                                                ></Intro>
+                                            </ModalFull>
+
+                                            <Overlay></Overlay>
+                                        </>
+                                    )} */}
                                     {showList && (
                                         <>
                                             {isMobile ? (
                                                 <ModalFull
+                                                    noFixed={false}
                                                     onClick={() => {
                                                         setShowOverlay(false);
                                                         setShowList(false);
@@ -390,9 +411,10 @@ export default function Home({ spenderList }) {
                                             <MainContainer
                                                 id="fireworksContainer"
                                                 width="container h-full min-h-[100%] lg:h-[80%] overflow-hidden relative"
+                                                ref={containerRef}
                                             >
                                                 <div className="left pl-[25%] pt-[15%]  hidden lg:block order-last sm:order-first col-span-12 lg:col-span-6 relative">
-                                                    <Goal data={userList} klasse="w-full mb-16 "></Goal>
+                                                    {/* <Goal data={userList} klasse="w-full mb-16 "></Goal> */}
 
                                                     <StartText
                                                         headline={startInfo.headline}
@@ -418,7 +440,7 @@ export default function Home({ spenderList }) {
                                                     // style={{ top: baumDimensions.height + 120 + "px" }}
                                                     className={`lg:hidden z-30 absolute bottom-36 md:bottom-56 w-2/3 left-1/2 transform -translate-x-1/2`}
                                                 >
-                                                    <Goal data={userList} klasse=""></Goal>
+                                                    {/* <Goal data={userList} klasse=""></Goal> */}
                                                 </div>
                                                 {/* STARTTEST MOBILE */}
                                                 {/* <div className="absolute sm:hidden bottom-36 z-40 w-full text-center  left-1/2 transform -translate-x-1/2 text-xl font-bold ">
