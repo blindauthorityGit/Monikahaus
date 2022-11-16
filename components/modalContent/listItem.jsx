@@ -1,19 +1,20 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { isBrowser, isMobile } from "react-device-detect";
 import { BsPersonCircle } from "react-icons/bs";
 
-function ListItem(props) {
+function ListItem(props, ref) {
     return (
         <>
             <div
                 data-id={props.e.id}
-                className="wrapper w-full flex items-center mt-2 mb-4 hover:bg-[#f5f5f5]"
+                className="wrapper listItem w-full flex items-center mt-2 mb-4 hover:bg-[#f5f5f5]"
                 onMouseOver={(e) => {
                     props.onHover(e);
                 }}
                 onMouseLeave={(e) => {
                     props.onLeave(e);
                 }}
+                ref={ref}
             >
                 <div className="left pr-6">
                     {props.e.anon ? (
@@ -24,7 +25,7 @@ function ListItem(props) {
                         <img
                             className="rounded-full h-16 sm:h-24"
                             src={`https://i.pravatar.cc/300?img=${props.e.id}`}
-                            alt=""
+                            alt="test"
                         />
                     )}
                 </div>
@@ -39,7 +40,7 @@ function ListItem(props) {
                     )}
                 </div>
                 {props.e.comment && (
-                    <div className="farRight hidden sm:block text-xs border p-2 sm:p-4 bg-[lightgray]">
+                    <div className="farRight comment hidden sm:block text-xs border p-2 sm:p-4 bg-[lightgray]">
                         {props.e.comment}
                     </div>
                 )}{" "}
@@ -49,4 +50,4 @@ function ListItem(props) {
     );
 }
 
-export default ListItem;
+export default forwardRef(ListItem);

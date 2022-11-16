@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import MainContainer from "../layout/mainContainer";
 import { testData } from "../../dev";
 import { KugelColor, UserList } from "../../helper/context";
@@ -15,6 +15,8 @@ const DonatorList = () => {
     const [currentPage, setCurrentPage] = useState(0);
 
     const [windowSize, setWindowSize] = useState(getWindowSize());
+
+    const listRef = useRef();
 
     useEffect(() => {
         function handleWindowResize() {
@@ -33,7 +35,8 @@ const DonatorList = () => {
         return { innerWidth, innerHeight };
     }
 
-    const itemsPerPage = windowSize.innerHeight <= 640 ? 4 : 5;
+    const itemsPerPage = Math.floor(windowSize.innerHeight / 115);
+    // const itemsPerPage = windowSize.innerHeight <= 640 ? 4 : 8;
 
     function sliceIntoChunks(arr, chunkSize) {
         const res = [];
@@ -50,7 +53,9 @@ const DonatorList = () => {
 
     useEffect(() => {
         setItems(sliceIntoChunks(itemsAll, itemsPerPage));
-    }, []);
+        console.log(Math.floor(windowSize.innerHeight / 90));
+        console.log(listRef.current);
+    }, [listRef.current]);
 
     const claimedArr = Array.from(document.querySelectorAll(".kugel"));
 
@@ -80,7 +85,7 @@ const DonatorList = () => {
                     <>
                         {items[currentPage].map((e, i) => {
                             if (i < itemsPerPage) {
-                                return <ListItem onHover={onHover} onLeave={onLeave} e={e}></ListItem>;
+                                return <ListItem ref={listRef} onHover={onHover} onLeave={onLeave} e={e}></ListItem>;
                             }
                         })}
                     </>
