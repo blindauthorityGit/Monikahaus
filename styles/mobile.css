@@ -11,6 +11,20 @@
     right: 44%;
     z-index: 100;
   }
+}
+
+@media only screen and (min-width: 501px) and (max-width: 769px) {
+  .tooltip::before {
+    content: "■";
+    position: absolute;
+    color: #000000;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+    font-size: 1.5rem;
+    top: -20px;
+    right: 47%;
+    z-index: 100;
+  }
   .bgLightGreen::before {
     color: #DCDFDC;
   }

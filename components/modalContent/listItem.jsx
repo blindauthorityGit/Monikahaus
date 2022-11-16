@@ -1,5 +1,6 @@
 import React from "react";
 import { isBrowser, isMobile } from "react-device-detect";
+import { BsPersonCircle } from "react-icons/bs";
 
 function ListItem(props) {
     return (
@@ -15,14 +16,20 @@ function ListItem(props) {
                 }}
             >
                 <div className="left pr-6">
-                    <img
-                        className="rounded-full h-16 sm:h-24"
-                        src={`https://i.pravatar.cc/300?img=${props.e.id}`}
-                        alt=""
-                    />
+                    {props.e.anon ? (
+                        <div className="text-6xl">
+                            <BsPersonCircle></BsPersonCircle>
+                        </div>
+                    ) : (
+                        <img
+                            className="rounded-full h-16 sm:h-24"
+                            src={`https://i.pravatar.cc/300?img=${props.e.id}`}
+                            alt=""
+                        />
+                    )}
                 </div>
                 <div className="right text-sm sm:text-base w-auto sm:w-64">
-                    <strong>{props.e.name}</strong>
+                    <strong>{!props.e.anon ? props.e.name : "Anonymer Spender"}</strong>
                     <br />
                     Spende: EUR {props.e.sum},-
                     {props.e.comment && (

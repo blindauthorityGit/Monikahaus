@@ -223,7 +223,7 @@ export default function Home({ spenderList }) {
                 claimed: true,
             };
             dataDB(newUser);
-            console.log(newUser);
+            console.log(newUser, window.localStorage.getItem("anon"), window.localStorage.getItem("anon") === "true");
         }
     }, [showThankYou]);
 
@@ -294,12 +294,12 @@ export default function Home({ spenderList }) {
                                             <Overlay></Overlay>
                                         </>
                                     )}
-                                    <div className="btnWrapper absolute top-[22%] sm:top-0 right-0 sm:right-auto z-30">
+                                    <div className="btnWrapper absolute top-[22%] lg:top-0 right-0 lg:right-auto z-30">
                                         <div
                                             onClick={() => {
                                                 setShowList(true);
                                             }}
-                                            className="btn mb-2 rounded-l-lg sm:rounded-r-lg  z-50 p-3 sm:p-10 bg-black sm:bg-[#7d866f]  sm:flex justify-center items-center text-2xl text-white"
+                                            className="btn mb-2 rounded-l-lg lg:rounded-r-lg  z-50 p-3 lg:p-10 bg-black lg:bg-[#7d866f]  lg:flex justify-center items-center text-2xl text-white"
                                         >
                                             <MdPeople></MdPeople>
                                         </div>{" "}
@@ -307,7 +307,7 @@ export default function Home({ spenderList }) {
                                             onClick={() => {
                                                 setShowInfo(true);
                                             }}
-                                            className="btn rounded-l-lg sm:rounded-r-lg    p-3 sm:p-10 bg-black sm:bg-[#7d866f]  sm:flex justify-center items-center text-2xl text-white"
+                                            className="btn rounded-l-lg lg:rounded-r-lg    p-3 lg:p-10 bg-black lg:bg-[#7d866f]  lg:flex justify-center items-center text-2xl text-white"
                                         >
                                             <MdInfoOutline></MdInfoOutline>
                                         </div>
@@ -370,6 +370,7 @@ export default function Home({ spenderList }) {
                                                 onClick={() => {
                                                     setShowOverlay(false);
                                                     setShowThankYou(false);
+                                                    window.location.reload();
                                                 }}
                                             ></ThankYou>
                                             <Overlay></Overlay>
@@ -388,9 +389,9 @@ export default function Home({ spenderList }) {
                                         >
                                             <MainContainer
                                                 id="fireworksContainer"
-                                                width="container h-full min-h-[100%] md:h-[80%] overflow-hidden relative"
+                                                width="container h-full min-h-[100%] lg:h-[80%] overflow-hidden relative"
                                             >
-                                                <div className="left hidden md:block order-last sm:order-first col-span-12 md:col-span-6 relative">
+                                                <div className="left hidden lg:block order-last sm:order-first col-span-12 lg:col-span-6 relative">
                                                     <Goal
                                                         data={userList}
                                                         klasse="w-[472px] top-12 right-0 absolute"
@@ -406,7 +407,7 @@ export default function Home({ spenderList }) {
                                                         }}
                                                     ></StartText>
                                                 </div>
-                                                <div className="left px-5 sm:px-0 col-span-12 md:col-span-6 flex justify-center relative">
+                                                <div className="left px-5 lg:px-0 col-span-12 lg:col-span-6 flex justify-center relative">
                                                     <Raster
                                                         opacity={opacity}
                                                         width={rasterDimensions.width}
@@ -419,7 +420,7 @@ export default function Home({ spenderList }) {
                                                 {/* GOALS MOBILE */}
                                                 <div
                                                     // style={{ top: baumDimensions.height + 120 + "px" }}
-                                                    className={`sm:hidden z-30 absolute bottom-36 w-2/3 left-1/2 transform -translate-x-1/2`}
+                                                    className={`lg:hidden z-30 absolute bottom-36 md:bottom-56 w-2/3 left-1/2 transform -translate-x-1/2`}
                                                 >
                                                     <Goal data={userList} klasse=""></Goal>
                                                 </div>
@@ -428,7 +429,7 @@ export default function Home({ spenderList }) {
                                                     {startInfo.headline}
                                                 </div> */}
                                                 <MobileButton
-                                                    klasse="absolute w-3/4 flex sm:hidden bottom-12 z-30  left-1/2 transform -translate-x-1/2 "
+                                                    klasse="absolute w-3/4 flex lg:hidden bottom-12 md:bottom-24 z-30  left-1/2 transform -translate-x-1/2 "
                                                     buttonText={startInfo.buttonText}
                                                     onClick={() => {
                                                         setShowOverlay(true);

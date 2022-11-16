@@ -9,20 +9,12 @@ import Item from "../dragNDrop/item";
 import { createPortal } from "react-dom";
 import Droppable from "../dragNDrop/droppable";
 import { TreeAnimationFinish, KugelColor, UserData, UserList, ShowOverlay } from "../../helper/context";
-import Slider from "react-rangeslider";
-import QMark from "../../assets/qmark.svg";
-import ReactTooltip from "react-tooltip";
 
 import ColorChoice from "./colorChoice";
 import SpendenSumme from "./spendenSumme";
 import NameKugel from "./NameKugel";
 import ImageUpload from "./imageUpload";
 import Comment from "./comment";
-
-import { colors } from "../../config";
-import { testData } from "../../dev";
-
-import axios from "axios";
 
 import MobileSecond from "./mobileSecond";
 import ChooseSpace from "./chooseSpace";
@@ -36,7 +28,7 @@ import { doc, setDoc } from "firebase/firestore/lite";
 import { TfiHandPointLeft } from "react-icons/tfi";
 
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { contains } from "@firebase/util";
+import { dev } from "../../config";
 
 const MobileFirst = (props) => {
     const { treeAnimationFinish, setTreeAnimationFinish } = useContext(TreeAnimationFinish);
@@ -143,9 +135,9 @@ const MobileFirst = (props) => {
     }, [isChoice]);
 
     const initialOptions = {
-        // "client-id": "ATGgjKrwMJBGH__4xP9Fwly9nF_Br7RjSTQuyLvsxhBc6D2ARfeu24i8fikw4TBM84OvV-B7pNMl51Rp",
-        "client-id": process.env.NEXT_PUBLIC_CLIENT_ID,
-        // "client-id": "AaX0OXb-afYDG23QpVOmNi6cPevWn_cTCyD_mmbcH87wYqbGmxlCZLdUTUbJ0WM4PAZEdT7tODT-z5m0",
+        "client-id": dev
+            ? "AaX0OXb-afYDG23QpVOmNi6cPevWn_cTCyD_mmbcH87wYqbGmxlCZLdUTUbJ0WM4PAZEdT7tODT-z5m0"
+            : process.env.NEXT_PUBLIC_CLIENT_ID,
         currency: "EUR",
         intent: "capture",
         // "data-client-token": "abc123xyz==",
@@ -163,14 +155,6 @@ const MobileFirst = (props) => {
     async function dataDB(user, userData) {
         await setDoc(doc(db, "spender", user), userData);
     }
-    // async function dataTest(user, userData) {
-    //     await setDoc(doc(db, "spender", user), userData);
-    // }
-
-    useEffect(() => {
-        console.log(process.env.NEXT_PUBLIC_CLIENT_ID);
-        console.log(process.env.NEXT_PUBLIC_CLIENT_ID);
-    }, []);
 
     return (
         <PayPalScriptProvider options={initialOptions}>
@@ -229,9 +213,13 @@ const MobileFirst = (props) => {
                                     Zurück
                                 </ButtonReal>
                             </div>
-                            <div className={`w-full bottom-2  ${userData.spende ? "" : "opacity-30"}`}>
+                            <div
+                                className={`w-full bottom-2  ${
+                                    userData.spende && userData.spende > 0 ? "" : "opacity-30"
+                                }`}
+                            >
                                 <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
-                                    disabled={userData.spende ? false : true}
+                                    disabled={userData.spende && userData.spende > 0 ? false : true}
                                     klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
                                     onClick={() => {
                                         BtnDirectorFw(secondRef, thirdRef);
@@ -500,7 +488,7 @@ const MobileFirst = (props) => {
                                     // dataDB(newUser.colo, newUser);
                                     // console.log(newUser, userList);
                                     router.push({
-                                        pathname: "/",
+                                        pathname: "/donate",
                                         query: { id: newUser.id, name: newUser.name, winner: newUser.winner },
                                     });
                                     setShowOverlay(false);
@@ -518,7 +506,7 @@ const MobileFirst = (props) => {
                                     disabled={false}
                                     klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
                                     onClick={() => {
-                                        BtnDirector(fifthRef, sixthRef);
+                                        BtnDirector(seventhRef, eightRef);
                                     }}
                                 >
                                     Zurück

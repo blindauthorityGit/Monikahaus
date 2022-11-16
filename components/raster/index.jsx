@@ -5,7 +5,7 @@ import { Row } from "../kugeln";
 
 import { ShowUnclaimed, KugelColor, TreeAnimationFinish, UserList } from "../../helper/context";
 import getIndex from "../../functions/getIndex";
-import switcher from "../../functions/switcher";
+import { switcher, switcherRGB } from "../../functions/switcher";
 import { anzahlRows, dev } from "../../config";
 
 import Draggable from "../dragNDrop/draggable";
@@ -90,9 +90,10 @@ const Raster = (props) => {
                     });
                     // CLASS NAME FOR ::AFTER STYLING TOOLTIP
                     if (arr[e].children[0].classList.contains("draggable")) {
-                        arr[e].children[2].classList.add(switcher(userList[i].color));
+                        arr[e].children[2].classList.add(switcherRGB(userList[i].color));
+                    } else {
+                        arr[e].children[1].classList.add(switcherRGB(userList[i].color));
                     }
-                    arr[e].children[1].classList.add(switcher(userList[i].color));
                 }, random);
             });
         }
@@ -101,7 +102,7 @@ const Raster = (props) => {
     return (
         <div
             ref={allRef}
-            className="flex pl-2 sm:pl-0 sm:left-0 sm:pt-0 sm:items-center h-full"
+            className="flex pl-2 lg:pl-0 lg:left-0 pt-8 lg:pt-0 lg:items-center h-full"
             style={
                 isMobile ? { paddingTop: isFullScreen ? baumDimensions.top + "px" : baumDimensions.top + "px" } : null
             }
@@ -131,6 +132,7 @@ const Raster = (props) => {
                                 counter = counter + 1;
 
                                 let claimed = userList.some((e) => e.id === counter - 1);
+                                console.log(userList[getIndex(userList, counter - 1)]);
                                 return (
                                     <Kugel
                                         key={i + "kugel"}
@@ -206,9 +208,9 @@ const Raster = (props) => {
                                         toolTipColor={
                                             userList.some((e) => e.id === counter - 1)
                                                 ? userList[getIndex(userList, counter - 1)].color.toLowerCase() ===
-                                                      "#fff" ||
+                                                      "rgb(255, 255, 255)" ||
                                                   userList[getIndex(userList, counter - 1)].color.toLowerCase() ===
-                                                      "#dcdfdc" ||
+                                                      "rgb(220, 223, 220)" ||
                                                   !userList[getIndex(userList, counter - 1)].color.toLowerCase() ===
                                                       "rgb(235, 69, 17)"
                                                     ? "text-black"

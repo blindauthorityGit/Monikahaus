@@ -22,7 +22,7 @@ const Kugel = (props, ref) => {
 
     return (
         <div
-            className={`kugel relative mx-1 sm:mx-3 flex h-full items-center text-bold ${
+            className={`kugel relative mx-1 lg:mx-3 flex h-full items-center text-bold ${
                 isOver ? "bg-red-600 " : ""
             } justify-center text-white ${props.size} ${props.klasse} rounded-full ${props.color} ${props.textColor}`}
             id={props.id}
@@ -38,12 +38,12 @@ const Kugel = (props, ref) => {
             data-isWinner={props.winner}
         >
             <>
-                <div className="hidden sm:block pointer-events-none">{props.name}</div>
+                <div className="hidden lg:block pointer-events-none">{props.name}</div>
                 {/* {props.name} */}
                 {props.children}
             </>
             <ToolTip
-                klasse={`absolute tooltip hidden z-20 sm:right-[${props.abstand}rem] bg-black py-4 sm:py-6 px-4 sm:px-8 min-w-[10rem] sm:min-w-[20rem] sm:font-bold rounded-xl ${props.toolTipColor} ${props.toolTipAfterColor}`}
+                klasse={`absolute tooltip hidden z-20 lg:right-[${props.abstand}rem] bg-black py-4 sm:py-6 px-4 sm:px-8 min-w-[10rem] sm:min-w-[20rem] sm:font-bold rounded-xl ${props.toolTipColor} ${props.toolTipAfterColor}`}
                 name={props.fullName}
                 sum={props.sum}
                 isAnon={props.isAnon}

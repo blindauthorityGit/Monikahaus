@@ -22,9 +22,9 @@ const Modal = (props) => {
             }}
             animate={{ x: isMobile ? 0 : 20.14, y: props.closeMe ? 700 : 20.685, scale: 1, rotate: 0 }}
             transition={{ duration: "30ms", delay: props.delay, type: "spring" }}
-            className={`absolute sm:fixed h-[${
+            className={`absolute lg:fixed h-[${
                 onlyHeight <= 640 ? 60 : 50
-            }%] bottom-6 sm:bottom-auto  sm:h-full max-h-[100%] fade-in w-full sm:w-[90%] lg:w-[45%] sm:min-h-[100%] bg-white p-8 lg:p-24 z-50 `}
+            }%] bottom-6 lg:bottom-auto  lg:h-full max-h-[100%] fade-in w-full lg:w-[90%] lg:w-[45%] lg:min-h-[100%] bg-white p-8 lg:p-24 z-50 `}
         >
             <div
                 className="closer absolute top-6 right-6 text-4xl cursor-pointer transition hover:opacity-50 z-50"
