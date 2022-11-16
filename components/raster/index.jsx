@@ -121,7 +121,7 @@ const Raster = (props) => {
             ref={allRef}
             className="flex pl-2 lg:pl-0 lg:left-0 pt-8 lg:pt-0  h-full"
             style={
-                realWidth <= 768
+                realWidth <= 500
                     ? { paddingTop: baumDimensions.top + "px" }
                     : {
                           paddingTop:

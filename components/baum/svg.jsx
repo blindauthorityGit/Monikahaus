@@ -22,6 +22,12 @@ const SVG = (props, ref) => {
         console.log(onlyWidth);
         console.log(widthCheck(onlyWidth));
         setRealWidth(onlyWidth);
+        function handleResize() {
+            // Set window width/height to state
+            setRealWidth(onlyWidth);
+        }
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     function widthCheck(width) {
@@ -48,7 +54,7 @@ const SVG = (props, ref) => {
                 data-name="Gruppe 272"
                 // transform={`translate(3908.159 ${mobile ? "920.176" : "1025.176"}`}
                 // transform="translate(3908.159 1025.176)"
-                transform={`translate(3908.159 ${realWidth <= 768 ? "920" : "1025"} )`}
+                transform={`translate(3908.159 ${realWidth <= 500 ? "920" : "1025"} )`}
                 initial={{
                     opacity: 0,
                 }}
