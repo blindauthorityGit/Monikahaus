@@ -133,7 +133,7 @@ export default function Index() {
                                 <Link href="/donate">
                                     <a>
                                         <MobileButton
-                                            klasse=" w-full flex sm:hidden mt-10 mb-10 "
+                                            klasse=" w-full flex lg:hidden mt-10 mb-10 "
                                             buttonText="Los gehts"
                                             onClick={() => {}}
                                         ></MobileButton>
