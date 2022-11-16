@@ -89,11 +89,12 @@ const Raster = (props) => {
     useEffect(() => {
         if (treeAnimationFinish) {
             let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
-
             let arrClaimedID = userList.map((e) => e.id);
             setTimeout(() => {
-                setKugelWidth(Array.from(allRef.current.querySelectorAll(".kugel"))[0].clientHeight);
-            }, 100);
+                console.log(Array.from(allRef.current.querySelectorAll(".kugel"))[0].clientHeight);
+
+                setKugelWidth(Array.from(allRef.current.querySelectorAll(".kugel"))[6].clientHeight);
+            }, 300);
             arrClaimedID.map((e, i) => {
                 let random = Math.random() * 500;
                 setTimeout(() => {
@@ -111,7 +112,6 @@ const Raster = (props) => {
                         arr[e].children[1].classList.add(switcherRGB(userList[i].color));
                     }
                 }, random);
-                console.log(document.querySelector("#Pfad_231").getBoundingClientRect().height);
             });
         }
     }, [treeAnimationFinish, userList, baumDimensions]);
