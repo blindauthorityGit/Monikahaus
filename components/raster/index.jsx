@@ -70,6 +70,12 @@ const Raster = (props) => {
     useEffect(() => {
         setRealWidth(onlyWidth);
         console.log(document.querySelector("#Pfad_231").clientHeight);
+        function handleResize() {
+            // Set window width/height to state
+            setRealWidth(onlyWidth);
+        }
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     const draggableMarkup = (
