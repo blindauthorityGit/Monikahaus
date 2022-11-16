@@ -48,7 +48,9 @@ const Boden = (props) => {
                         type="spring"
                         delay={1}
                         duration={0.5}
-                        klasse={`top-[-6rem] ${isMobile ? "left-[3%]" : "left-[37%]"} transform z-[-1] rotate-[6deg]`}
+                        klasse={`top-[-6rem] md:top-[-5rem]
+                        left-[3%] md:left-[12%] lg:left-[37%]
+                        transform z-[-1] rotate-[6deg]`}
                         // style={isMobile ? { left: "7%" } : null}
                     ></Present1>
                 )
@@ -165,7 +167,7 @@ const Boden = (props) => {
                 type="spring"
                 delay={1.25}
                 duration={0.75}
-                klasse="top-[-3.85rem] hidden sm:block left-[78%] transform z-[-1] scale-[0.6] rotate-[5deg]"
+                klasse="top-[-3.85rem] hidden lg:block left-[78%] transform z-[-1] scale-[0.6] rotate-[5deg]"
             ></SmallTree>
             <SmallTree
                 initialX={0}
@@ -179,7 +181,7 @@ const Boden = (props) => {
                 type="spring"
                 delay={1.35}
                 duration={0.75}
-                klasse="top-[-4rem] left-[82%] hidden sm:block transform z-[-1] scale-[0.75] rotate-[5deg]"
+                klasse="top-[-4rem] left-[2%] hidden lg:block transform z-[-1] scale-[0.75] rotate-[5deg]"
             ></SmallTree>
 
             {isMobile ? (
@@ -228,7 +230,7 @@ const Boden = (props) => {
                 type="spring"
                 delay={1.5}
                 duration={0.75}
-                klasse="top-[0.75rem] left-[25%] transform z-[-1] scale-[1.25] rotate-[-8deg]"
+                klasse="top-[0.75rem] left-[5%] transform z-[-1] scale-[1.25] rotate-[-8deg]"
             ></SmallTree>
         </div>
     );
