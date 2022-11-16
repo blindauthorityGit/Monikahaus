@@ -11,7 +11,6 @@ import OnBoardTree from "../assets/onBoardTree.svg";
 
 import MobileButton from "../components/layout/mobileButton";
 import Link from "next/link";
-import Home from "./donate";
 
 // Import Swiper styles
 import "swiper/css";
