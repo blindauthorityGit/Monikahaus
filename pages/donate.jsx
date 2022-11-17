@@ -413,7 +413,7 @@ export default function Home({ spenderList }) {
                                                 width="container h-full min-h-[100%] lg:h-[80%] overflow-hidden relative"
                                                 ref={containerRef}
                                             >
-                                                <div className="left pl-[25%] pt-[15%]  hidden lg:block order-last sm:order-first col-span-12 lg:col-span-6 relative">
+                                                <div className="left lg:h-[80%] pl-[25%] xl:pl-0 xl:pr-[20%] pt-[15%] lg:pt-0 hidden lg:block order-last sm:order-first col-span-12 lg:col-span-6 lg:flex lg:items-center relative">
                                                     {/* <Goal data={userList} klasse="w-full mb-16 "></Goal> */}
 
                                                     <StartText

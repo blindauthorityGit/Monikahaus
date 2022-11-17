@@ -166,7 +166,7 @@ export default function Intro() {
                             <div className="text text-sm md:text-base md:w-2/3">
                                 <p className=" mt-4">
                                     Sie sorgen dafür, dass jedes Tier Futter, Pflege und Streicheleinheiten bekommt –
-                                    und einen Tierarzt, der sich um die Vierbeiner kümmert. !
+                                    und einen Tierarzt, der sich um die Vierbeiner kümmert!
                                 </p>
                                 <p className=" mt-4">
                                     Unser Tierheim Dreieich ist aber bereits am Limit – platztechnisch, personell und
@@ -207,7 +207,7 @@ export default function Intro() {
                             <div className="text text-sm md:text-base xl:text-xl">
                                 <p className=" mt-4 xl:mt-6">
                                     Sie sorgen dafür, dass jedes Tier Futter, Pflege und Streicheleinheiten bekommt –
-                                    und einen Tierarzt, der sich um die Vierbeiner kümmert. !
+                                    und einen Tierarzt, der sich um die Vierbeiner kümmert!
                                 </p>
                                 <p className=" mt-4 xl:mt-6">
                                     Unser Tierheim Dreieich ist aber bereits am Limit – platztechnisch, personell und
