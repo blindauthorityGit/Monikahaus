@@ -414,16 +414,16 @@ const MobileFirst = (props) => {
                                     Zurück
                                 </ButtonReal>
                             </div>
-                            <div className={`w-full bottom-2  ${anon ? "" : "opacity-30"}`}>
+                            <div className={`w-full bottom-2 `}>
                                 <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
-                                    disabled={anon ? false : true}
+                                    // disabled={anon ? false : true}
                                     klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
                                     onClick={() => {
                                         BtnDirectorFw(sixthRef, seventhRef);
                                         setIsChoice(true);
                                     }}
                                 >
-                                    {userData.image ? "Weiter" : "Überspringen"}
+                                    {userData.comment ? "Weiter" : "Überspringen"}
                                 </ButtonReal>
                             </div>
                         </div>
