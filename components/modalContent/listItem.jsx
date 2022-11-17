@@ -32,13 +32,13 @@ function ListItem(props, ref) {
                     <br />
                     Spende: EUR {props.e.sum},-
                     {props.e.comment && (
-                        <div className="farRight lg:hidden mt-2 text-xs border p-2 lg:p-4 bg-[lightgray]">
+                        <div className="farRight lg:hidden mt-2 text-xs border p-2 lg:p-4 bg-[#dcdfdc]">
                             {props.e.comment}
                         </div>
                     )}
                 </div>
                 {props.e.comment && (
-                    <div className="farRight comment hidden lg:block text-xs border p-2 lg:p-4 bg-[lightgray]">
+                    <div className="farRight comment hidden lg:block text-xs border p-2 lg:p-4 bg-[#dcdfdc]">
                         {props.e.comment}
                     </div>
                 )}{" "}
