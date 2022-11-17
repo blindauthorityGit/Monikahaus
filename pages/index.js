@@ -74,7 +74,7 @@ export default function Intro() {
                 onSlideChange={() => {
                     window.scrollTo(0, 1);
                 }}
-                className="pb-6 h-screen"
+                className="pb-6 h-full"
                 onInit={(ev) => {
                     set_my_swiper(ev);
                 }}
@@ -90,7 +90,7 @@ export default function Intro() {
                     <div
                         className={`topImg lg:hidden ${
                             realHeight > 680
-                                ? "h-[66%] bg-cover md:bg-contain md:bg-no-repeat md:bg-primaryColor"
+                                ? "h-[58%] bg-cover md:bg-contain md:bg-no-repeat md:bg-primaryColor"
                                 : "h-[50%] bg-contain bg-no-repeat bg-primaryColor"
                         } w-full  bg-bottom relative`}
                         style={{ backgroundImage: `url(${MobileIntro.src})` }}
