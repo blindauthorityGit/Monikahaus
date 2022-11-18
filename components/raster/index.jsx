@@ -6,12 +6,14 @@ import { Row } from "../kugeln";
 import { ShowUnclaimed, KugelColor, TreeAnimationFinish, UserList } from "../../helper/context";
 import getIndex from "../../functions/getIndex";
 import { switcher, switcherRGB } from "../../functions/switcher";
-import { anzahlRows, dev } from "../../config";
+import { anzahlRows, dev, anzahlBaumKugeln } from "../../config";
 
 import Draggable from "../dragNDrop/draggable";
 import { isBrowser, isMobile } from "react-device-detect";
 
 import { useWindowSize, useWindowWidth, useWindowHeight } from "@react-hook/window-size";
+
+import { dataFiller } from "../../dev";
 
 // const draggableMarkup = (
 //     <Draggable style={{ width: kugelWidth + "px", height: "68px" }} id="draggable">
@@ -32,7 +34,11 @@ const Raster = (props) => {
     // const [data, setData] = useState(testData);
     const allRef = useRef();
 
-    let counter = 0;
+    const [masterCounter, setMasterCounter] = useState(0);
+    let counter = masterCounter;
+    // MULTI TREES
+    const [treeAnzahl, setTreeAnzahl] = useState(0);
+    const [ballsPerTree, setBallsPerTree] = useState(anzahlBaumKugeln);
 
     const { treeAnimationFinish, setTreeAnimationFinish } = useContext(TreeAnimationFinish);
     const { baumDimensions, setBaumDimensions } = useContext(TreeAnimationFinish);
@@ -68,8 +74,11 @@ const Raster = (props) => {
     }, [props.parent]);
 
     useEffect(() => {
+        // SET TREE NUMBER
+        setTreeAnzahl(Math.ceil((userList.length + 1) / ballsPerTree));
+        console.log("Tree Anzahl: ", Math.ceil((userList.length + 1) / ballsPerTree));
         setRealWidth(onlyWidth);
-        console.log(document.querySelector("#Pfad_231").clientHeight);
+
         function handleResize() {
             // Set window width/height to state
             setRealWidth(onlyWidth);
@@ -77,6 +86,11 @@ const Raster = (props) => {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    useEffect(() => {
+        console.log("Counter: ", ballsPerTree * (treeAnzahl - 1));
+        setMasterCounter(ballsPerTree * (treeAnzahl - 1));
+    }, [ballsPerTree, treeAnzahl]);
 
     const draggableMarkup = (
         <Draggable
@@ -87,6 +101,8 @@ const Raster = (props) => {
     );
 
     useEffect(() => {
+        // SET TREE NUMBER
+
         if (treeAnimationFinish) {
             let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
             let arrClaimedID = userList.map((e) => e.id);
@@ -157,6 +173,9 @@ const Raster = (props) => {
                         >
                             {kugelCount.map((e, i) => {
                                 counter = counter + 1;
+                                // setCounter((prev) => {
+                                //     prev + 1;
+                                // });
 
                                 let claimed = userList.some((e) => e.id === counter - 1);
                                 return (

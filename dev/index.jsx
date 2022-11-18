@@ -1,5 +1,30 @@
 import { colors } from "../config";
 
+function dataFiller() {
+    const arr = Array(75).fill({
+        id: 0,
+        claimed: true,
+        name: "Christine Buchner",
+        sum: 15,
+        color: colors.kugeln[0].kugel1,
+        comment: "Ich spende gerne viel",
+    });
+
+    return arr.map((e, i) => {
+        let obj = new Object();
+        obj = {
+            id: i,
+            claimed: true,
+            name: "Christine Buchner",
+            sum: 15,
+            color: colors.kugeln[0].kugel1,
+            comment: "Ich spende gerne viel",
+        };
+        e = obj;
+        return e;
+    });
+}
+
 const testData = [
     {
         id: 0,
@@ -86,4 +111,4 @@ const testData = [
     },
 ];
 
-export { testData };
+export { testData, dataFiller };

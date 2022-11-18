@@ -30,7 +30,7 @@ import ThankYou from "../components/thankyou";
 import { MdPeople, MdInfoOutline } from "react-icons/md";
 import Link from "next/link";
 import Goal from "../components/goal";
-import { testData } from "../dev";
+import { testData, dataFiller } from "../dev";
 
 // import { app } from "../components/firebase";
 
@@ -45,7 +45,7 @@ import { getFirestore, collection, getDocs, doc, setDoc, addDoc } from "firebase
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyCQAvM7L_wh22VQHwbq6IBT2Fyc01jIIHY",
+    apiKey: process.env.NEXT_FIREBASE,
     authDomain: "spendenbaum-john.firebaseapp.com",
     projectId: "spendenbaum-john",
     storageBucket: "spendenbaum-john.appspot.com",
@@ -113,7 +113,7 @@ export default function Home({ spenderList }) {
         email: "",
         id: null,
     });
-    const [userList, setUserList] = useState(dev ? testData : spenderList);
+    const [userList, setUserList] = useState(dev ? dataFiller : spenderList);
 
     const baumRef = useRef();
     const containerRef = useRef();
@@ -414,7 +414,7 @@ export default function Home({ spenderList }) {
                                                 ref={containerRef}
                                             >
                                                 <div className="left lg:h-[80%] pl-[25%] xl:pl-0 xl:pr-[20%] pt-[15%] lg:pt-0 hidden lg:block order-last sm:order-first col-span-12 lg:col-span-6 lg:flex lg:items-center relative">
-                                                    {/* <Goal data={userList} klasse="w-full mb-16 "></Goal> */}
+                                                    <Goal data={userList} klasse="w-full mb-16 "></Goal>
 
                                                     <StartText
                                                         headline={startInfo.headline}
@@ -440,7 +440,7 @@ export default function Home({ spenderList }) {
                                                     // style={{ top: baumDimensions.height + 120 + "px" }}
                                                     className={`lg:hidden z-30 absolute bottom-36 md:bottom-56 w-2/3 left-1/2 transform -translate-x-1/2`}
                                                 >
-                                                    {/* <Goal data={userList} klasse=""></Goal> */}
+                                                    <Goal data={userList} klasse=""></Goal>
                                                 </div>
                                                 {/* STARTTEST MOBILE */}
                                                 {/* <div className="absolute sm:hidden bottom-36 z-40 w-full text-center  left-1/2 transform -translate-x-1/2 text-xl font-bold ">
