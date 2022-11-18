@@ -14,7 +14,7 @@ import Link from "next/link";
 
 import MobileIntro from "../assets/mobileIntroBig.jpg";
 import Tierheim from "../assets/tierheimBig.jpg";
-import Hund from "../assets/hundNigMobile.jpg";
+import Hund from "../assets/hundBigMobile.jpg";
 import HundBig from "../assets/hundBig.jpg";
 import LogoWhite from "../assets/logo_white.svg";
 import TierheimLogo from "../assets/tierheimLogo.svg";
