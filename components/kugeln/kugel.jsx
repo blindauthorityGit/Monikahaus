@@ -43,7 +43,7 @@ const Kugel = (props, ref) => {
                 {props.children}
             </>
             <ToolTip
-                klasse={`absolute tooltip hidden z-20 lg:right-[${props.abstand}rem] bg-black py-4 lg:py-6 px-4 lg:px-6 min-w-[10rem] lg:min-w-[15rem] lg:font-bold rounded-xl ${props.toolTipColor} ${props.toolTipAfterColor}`}
+                klasse={`absolute tooltip hidden z-20 lg:right-[${props.abstand}rem] bg-black py-4 lg:py-6 px-4 lg:px-6 min-w-[13rem] max-w-[18rem] md:min-w-[15rem] lg:font-bold rounded-xl ${props.toolTipColor} ${props.toolTipAfterColor}`}
                 name={props.fullName}
                 sum={props.sum}
                 isAnon={props.isAnon}

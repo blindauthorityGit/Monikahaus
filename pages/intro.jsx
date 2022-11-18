@@ -12,10 +12,10 @@ import OnBoardTree from "../assets/onBoardTree.svg";
 import MobileButton from "../components/layout/mobileButton";
 import Link from "next/link";
 
-import MobileIntro from "../assets/mobileIntro.svg";
-import Tierheim from "../assets/tierheim.svg";
-import Hund from "../assets/hund.svg";
-import HundBig from "../assets/hundBig.svg";
+import MobileIntro from "../assets/mobileIntroBig.jpg";
+import Tierheim from "../assets/tierheimBig.jpg";
+import Hund from "../assets/hundNigMobile.jpg";
+import HundBig from "../assets/hundBig.jpg";
 import LogoWhite from "../assets/logo_white.svg";
 import TierheimLogo from "../assets/tierheimLogo.svg";
 import { H1, H2 } from "../components/utils/headlines";

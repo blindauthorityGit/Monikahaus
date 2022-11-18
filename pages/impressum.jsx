@@ -37,9 +37,9 @@ export default function Impressum() {
                         E‑Mail zahnarzt@praxis-dreieich.de<br></br>
                         <a href="www.zahnarztpraxis-dreieich.de"> www.zahnarztpraxis-dreieich.de</a>
                     </p>
-                    <h3 className="text-xl">Gestaltung und Programmierung der Website</h3>
+                    <h3 className="text-xl">Gestaltung und Programmierung </h3>
                     <p>
-                        <a href="https://www.sabocon.com">Sabocon</a>
+                        <a href="https://www.sabocon.com">Sabocon GmbH</a>
                     </p>
                 </div>
             </MainContainer>

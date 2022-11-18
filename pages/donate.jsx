@@ -26,8 +26,10 @@ import Overlay from "../components/utils/overlay.";
 // import Modal from "../components/utils/modal";
 import FirstModal from "../components/modalContent/first";
 import MobileFirst from "../components/modalContent/mobileFirst";
+import MenuContent from "../components/modalContent/menuContent";
 import ThankYou from "../components/thankyou";
 import { MdPeople, MdInfoOutline } from "react-icons/md";
+import { RiMenu3Fill } from "react-icons/ri";
 import Link from "next/link";
 import Goal from "../components/goal";
 import { testData, dataFiller } from "../dev";
@@ -38,6 +40,7 @@ import { isBrowser, isMobile } from "react-device-detect";
 
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, doc, setDoc, addDoc } from "firebase/firestore/lite";
+import CookieConsent from "react-cookie-consent";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -74,6 +77,9 @@ const Boden = dynamic(() => import("../components/bGAssets/boden"), {
 const Modal = dynamic(() => import("../components/utils/modal"), {
     ssr: false,
 });
+const ModalMenu = dynamic(() => import("../components/utils/modalMenu"), {
+    ssr: false,
+});
 const ModalFull = dynamic(() => import("../components/utils/modalFull"), {
     ssr: false,
 });
@@ -95,6 +101,7 @@ export default function Home({ spenderList }) {
     const [baumWeg, setBaumWeg] = useState(false);
     const [showUnclaimed, setShowUnclaimed] = useState(false);
     const [showOverlay, setShowOverlay] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
     const [showList, setShowList] = useState(false);
     const [showInfo, setShowInfo] = useState(false);
     const [showThankYou, setShowThankYou] = useState(false);
@@ -232,6 +239,17 @@ export default function Home({ spenderList }) {
             <Head>
                 <title>Spendenbaum Dr John</title>
             </Head>
+
+            <div
+                onClick={() => {
+                    console.log("Burger Open");
+                    setShowMenu(true);
+                }}
+                className="burger absolute top-4 right-4 text-3xl z-50"
+            >
+                <RiMenu3Fill></RiMenu3Fill>
+            </div>
+
             <TreeAway.Provider value={{ baumWeg, setBaumWeg }}>
                 <ShowOverlay.Provider
                     value={{
@@ -332,6 +350,32 @@ export default function Home({ spenderList }) {
                                             <Overlay></Overlay>
                                         </>
                                     )} */}
+                                    {showMenu && (
+                                        <>
+                                            {isMobile ? (
+                                                <ModalMenu
+                                                    noFixed={false}
+                                                    onClick={() => {
+                                                        setShowOverlay(false);
+                                                        setShowMenu(false);
+                                                    }}
+                                                >
+                                                    <MenuContent></MenuContent>
+                                                </ModalMenu>
+                                            ) : (
+                                                <ModalMenu
+                                                    onClick={() => {
+                                                        setShowOverlay(false);
+                                                        setShowMenu(false);
+                                                    }}
+                                                >
+                                                    <MenuContent></MenuContent>
+                                                </ModalMenu>
+                                            )}
+
+                                            <Overlay></Overlay>
+                                        </>
+                                    )}
                                     {showList && (
                                         <>
                                             {isMobile ? (
@@ -414,7 +458,7 @@ export default function Home({ spenderList }) {
                                                 ref={containerRef}
                                             >
                                                 <div className="left lg:h-[80%] pl-[25%] xl:pl-0 xl:pr-[20%] pt-[15%] lg:pt-0 hidden lg:block order-last sm:order-first col-span-12 lg:col-span-6 lg:flex lg:items-center relative">
-                                                    <Goal data={userList} klasse="w-full mb-16 "></Goal>
+                                                    {/* <Goal data={userList} klasse="w-full mb-16 "></Goal> */}
 
                                                     <StartText
                                                         headline={startInfo.headline}
@@ -436,12 +480,11 @@ export default function Home({ spenderList }) {
                                                     <Baum ref={baumRef}></Baum>
                                                 </div>{" "}
                                                 {/* GOALS MOBILE */}
-                                                <div
-                                                    // style={{ top: baumDimensions.height + 120 + "px" }}
+                                                {/* <div
                                                     className={`lg:hidden z-30 absolute bottom-36 md:bottom-56 w-2/3 left-1/2 transform -translate-x-1/2`}
                                                 >
                                                     <Goal data={userList} klasse=""></Goal>
-                                                </div>
+                                                </div> */}
                                                 {/* STARTTEST MOBILE */}
                                                 {/* <div className="absolute sm:hidden bottom-36 z-40 w-full text-center  left-1/2 transform -translate-x-1/2 text-xl font-bold ">
                                                     {startInfo.headline}
@@ -460,15 +503,33 @@ export default function Home({ spenderList }) {
                                                         );
                                                     }}
                                                 ></MobileButton>
-                                                <div className="imressum absolute bottom-3 right-[40%] md:bottom-6  md:right-12 z-50">
+                                                {/* <div className="imressum absolute bottom-3 right-[40%] md:bottom-6  md:right-12 z-40">
                                                     <Link href="/impressum">
                                                         <a>Impressum</a>
                                                     </Link>
-                                                </div>
+                                                </div> */}
                                             </MainContainer>
                                             {/* {isMobile ? <BodenMobile /> : <Boden></Boden>} */}
 
                                             <Boden></Boden>
+                                            <CookieConsent
+                                                location="bottom"
+                                                buttonText="Einverstanden"
+                                                cookieName="myAwesomeCookieName2"
+                                                style={{ background: "#000" }}
+                                                buttonStyle={{
+                                                    color: "#4e503b",
+                                                    fontSize: "16px",
+                                                    fontWeight: "bold",
+                                                    padding: "0.5rem 0.75rem",
+                                                }}
+                                                expires={150}
+                                            >
+                                                Wir verwenden Cookies, um die Benutzung der Website zu optimieren.
+                                                <span style={{ fontSize: "12px", display: "block", marginTop: "1rem" }}>
+                                                    Hiermit sind sie damit einverstanden.
+                                                </span>
+                                            </CookieConsent>
                                         </TreeAnimationFinish.Provider>
                                     </ShowUnclaimed.Provider>
                                 </DndContext>
