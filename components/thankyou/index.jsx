@@ -34,6 +34,11 @@ const ThankYou = (props) => {
                 {props.isWinner ? "Sie haben gewonnen!" : "Vielen Dank!"}
             </H1>
             <p className="text-white mt-12">Ihre Kugel schmückt nun den Baum</p>
+            <p className="text-white mt-12">
+                Falls Ihre Kugel nicht sofort erscheint, schauen Sie in ca. einer Minute nochmal nach (Browser
+                aktualisieren)
+            </p>
+
             {props.isWInner ? <div>Herzlichen Glückwunsch, Sie haben gewonnen!</div> : null}
             {props.children}
         </motion.div>
