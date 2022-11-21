@@ -1,7 +1,21 @@
 import { colors } from "../config";
 
+function switcher(e) {
+    switch (e) {
+        case e < 75:
+            return colors.kugeln[0].kugel1;
+            break;
+        case e >= 75 && e < 150:
+            return colors.kugeln[1].kugel2;
+            break;
+        case e >= 150 && e < 225:
+            return colors.kugeln[2].kugel3;
+            break;
+    }
+}
+
 function dataFiller() {
-    const arr = Array(75).fill({
+    const arr = Array(798).fill({
         id: 0,
         claimed: true,
         name: "Christine Buchner",
@@ -15,9 +29,9 @@ function dataFiller() {
         obj = {
             id: i,
             claimed: true,
-            name: "Christine Buchner",
+            name: i < 75 ? "Christine Buchner" : "Bubu Bernhardt",
             sum: 15,
-            color: colors.kugeln[0].kugel1,
+            color: i < 75 ? colors.kugeln[0].kugel1 : colors.kugeln[1].kugel2,
             comment: "Ich spende gerne viel",
         };
         e = obj;

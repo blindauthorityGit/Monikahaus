@@ -161,7 +161,7 @@ export default function Home({ spenderList }) {
         setUserData({
             ...userData,
             id: over ? over.id : null,
-            winner: Array.from(document.querySelectorAll(".kugel"))[over.id].dataset.iswinner == "true" ? true : false,
+            // winner: Array.from(document.querySelectorAll(".kugel"))[over.id].dataset.iswinner == "true" ? true : false,
         });
         console.log(userData.id);
         // console.log(
@@ -312,7 +312,7 @@ export default function Home({ spenderList }) {
                                             <Overlay></Overlay>
                                         </>
                                     )}
-                                    <div className="btnWrapper absolute top-[22%] lg:top-8 right-0 lg:right-auto z-30">
+                                    <div className="btnWrapper absolute top-[16%] lg:top-8 right-0 lg:right-auto z-30">
                                         <div
                                             onClick={() => {
                                                 setShowList(true);
@@ -458,7 +458,7 @@ export default function Home({ spenderList }) {
                                                 ref={containerRef}
                                             >
                                                 <div className="left lg:h-[80%] pl-[25%] xl:pl-0 xl:pr-[20%] pt-[15%] lg:pt-0 hidden lg:block order-last sm:order-first col-span-12 lg:col-span-6 lg:flex lg:items-center relative">
-                                                    {/* <Goal data={userList} klasse="w-full mb-16 "></Goal> */}
+                                                    <Goal data={userList} klasse="w-full mb-16 "></Goal>
 
                                                     <StartText
                                                         headline={startInfo.headline}
@@ -480,11 +480,11 @@ export default function Home({ spenderList }) {
                                                     <Baum ref={baumRef}></Baum>
                                                 </div>{" "}
                                                 {/* GOALS MOBILE */}
-                                                {/* <div
+                                                <div
                                                     className={`lg:hidden z-30 absolute bottom-36 md:bottom-56 w-2/3 left-1/2 transform -translate-x-1/2`}
                                                 >
                                                     <Goal data={userList} klasse=""></Goal>
-                                                </div> */}
+                                                </div>
                                                 {/* STARTTEST MOBILE */}
                                                 {/* <div className="absolute sm:hidden bottom-36 z-40 w-full text-center  left-1/2 transform -translate-x-1/2 text-xl font-bold ">
                                                     {startInfo.headline}
