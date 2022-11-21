@@ -108,12 +108,6 @@ const Raster = (props) => {
         ></Draggable>
     );
 
-    function resetBalls(ball) {
-        ball.style.opacity = 0;
-        ball.style.background = "pink";
-        ball.initialOpacity = 0;
-    }
-
     useEffect(() => {
         // SET TREE NUMBER
 

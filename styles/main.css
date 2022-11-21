@@ -1,7 +1,6 @@
 @charset "UTF-8";
 html, body, #__next {
   height: 100%;
-  font-family: "Montserrat", sans-serif;
 }
 
 ::-webkit-backdrop {

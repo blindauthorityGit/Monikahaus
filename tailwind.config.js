@@ -33,7 +33,7 @@ module.exports = {
             },
             fontFamily: {
                 ...fontFamily,
-                sans: ["Montserrat", "sans-serif"],
+                sans: ["sans-serif"],
                 rucksack: ["Rucksack", "sans-serif"],
             },
         },

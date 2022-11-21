@@ -34,7 +34,7 @@ const Tree = () => {
     return Baum;
 };
 
-const showGoal = false;
+const showGoal = true;
 const goalSum = 1000;
 
 const dev = false;

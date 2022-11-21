@@ -74,7 +74,7 @@ export default function Intro() {
                 onSlideChange={() => {
                     window.scrollTo(0, 1);
                 }}
-                className="pb-6 h-full"
+                className={`pb-6 ${realHeight <= 480 ? "min-h-full" : "h-full"}  overflow-auto`}
                 onInit={(ev) => {
                     set_my_swiper(ev);
                 }}
@@ -91,8 +91,10 @@ export default function Intro() {
                         className={`topImg lg:hidden ${
                             realHeight > 680
                                 ? "h-[58%] bg-cover md:bg-contain md:bg-no-repeat md:bg-primaryColor"
-                                : "h-[50%] bg-contain bg-no-repeat bg-primaryColor"
-                        } w-full  bg-bottom relative`}
+                                : "h-[40%] bg-contain bg-no-repeat bg-primaryColor"
+                        }
+                        ${realHeight <= 480 ? "h-[12rem]" : ""}
+                        w-full  bg-bottom relative`}
                         style={{ backgroundImage: `url(${MobileIntro.src})` }}
                     >
                         <img className="absolute bottom-6 left-4 w-48" src={LogoWhite.src} alt="" />
