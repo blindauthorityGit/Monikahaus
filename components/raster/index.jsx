@@ -6,6 +6,8 @@ import { Row } from "../kugeln";
 import { ShowUnclaimed, KugelColor, TreeAnimationFinish, UserList } from "../../helper/context";
 import getIndex from "../../functions/getIndex";
 import { switcher, switcherRGB } from "../../functions/switcher";
+import searchByID from "../../functions/searchByID";
+import imgFetcher from "../../functions/imgFetcher";
 import { anzahlRows, dev, anzahlBaumKugeln } from "../../config";
 
 import Draggable from "../dragNDrop/draggable";
@@ -14,6 +16,8 @@ import { isBrowser, isMobile } from "react-device-detect";
 import { useWindowSize, useWindowWidth, useWindowHeight } from "@react-hook/window-size";
 
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
+import { getStorage, ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+import { storage } from "../../pages/donate";
 
 // const draggableMarkup = (
 //     <Draggable style={{ width: kugelWidth + "px", height: "68px" }} id="draggable">
@@ -44,6 +48,7 @@ const Raster = (props) => {
 
     const { treeAnimationFinish, setTreeAnimationFinish } = useContext(TreeAnimationFinish);
     const { baumDimensions, setBaumDimensions } = useContext(TreeAnimationFinish);
+    // const { imageList, setImageList } = useContext(TreeAnimationFinish);
     const { showUnclaimed, setShowUnclaimed } = useContext(ShowUnclaimed);
     const { kugelColor, setKugelColor } = useContext(KugelColor);
     const { userList, setUserList } = useContext(UserList);
@@ -79,7 +84,6 @@ const Raster = (props) => {
         // SET TREE NUMBER
         setTreeAnzahl(Math.ceil((userList.length + 1) / ballsPerTree));
         setCurrentTree(Math.ceil((userList.length + 1) / ballsPerTree) - 1);
-        console.log("Tree Anzahl: ", Math.ceil((userList.length + 1) / ballsPerTree));
         setRealWidth(onlyWidth);
 
         function handleResize() {
@@ -95,10 +99,6 @@ const Raster = (props) => {
         console.log("currentTree: ", currentTree);
         setMasterCounter(ballsPerTree * currentTree);
     }, [ballsPerTree, treeAnzahl, currentTree]);
-
-    useEffect(() => {
-        console.log(masterCounter, counter);
-    }, [masterCounter, counter]);
 
     const draggableMarkup = (
         <Draggable
@@ -124,7 +124,6 @@ const Raster = (props) => {
             });
             let arrClaimedID = userList.map((e) => e.id);
             // let arrClaimedID = userList.map((e) => e.id).filter((e) => e >= masterCounter && e <= counter);
-            console.log(arrClaimedID.filter((e) => e >= masterCounter && e <= counter));
             // console.log("claimed Arr: ", arrClaimedID);
             setTimeout(() => {
                 setKugelWidth(Array.from(allRef.current.querySelectorAll(".kugel"))[6].clientHeight);
@@ -182,7 +181,6 @@ const Raster = (props) => {
                             if (currentTree < treeAnzahl - 1) {
                                 setCurrentTree(currentTree + 1);
                                 setMasterCounter(masterCounter + -ballsPerTree);
-                                console.log("PREDDEDED");
                             }
                             console.log("Tree change", currentTree, currentTree <= treeAnzahl - 1);
                         }}
@@ -267,7 +265,14 @@ const Raster = (props) => {
                                                 userList.some((e) => e.id === counter - 1) &&
                                                 userList[getIndex(userList, counter - 1)].anon
                                             }
-                                            avatrSrc={`https://i.pravatar.cc/300?img=${counter - 1}`}
+                                            avatrSrc={
+                                                userList.some((e) => e.id === counter - 1)
+                                                    ? userList[getIndex(userList, counter - 1)].image
+                                                    : null
+                                            }
+                                            // avatrSrc={`${counter - 1}`}
+                                            // avatrSrc={`https://i.pravatar.cc/300?img=${counter - 1}`}
+                                            // avatrSrc={imageList && searchByID(counter - 1, imageList)}
                                             id={counter - 1}
                                             isClaimed={userList.some((e) => e.id === counter - 1) ? "true" : "false"}
                                             disabled={userList.some((e) => e.id === counter - 1) ? true : false}

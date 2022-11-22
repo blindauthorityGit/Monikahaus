@@ -49,9 +49,11 @@ const Kugel = (props, ref) => {
                 isAnon={props.isAnon}
                 comment={props.comment}
                 style={props.toolTipStyle}
-                ref={toolTipRef}
+                // ref={toolTipRef}
                 avatrSrc={props.avatrSrc}
                 onMouseLeave={props.toolTiponMouseLeave}
+                imgData={props.imgData}
+                tooltipID={props.id}
             ></ToolTip>
         </div>
     );

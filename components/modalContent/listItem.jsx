@@ -7,7 +7,7 @@ function ListItem(props, ref) {
         <>
             <div
                 data-id={props.e.id}
-                className="wrapper listItem w-full flex items-center mt-2 mb-4 hover:bg-[#f5f5f5]"
+                className="wrapper listItem w-full flex items-center mt-2 mb-4 hover:bg-[#f5f5f5] relative "
                 onMouseOver={(e) => {
                     props.onHover(e);
                 }}
@@ -16,14 +16,21 @@ function ListItem(props, ref) {
                 }}
                 ref={ref}
             >
-                <div className="left pr-6">
+                <div className="left pr-6 h-full">
                     {props.e.anon ? (
                         <div className="text-6xl">
                             <BsPersonCircle></BsPersonCircle>
                         </div>
                     ) : (
-                        <div className="text-6xl">
-                            <BsPersonCircle></BsPersonCircle>
+                        <div className="text-6xl h-full w-full">
+                            {props.e.image ? (
+                                <div
+                                    className="avatar w-16 h-16 bg-cover rounded-full"
+                                    style={{ backgroundImage: `url(${props.e.image})` }}
+                                ></div>
+                            ) : (
+                                <BsPersonCircle></BsPersonCircle>
+                            )}
                         </div>
                     )}
                 </div>

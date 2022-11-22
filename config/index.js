@@ -37,6 +37,10 @@ const Tree = () => {
 const showGoal = true;
 const goalSum = 1000;
 
-const dev = false;
+// IMAGES
+const maxSize = 1; // in MB
 
-export { colors, Tree, anzahlRows, startInfo, goalSum, showGoal, dev, anzahlBaumKugeln };
+const dev = true;
+const local = false;
+
+export { colors, Tree, anzahlRows, startInfo, goalSum, showGoal, dev, anzahlBaumKugeln, local, maxSize };

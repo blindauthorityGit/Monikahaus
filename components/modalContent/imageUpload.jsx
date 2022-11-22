@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import ImageUploading from "react-images-uploading";
+import { maxSize } from "../../config";
 
 import { MdPhotoCamera } from "react-icons/md";
 import { UserData } from "../../helper/context";
 
 function ImageUpload(props) {
     const [images, setImages] = useState([]);
+    const [error, setError] = useState(false);
+    const [size, setSize] = useState(0);
     const maxNumber = 1;
 
     const { userData, setUserData } = useContext(UserData);
@@ -13,13 +16,23 @@ function ImageUpload(props) {
     const onChange = (imageList, addUpdateIndex) => {
         // data for submit
         console.log(imageList, addUpdateIndex);
-        setImages(imageList);
+        const fileSizeMB = imageList[0].file.size / 1024 ** 2;
+        setSize(fileSizeMB);
+        console.log(fileSizeMB);
+        if (fileSizeMB <= maxSize) {
+            setImages(imageList);
+            setError(false);
+        } else {
+            setError(true);
+        }
         console.log(userData);
     };
 
     useEffect(() => {
-        console.log(images);
-        setUserData({ ...userData, image: images });
+        console.log(images, images[0]);
+        if (images.length != 0) {
+            setUserData({ ...userData, image: images });
+        }
     }, [images]);
 
     return (
@@ -40,8 +53,6 @@ function ImageUpload(props) {
                         isDragging,
                         dragProps,
                     }) => (
-                        // write your building UI
-
                         <div className={`upload__image-wrapper  grid grid-cols-12`}>
                             <button
                                 style={isDragging ? { color: "red" } : undefined}
@@ -50,20 +61,17 @@ function ImageUpload(props) {
                                 }  text-base sm:text-3xl p-4 font-semibold opacity-30 col-span-6 sm:col-span-4 text-left hover:opacity-100`}
                                 onClick={() => {
                                     onImageUpload();
-                                    // document.body.requestFullscreen();
                                 }}
                                 {...dragProps}
                             >
                                 Bild wählen ...
                             </button>
-                            {/* <button onClick={onImageRemoveAll}>Remove all images</button> */}
                             {imageList.map((image, index) => (
                                 <div key={index} className="image-item col-span-12 sm:col-span-7 p-4 flex ">
                                     <div
                                         className="rounded-full h-20 w-20 bg-cover"
                                         height="80px"
                                         style={{ backgroundImage: `url(${image["data_url"]})` }}
-                                        // src={image["data_url"]}
                                         alt=""
                                         width="80px"
                                     />
@@ -83,6 +91,14 @@ function ImageUpload(props) {
                                     </div>
                                 </div>
                             ))}
+                            <div className="error col-span-6">
+                                {error && (
+                                    <span className="text-red-600  font-bold">
+                                        Bild zu groß ({size.toFixed(2)}MB)<br></br>Max {maxSize}MB, bitte anderes Bild
+                                        wählen
+                                    </span>
+                                )}
+                            </div>
                         </div>
                     )}
                 </ImageUploading>
