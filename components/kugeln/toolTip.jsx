@@ -1,19 +1,7 @@
-import React, { useState, useEffect, useRef, forwardRef } from "react";
-import { isBrowser, isMobile } from "react-device-detect";
+import React, { forwardRef } from "react";
 import { BsPersonCircle } from "react-icons/bs";
 
 const ToolTip = (props) => {
-    const avatarRef = useRef();
-    const [heigh, setHeight] = useState(0);
-
-    useEffect(() => {
-        if (avatarRef.current != undefined) {
-            console.log(avatarRef.current.clientWidth);
-            setHeight(avatarRef.current.clientWidth);
-        }
-        console.log(props.avatrSrc);
-    }, []);
-
     return (
         <div onMouseLeave={props.onMouseLeave} className={`tooltip font-rucksack ${props.klasse}`} style={props.style}>
             {props.avatrSrc ? (
@@ -26,7 +14,6 @@ const ToolTip = (props) => {
                                 </div>
                             ) : (
                                 <div
-                                    ref={avatarRef}
                                     className="w-full h-full relative"
                                     // style={{ backgroundImage: `url(${props.avatrSrc})`, height: heigh + "px" }}
                                 >
@@ -36,9 +23,6 @@ const ToolTip = (props) => {
                                     >
                                         <img className="rounded-full" src={props.avatrSrc} alt="avtrImg" />
                                     </div>
-                                    {/* <img src={props.avatrSrc} alt="" /> */}
-                                    {/* <img src={imgFetcher(props.avatrSrc)} alt="" />
-                                    <img src={imgFetcher(props.avatrSrc)} alt="" /> */}
                                 </div>
                             )}
                         </div>
