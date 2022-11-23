@@ -34,13 +34,13 @@ const Tree = () => {
     return Baum;
 };
 
-const showGoal = true;
+const showGoal = false;
 const goalSum = 1000;
 
 // IMAGES
 const maxSize = 1; // in MB
 
-const dev = true;
+const dev = false;
 const local = false;
 
 export { colors, Tree, anzahlRows, startInfo, goalSum, showGoal, dev, anzahlBaumKugeln, local, maxSize };

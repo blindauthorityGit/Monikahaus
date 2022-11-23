@@ -11,6 +11,7 @@ const ToolTip = (props) => {
             console.log(avatarRef.current.clientWidth);
             setHeight(avatarRef.current.clientWidth);
         }
+        console.log(props.avatrSrc);
     }, []);
 
     return (
@@ -31,8 +32,10 @@ const ToolTip = (props) => {
                                 >
                                     <div
                                         className="avatar text-3xl md:text-4xl w-full h-full  rounded-full bg-cover bg-center"
-                                        style={{ backgroundImage: `url(${props.avatrSrc})` }}
-                                    ></div>
+                                        style={{ backgroundImage: `url(${props.avatrSrc})`, height: "auto" }}
+                                    >
+                                        <img className="rounded-full" src={props.avatrSrc} alt="avtrImg" />
+                                    </div>
                                     {/* <img src={props.avatrSrc} alt="" /> */}
                                     {/* <img src={imgFetcher(props.avatrSrc)} alt="" />
                                     <img src={imgFetcher(props.avatrSrc)} alt="" /> */}

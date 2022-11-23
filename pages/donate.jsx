@@ -188,15 +188,6 @@ export default function Home({ spenderList }) {
             // winner: Array.from(document.querySelectorAll(".kugel"))[over.id].dataset.iswinner == "true" ? true : false,
         });
         console.log(userData.id);
-        // console.log(
-        //     userData,
-        //     over.id,
-        //     Array.from(document.querySelectorAll(".kugel"))[over.id].dataset.iswinner == "true" ? true : false
-        // );
-
-        // if (over.id < 14) {
-        //     document.getElementById("Pfad_313").classList.add("bounce-right");
-        // }
     }
 
     useEffect(() => {
@@ -204,23 +195,6 @@ export default function Home({ spenderList }) {
 
         window.scrollTo(0, 0);
         console.log(spenderList);
-
-        function handleResize() {
-            // Set window width/height to state
-            setWindowSize({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-        }
-
-        // setRasterDimensions({
-        //     width: baumRef.current.children[0].clientWidth + "px",
-        //     height: (baumHeight / 100) * 79 + "px",
-        // });
-        // window.addEventListener("resize", (e) => handleScroll(e, setRasterDimensions, baumRef));
-        // return () => {
-        //     window.removeEventListener("resize", handleScroll);
-        // };
     }, []);
 
     useEffect(() => {
@@ -231,14 +205,9 @@ export default function Home({ spenderList }) {
         });
     }, [baumDimensions]);
 
-    useEffect(() => {}, [containerRef.current]);
-
     async function dataDB(userData) {
         await addDoc(collection(db, dev ? "test" : "spender"), userData);
     }
-    // async function dataTest(user, userData) {
-    //     await setDoc(doc(db, "spender", user), userData);
-    // }
 
     useEffect(() => {
         if (showThankYou) {
@@ -278,7 +247,6 @@ export default function Home({ spenderList }) {
                             dataDB(newUser);
                         });
                 } else {
-                    console.log("NO IMAGE");
                     const newUser = {
                         anon: window.localStorage.getItem("anon") === "true",
                         color: window.localStorage.getItem("color"),
@@ -294,24 +262,8 @@ export default function Home({ spenderList }) {
                     dataDB(newUser);
                 }
             };
-            // console.log( userData);
-            // console.log(window.localStorage.getItem("image"));
-            // const newUser = {
-            //     anon: window.localStorage.getItem("anon") === "true",
-            //     color: window.localStorage.getItem("color"),
-            //     email: window.localStorage.getItem("email"),
-            //     name: window.localStorage.getItem("fullName"),
-            //     id: Number(window.localStorage.getItem("id")),
-            //     image: `${userData.id}`,
-            //     // image: `images/${userData.id.toString()}_${userData.image[0].file.name + `?id=${userData.id}`}`,
-            //     sum: Number(window.localStorage.getItem("spende")),
-            //     winner: window.localStorage.getItem("winner"),
-            //     comment: window.localStorage.getItem("comment"),
-            //     claimed: true,
-            // };
-            // console.log(newUser, window.localStorage.getItem("image"));
+
             uploadImage();
-            // dataDB(newUser);
         }
     }, [showThankYou]);
 
@@ -381,12 +333,12 @@ export default function Home({ spenderList }) {
                                                         isDragging={isDragging}
                                                     ></MobileFirst>
                                                 ) : (
-                                                    <FirstModal
+                                                    <MobileFirst
                                                         headline="Schenken Sie Hoffnung"
                                                         activeId={activeId}
                                                         isDropped={isDropped}
                                                         isDragging={isDragging}
-                                                    ></FirstModal>
+                                                    ></MobileFirst>
                                                 )}
                                             </Modal>
 
