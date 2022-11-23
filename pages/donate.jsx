@@ -2,9 +2,9 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import React, { useState, useEffect, useRef } from "react";
 import MainContainer from "../components/layout/mainContainer";
-import { startInfo, dev, local } from "../config";
+import { startInfo, dev, local, showGoal } from "../config";
 import Baum from "../components/baum";
-// import { Boden, BodenMobile } from "../components/bGAssets";
+import { useRouter } from "next/router";
 
 import {
     TreeAnimationFinish,
@@ -16,25 +16,19 @@ import {
     ShowOverlay,
 } from "../helper/context";
 
-import Intro from "../components/intro";
-
 import { DndContext, closestCenter } from "@dnd-kit/core";
 
 import StartText from "../components/layout/startText";
 import MobileButton from "../components/layout/mobileButton";
 import Overlay from "../components/utils/overlay.";
-// import Modal from "../components/utils/modal";
 import FirstModal from "../components/modalContent/first";
 import MobileFirst from "../components/modalContent/mobileFirst";
 import MenuContent from "../components/modalContent/menuContent";
 import ThankYou from "../components/thankyou";
 import { MdPeople, MdInfoOutline } from "react-icons/md";
 import { RiMenu3Fill } from "react-icons/ri";
-import Link from "next/link";
 import Goal from "../components/goal";
 import { testData, dataFiller } from "../dev";
-
-// import { app } from "../components/firebase";
 
 import { isBrowser, isMobile } from "react-device-detect";
 
@@ -65,10 +59,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-// const firebase = dynamic(() => import("../components/firebase"), {
-//     ssr: false,
-// });
-
 const DonatorList = dynamic(() => import("../components/modalContent/donatorList"), {
     ssr: false,
 });
@@ -91,11 +81,6 @@ const TierheimContent = dynamic(() => import("../components/modalContent/tierhei
     ssr: false,
 });
 
-const imageListRef = ref(storage, `images/`);
-
-// const Baum = dynamic(() => import("../components/baum"), {
-//     ssr: false,
-// });
 export { db, storage };
 export default function Home({ spenderList }) {
     const [opacity, setOpacity] = useState(1);
@@ -143,17 +128,15 @@ export default function Home({ spenderList }) {
     const [imageList, setImageList] = useState([]);
     const imageListRef = ref(storage, `images/`);
 
+    // ROUTER
+    const router = useRouter();
+    const secret = router.query["dev"];
+    const [showSecret, setShowSecret] = useState(false);
+
     useEffect(() => {
-        listAll(imageListRef).then((res) => {
-            console.log(res);
-            res.items.forEach((item, i) => {
-                getDownloadURL(item).then((url) => {
-                    setImageList((prev) => [...prev, url]);
-                    // console.log(url);
-                });
-            });
-        });
-    }, []);
+        console.log(secret);
+        secret ? setShowSecret(true) : null;
+    }, [router]);
 
     function droppedZone(id, state) {
         const elem = document.getElementById(id);
@@ -214,19 +197,10 @@ export default function Home({ spenderList }) {
             const uploadImage = () => {
                 if (userData.image.length > 0) {
                     const imageUpload = userData.image[0].file;
-                    // if (window.localStorage.getItem("image") == null) return;
-                    const imageRef = ref(
-                        storage,
-                        `${userData.id}`
-                        // `${userData.id.toString()}_${userData.image[0].file.name + `?id=${userData.id}`}`
-                    );
+                    const imageRef = ref(storage, `${userData.id}`);
                     uploadBytes(imageRef, imageUpload)
                         .then((snapshot) => {
-                            console.log("GEMMAMAMAM");
                             return getDownloadURL(snapshot.ref);
-
-                            // alert("Image Uploaded");
-                            // console.log(`?id=${Number(window.localStorage.getItem("id"))}`);
                         })
                         .then((url) => {
                             console.log(url);
@@ -238,7 +212,6 @@ export default function Home({ spenderList }) {
                                 name: window.localStorage.getItem("fullName"),
                                 id: Number(window.localStorage.getItem("id")),
                                 image: imageUrl,
-                                // image: `images/${userData.id.toString()}_${userData.image[0].file.name + `?id=${userData.id}`}`,
                                 sum: Number(window.localStorage.getItem("spende")),
                                 winner: window.localStorage.getItem("winner"),
                                 comment: window.localStorage.getItem("comment"),
@@ -253,7 +226,6 @@ export default function Home({ spenderList }) {
                         email: window.localStorage.getItem("email"),
                         name: window.localStorage.getItem("fullName"),
                         id: Number(window.localStorage.getItem("id")),
-                        // image: `images/${userData.id.toString()}_${userData.image[0].file.name + `?id=${userData.id}`}`,
                         sum: Number(window.localStorage.getItem("spende")),
                         winner: window.localStorage.getItem("winner"),
                         comment: window.localStorage.getItem("comment"),
@@ -363,26 +335,7 @@ export default function Home({ spenderList }) {
                                             <MdInfoOutline></MdInfoOutline>
                                         </div>
                                     </div>
-                                    {/* {showIntro && (
-                                        <>
-                                            <ModalFull
-                                                noFixed
-                                                onClick={() => {
-                                                    setShowOverlay(false);
-                                                    setShowIntro(false);
-                                                }}
-                                            >
-                                                <Intro
-                                                    onClick={() => {
-                                                        setShowOverlay(false);
-                                                        setShowIntro(false);
-                                                    }}
-                                                ></Intro>
-                                            </ModalFull>
 
-                                            <Overlay></Overlay>
-                                        </>
-                                    )} */}
                                     {showMenu && (
                                         <>
                                             {isMobile ? (
@@ -493,7 +446,7 @@ export default function Home({ spenderList }) {
                                                 ref={containerRef}
                                             >
                                                 <div className="left lg:h-[80%] pl-[25%] xl:pl-0 xl:pr-[20%] pt-[15%] lg:pt-0 hidden lg:block order-last sm:order-first col-span-12 lg:col-span-6 lg:flex lg:items-center relative">
-                                                    <Goal data={userList} klasse="w-full mb-16 "></Goal>
+                                                    {showGoal && <Goal data={userList} klasse="w-full mb-16 "></Goal>}
 
                                                     <StartText
                                                         headline={startInfo.headline}
@@ -518,33 +471,23 @@ export default function Home({ spenderList }) {
                                                 <div
                                                     className={`lg:hidden z-30 absolute bottom-36 md:bottom-56 w-2/3 left-1/2 transform -translate-x-1/2`}
                                                 >
-                                                    <Goal data={userList} klasse=""></Goal>
+                                                    {showGoal ||
+                                                        (showSecret && (
+                                                            <Goal secret={secret} data={userList} klasse=""></Goal>
+                                                        ))}
                                                 </div>
-                                                {/* STARTTEST MOBILE */}
-                                                {/* <div className="absolute sm:hidden bottom-36 z-40 w-full text-center  left-1/2 transform -translate-x-1/2 text-xl font-bold ">
-                                                    {startInfo.headline}
-                                                </div> */}
                                                 <MobileButton
                                                     klasse="absolute w-3/4 flex lg:hidden bottom-16 md:bottom-24 z-30  left-1/2 transform -translate-x-1/2 "
                                                     buttonText={startInfo.buttonText}
                                                     onClick={() => {
                                                         setShowOverlay(true);
                                                         setShowUnclaimed(true);
-
-                                                        // isMobile ? document.body.requestFullscreen() : null;
-                                                        // isMobile ? setIsFullScreen(true) : null;
                                                         setBaumDimensions(
                                                             baumRef.current.children[0].children[0].getBoundingClientRect()
                                                         );
                                                     }}
                                                 ></MobileButton>
-                                                {/* <div className="imressum absolute bottom-3 right-[40%] md:bottom-6  md:right-12 z-40">
-                                                    <Link href="/impressum">
-                                                        <a>Impressum</a>
-                                                    </Link>
-                                                </div> */}
                                             </MainContainer>
-                                            {/* {isMobile ? <BodenMobile /> : <Boden></Boden>} */}
 
                                             <Boden></Boden>
                                             <CookieConsent
@@ -581,18 +524,6 @@ export async function getStaticProps() {
     const spenderCol = collection(db, dev ? "test" : "spender");
     const spenderSnapshot = await getDocs(spenderCol);
     const spenderList = spenderSnapshot.docs.map((doc) => doc.data());
-
-    // const imgCol = await listAll(imageListRef).then((res) => res.items);
-
-    // listAll(imageListRef).then((res) => {
-    //     console.log(res);
-    //     res.items.forEach((item, i) => {
-    //         getDownloadURL(item).then((url) => {
-    //             setImageList((prev) => [...prev, url]);
-    //             // console.log(url);
-    //         });
-    //     });
-    // });
 
     return {
         props: {
