@@ -341,7 +341,7 @@ const MobileFirst = (props) => {
                                     disabled={anon ? false : true}
                                     klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
                                     onClick={() => {
-                                        BtnDirectorFw(fourthRef, sixthRef);
+                                        BtnDirectorFw(fourthRef, fifthRef);
                                     }}
                                 >
                                     {userData.fullName ? "Weiter" : "Überspringen"}
@@ -352,7 +352,7 @@ const MobileFirst = (props) => {
 
                     {/* BILD */}
 
-                    {/* <div ref={fifthRef} className="fifth hidden">
+                    <div ref={fifthRef} className="fifth hidden">
                         <div className="font-bold mb-4 text-xl">Ihre Daten</div>
                         <div className="topLine mb-4 text-base italic ">
                             Ihr Bild wird neben Ihrem Namen ang (optional)
@@ -390,7 +390,7 @@ const MobileFirst = (props) => {
                                 </ButtonReal>
                             </div>
                         </div>
-                    </div> */}
+                    </div>
 
                     {/* COMMENT */}
 
@@ -468,12 +468,14 @@ const MobileFirst = (props) => {
                             onApprove={(data, actions) => {
                                 console.log(data);
                                 return actions.order.capture().then((details) => {
-                                    console.log(details);
+                                    const data = details;
+                                    console.log(details, details.payer, data, data.payer.name, data.payer.adress);
+                                    localStorage.setItem(`email`, data.payer.email_adress);
                                     setIsPayed(true);
                                     const newUser = {
                                         anon: Boolean(window.localStorage.getItem("anon")),
                                         color: window.localStorage.getItem("color"),
-                                        email: details.payer.email_adress,
+                                        email: window.localStorage.getItem("email"),
                                         name: window.localStorage.getItem("fullName"),
                                         id: Number(window.localStorage.getItem("id")),
                                         image: window.localStorage.getItem("image"),

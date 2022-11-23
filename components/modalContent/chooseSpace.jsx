@@ -77,6 +77,7 @@ function ChooseSpace(props) {
                         onClick={() => {
                             BtnDirectorFw(props.seventhRef, props.eightRef);
                             props.objectMapper(props.userData);
+                            console.log(props.userData);
                         }}
                     >
                         Bezahlen

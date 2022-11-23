@@ -2,7 +2,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import React, { useState, useEffect, useRef } from "react";
 import MainContainer from "../components/layout/mainContainer";
-import { startInfo, dev } from "../config";
+import { startInfo, dev, local } from "../config";
 import Baum from "../components/baum";
 // import { Boden, BodenMobile } from "../components/bGAssets";
 
@@ -40,6 +40,9 @@ import { isBrowser, isMobile } from "react-device-detect";
 
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, doc, setDoc, addDoc } from "firebase/firestore/lite";
+import { getStorage, ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+import uuid from "react-uuid";
+
 import CookieConsent from "react-cookie-consent";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -60,6 +63,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 // const firebase = dynamic(() => import("../components/firebase"), {
 //     ssr: false,
@@ -86,10 +90,13 @@ const ModalFull = dynamic(() => import("../components/utils/modalFull"), {
 const TierheimContent = dynamic(() => import("../components/modalContent/tierheimContent"), {
     ssr: false,
 });
+
+const imageListRef = ref(storage, `images/`);
+
 // const Baum = dynamic(() => import("../components/baum"), {
 //     ssr: false,
 // });
-export { db };
+export { db, storage };
 export default function Home({ spenderList }) {
     const [opacity, setOpacity] = useState(1);
     const [rasterDimensions, setRasterDimensions] = useState({});
@@ -113,14 +120,14 @@ export default function Home({ spenderList }) {
         color: "",
         spende: 0,
         fullName: "",
-        image: "",
+        image: [],
         comment: "",
         anon: false,
         winner: false,
         email: "",
         id: null,
     });
-    const [userList, setUserList] = useState(dev ? dataFiller : spenderList);
+    const [userList, setUserList] = useState(dev ? (local ? dataFiller : spenderList) : spenderList);
 
     const baumRef = useRef();
     const containerRef = useRef();
@@ -130,6 +137,23 @@ export default function Home({ spenderList }) {
     const [isDragging, setIsDragging] = useState(false);
 
     const [activeId, setActiveId] = useState(null);
+
+    // IMAGES
+    // DARSTELLUNG
+    const [imageList, setImageList] = useState([]);
+    const imageListRef = ref(storage, `images/`);
+
+    useEffect(() => {
+        listAll(imageListRef).then((res) => {
+            console.log(res);
+            res.items.forEach((item, i) => {
+                getDownloadURL(item).then((url) => {
+                    setImageList((prev) => [...prev, url]);
+                    // console.log(url);
+                });
+            });
+        });
+    }, []);
 
     function droppedZone(id, state) {
         const elem = document.getElementById(id);
@@ -164,38 +188,13 @@ export default function Home({ spenderList }) {
             // winner: Array.from(document.querySelectorAll(".kugel"))[over.id].dataset.iswinner == "true" ? true : false,
         });
         console.log(userData.id);
-        // console.log(
-        //     userData,
-        //     over.id,
-        //     Array.from(document.querySelectorAll(".kugel"))[over.id].dataset.iswinner == "true" ? true : false
-        // );
-
-        // if (over.id < 14) {
-        //     document.getElementById("Pfad_313").classList.add("bounce-right");
-        // }
     }
 
     useEffect(() => {
         !isMobile ? (baumRef.current.children[0].style.left = "-20px") : null;
 
         window.scrollTo(0, 0);
-
-        function handleResize() {
-            // Set window width/height to state
-            setWindowSize({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-        }
-
-        // setRasterDimensions({
-        //     width: baumRef.current.children[0].clientWidth + "px",
-        //     height: (baumHeight / 100) * 79 + "px",
-        // });
-        // window.addEventListener("resize", (e) => handleScroll(e, setRasterDimensions, baumRef));
-        // return () => {
-        //     window.removeEventListener("resize", handleScroll);
-        // };
+        console.log(spenderList);
     }, []);
 
     useEffect(() => {
@@ -206,31 +205,65 @@ export default function Home({ spenderList }) {
         });
     }, [baumDimensions]);
 
-    useEffect(() => {}, [containerRef.current]);
-
     async function dataDB(userData) {
-        await addDoc(collection(db, "spender"), userData);
+        await addDoc(collection(db, dev ? "test" : "spender"), userData);
     }
-    // async function dataTest(user, userData) {
-    //     await setDoc(doc(db, "spender", user), userData);
-    // }
 
     useEffect(() => {
         if (showThankYou) {
-            const newUser = {
-                anon: window.localStorage.getItem("anon") === "true",
-                color: window.localStorage.getItem("color"),
-                // email: details.payer.email_adress,
-                name: window.localStorage.getItem("fullName"),
-                id: Number(window.localStorage.getItem("id")),
-                image: window.localStorage.getItem("image"),
-                sum: Number(window.localStorage.getItem("spende")),
-                winner: window.localStorage.getItem("winner"),
-                comment: window.localStorage.getItem("comment"),
-                claimed: true,
+            const uploadImage = () => {
+                if (userData.image.length > 0) {
+                    const imageUpload = userData.image[0].file;
+                    // if (window.localStorage.getItem("image") == null) return;
+                    const imageRef = ref(
+                        storage,
+                        `${userData.id}`
+                        // `${userData.id.toString()}_${userData.image[0].file.name + `?id=${userData.id}`}`
+                    );
+                    uploadBytes(imageRef, imageUpload)
+                        .then((snapshot) => {
+                            console.log("GEMMAMAMAM");
+                            return getDownloadURL(snapshot.ref);
+
+                            // alert("Image Uploaded");
+                            // console.log(`?id=${Number(window.localStorage.getItem("id"))}`);
+                        })
+                        .then((url) => {
+                            console.log(url);
+                            const imageUrl = url;
+                            const newUser = {
+                                anon: window.localStorage.getItem("anon") === "true",
+                                color: window.localStorage.getItem("color"),
+                                email: window.localStorage.getItem("email"),
+                                name: window.localStorage.getItem("fullName"),
+                                id: Number(window.localStorage.getItem("id")),
+                                image: imageUrl,
+                                // image: `images/${userData.id.toString()}_${userData.image[0].file.name + `?id=${userData.id}`}`,
+                                sum: Number(window.localStorage.getItem("spende")),
+                                winner: window.localStorage.getItem("winner"),
+                                comment: window.localStorage.getItem("comment"),
+                                claimed: true,
+                            };
+                            dataDB(newUser);
+                        });
+                } else {
+                    const newUser = {
+                        anon: window.localStorage.getItem("anon") === "true",
+                        color: window.localStorage.getItem("color"),
+                        email: window.localStorage.getItem("email"),
+                        name: window.localStorage.getItem("fullName"),
+                        id: Number(window.localStorage.getItem("id")),
+                        // image: `images/${userData.id.toString()}_${userData.image[0].file.name + `?id=${userData.id}`}`,
+                        sum: Number(window.localStorage.getItem("spende")),
+                        winner: window.localStorage.getItem("winner"),
+                        comment: window.localStorage.getItem("comment"),
+                        claimed: true,
+                    };
+                    dataDB(newUser);
+                }
             };
-            dataDB(newUser);
-            console.log(newUser, window.localStorage.getItem("anon"), window.localStorage.getItem("anon") === "true");
+
+            uploadImage();
         }
     }, [showThankYou]);
 
@@ -300,12 +333,12 @@ export default function Home({ spenderList }) {
                                                         isDragging={isDragging}
                                                     ></MobileFirst>
                                                 ) : (
-                                                    <FirstModal
+                                                    <MobileFirst
                                                         headline="Schenken Sie Hoffnung"
                                                         activeId={activeId}
                                                         isDropped={isDropped}
                                                         isDragging={isDragging}
-                                                    ></FirstModal>
+                                                    ></MobileFirst>
                                                 )}
                                             </Modal>
 
@@ -450,6 +483,8 @@ export default function Home({ spenderList }) {
                                                 setBaumDimensions,
                                                 isFullScreen,
                                                 setIsFullScreen,
+                                                imageList,
+                                                setImageList,
                                             }}
                                         >
                                             <MainContainer
@@ -543,9 +578,21 @@ export default function Home({ spenderList }) {
 }
 
 export async function getStaticProps() {
-    const spenderCol = collection(db, "spender");
+    const spenderCol = collection(db, dev ? "test" : "spender");
     const spenderSnapshot = await getDocs(spenderCol);
     const spenderList = spenderSnapshot.docs.map((doc) => doc.data());
+
+    // const imgCol = await listAll(imageListRef).then((res) => res.items);
+
+    // listAll(imageListRef).then((res) => {
+    //     console.log(res);
+    //     res.items.forEach((item, i) => {
+    //         getDownloadURL(item).then((url) => {
+    //             setImageList((prev) => [...prev, url]);
+    //             // console.log(url);
+    //         });
+    //     });
+    // });
 
     return {
         props: {

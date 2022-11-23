@@ -24,6 +24,7 @@ const Baum = (props, ref) => {
             // Set window width/height to state
             setBaumDimensions(gRef.current.getBoundingClientRect());
         }
+
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
@@ -47,8 +48,8 @@ const Baum = (props, ref) => {
                     setHeight(gRef.current.getBoundingClientRect().height);
                 }}
                 onClick={() => {
-                    // setBaumWeg(true);
-                    // console.log("BaumWeg");
+                    setBaumWeg(true);
+                    console.log("BaumWeg");
                 }}
             ></Kreis>
         </div>
