@@ -355,7 +355,7 @@ const MobileFirst = (props) => {
                     <div ref={fifthRef} className="fifth hidden">
                         <div className="font-bold mb-4 text-xl">Ihre Daten</div>
                         <div className="topLine mb-4 text-base italic ">
-                            Ihr Bild wird neben Ihrem Namen ang (optional)
+                            Ihr Bild wird neben Ihrem Namen angezeigt (optional, max 1MB)
                             <br />
                         </div>
                         <ImageUpload
