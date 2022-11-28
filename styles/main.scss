@@ -1,6 +1,7 @@
 html, body, #__next {
     height: 100%;
     // font-family: "Montserrat", sans-serif;
+    transition: all ease-in-out 200ms;
 }
 
 ::backdrop

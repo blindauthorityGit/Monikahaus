@@ -2,12 +2,22 @@
     .tooltip::before {
         content: "■";
         position: absolute;
-        color: #fff;
+        color: #000;
         transform: rotate(45deg);
         font-size: 1.5rem;
         top: -20px;
         right: 44%;
         z-index: 100;
+    }
+    .bgLightGreen::before{
+        color: #DCDFDC
+    }
+    .bgRed::before{
+        color: #eb4511
+    }
+    
+    .bgWeiss::before{
+        color: #fff
     }
 
   }
@@ -15,7 +25,7 @@
     .tooltip::before {
         content: "■";
         position: absolute;
-        color: #fff;
+        color: #000;
         transform: rotate(45deg);
         font-size: 1.5rem;
         top: -20px;

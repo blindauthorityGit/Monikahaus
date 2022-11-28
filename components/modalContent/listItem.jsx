@@ -28,7 +28,7 @@ function ListItem(props, ref) {
                                     className="avatar w-16 h-16 bg-cover rounded-full"
                                     style={{ backgroundImage: `url(${props.e.image})` }}
                                 >
-                                    <img className="rounded-full" src={props.e.image} alt="avtrImg" />
+                                    {/* <img className="rounded-full" src={props.e.image} alt="avtrImg" /> */}
                                 </div>
                             ) : (
                                 <BsPersonCircle></BsPersonCircle>

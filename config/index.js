@@ -21,6 +21,8 @@ const colors = {
     baum: "#04151F",
 };
 
+const bgColors = ["#033F63", "#AF4D98", "#FF4A1C", "#CC3363", "#0197F6"];
+
 const startInfo = {
     headline: "Schmücken Sie den Baum!",
     subline: "Lorem ipsum dolor sit amet delurum omes bubu",
@@ -43,4 +45,4 @@ const maxSize = 1; // in MB
 const dev = false;
 const local = false;
 
-export { colors, Tree, anzahlRows, startInfo, goalSum, showGoal, dev, anzahlBaumKugeln, local, maxSize };
+export { colors, Tree, anzahlRows, startInfo, goalSum, showGoal, dev, anzahlBaumKugeln, local, maxSize, bgColors };

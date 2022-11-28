@@ -1,6 +1,8 @@
 @charset "UTF-8";
 html, body, #__next {
   height: 100%;
+  -webkit-transition: all ease-in-out 200ms;
+  transition: all ease-in-out 200ms;
 }
 
 ::-webkit-backdrop {

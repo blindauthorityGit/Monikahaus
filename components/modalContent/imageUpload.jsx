@@ -4,6 +4,7 @@ import { maxSize } from "../../config";
 
 import { MdPhotoCamera } from "react-icons/md";
 import { UserData } from "../../helper/context";
+import Resizer from "react-image-file-resizer";
 
 function ImageUpload(props) {
     const [images, setImages] = useState([]);
@@ -13,7 +14,23 @@ function ImageUpload(props) {
 
     const { userData, setUserData } = useContext(UserData);
 
-    const onChange = (imageList, addUpdateIndex) => {
+    const resizeFile = (file) =>
+        new Promise((resolve) => {
+            Resizer.imageFileResizer(
+                file,
+                300,
+                300,
+                "JPEG",
+                100,
+                0,
+                (uri) => {
+                    resolve(uri);
+                },
+                "base64"
+            );
+        });
+
+    const onChange = async (imageList, addUpdateIndex) => {
         // data for submit
         console.log(imageList, addUpdateIndex);
         const fileSizeMB = imageList[0].file.size / 1024 ** 2;
@@ -27,6 +44,17 @@ function ImageUpload(props) {
         }
         console.log(userData);
     };
+
+    // const onChange = async (imageList) => {
+    //     try {
+    //         const file = imageList[0];
+    //         const image = await resizeFile(file);
+    //         console.log(image);
+    //         setImages(image);
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // };
 
     useEffect(() => {
         console.log(images, images[0]);
@@ -43,6 +71,7 @@ function ImageUpload(props) {
                 </div>
             </div>
             <div className="col-span-10">
+                {/* <input type="file" onChange={onChange} /> */}
                 <ImageUploading multiple value={images} onChange={onChange} maxNumber={maxNumber} dataURLKey="data_url">
                     {({
                         imageList,
