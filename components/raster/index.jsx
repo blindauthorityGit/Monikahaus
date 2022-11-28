@@ -268,7 +268,11 @@ const Raster = (props) => {
                                     // setCounter((prev) => {
                                     //     prev + 1;
                                     // });
-
+                                    console.log(
+                                        userList.some((e) => e.id === counter - 1)
+                                            ? userList[getIndex(userList, counter - 1)].color.toLowerCase()
+                                            : null
+                                    );
                                     let claimed = userList.some((e) => e.id === counter - 1);
                                     return (
                                         <Kugel
@@ -290,9 +294,9 @@ const Raster = (props) => {
                                             textColor={
                                                 userList.some((e) => e.id === counter - 1)
                                                     ? userList[getIndex(userList, counter - 1)].color.toLowerCase() ===
-                                                          "#fff" ||
+                                                          "rgb(255, 255, 255)" ||
                                                       userList[getIndex(userList, counter - 1)].color.toLowerCase() ===
-                                                          "#dcdfdc"
+                                                          "rgb(220, 223, 220)"
                                                         ? "text-black"
                                                         : "text-white"
                                                     : ""
