@@ -23,7 +23,7 @@ const Modal = (props) => {
             animate={{ x: isMobile ? 0 : 20.14, y: props.closeMe ? 700 : 20.685, scale: 1, rotate: 0 }}
             transition={{ duration: "30ms", delay: props.delay, type: "spring" }}
             className={`absolute lg:fixed h-[${
-                onlyHeight <= 640 ? 60 : 50
+                onlyHeight <= 640 ? 60 : 45
             }%] bottom-6 lg:bottom-auto  lg:h-full max-h-[100%] fade-in w-full lg:w-[90%] lg:w-[45%] lg:min-h-[100%] bg-white p-8 lg:p-16 z-50 `}
         >
             <div

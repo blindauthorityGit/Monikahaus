@@ -6,24 +6,14 @@ import { Row } from "../kugeln";
 import { ShowUnclaimed, KugelColor, TreeAnimationFinish, UserList } from "../../helper/context";
 import getIndex from "../../functions/getIndex";
 import { switcher, switcherRGB } from "../../functions/switcher";
-import searchByID from "../../functions/searchByID";
-import imgFetcher from "../../functions/imgFetcher";
-import { anzahlRows, dev, anzahlBaumKugeln } from "../../config";
+import { anzahlRows, dev, anzahlBaumKugeln, bgColors } from "../../config";
 
 import Draggable from "../dragNDrop/draggable";
-import { isBrowser, isMobile } from "react-device-detect";
+import { isMobile } from "react-device-detect";
 
 import { useWindowSize, useWindowWidth, useWindowHeight } from "@react-hook/window-size";
 
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
-import { getStorage, ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
-import { storage } from "../../pages/donate";
-
-// const draggableMarkup = (
-//     <Draggable style={{ width: kugelWidth + "px", height: "68px" }} id="draggable">
-//         Drag me
-//     </Draggable>
-// );
 
 const Kugel = dynamic(() => import("../kugeln/kugel"), {
     ssr: false,
@@ -35,7 +25,6 @@ const Raster = (props) => {
     const [kugelWidth, setKugelWidth] = useState(5);
     const [animator, setAnimator] = useState("");
     const [data, setData] = useState(props.data);
-    // const [data, setData] = useState(testData);
     const allRef = useRef();
 
     const [masterCounter, setMasterCounter] = useState(0);
@@ -60,6 +49,9 @@ const Raster = (props) => {
     const onlyHeight = useWindowHeight();
 
     const [realWidth, setRealWidth] = useState(0);
+
+    // FLAG FOR TREE CHANGE / ANIMATIONEND
+    const [freeTree, setFreeTree] = useState(true);
 
     // OPACITY CHECK DROPZONE WHEN DROPPED
     useEffect(() => {
@@ -123,8 +115,6 @@ const Raster = (props) => {
                 }
             });
             let arrClaimedID = userList.map((e) => e.id);
-            // let arrClaimedID = userList.map((e) => e.id).filter((e) => e >= masterCounter && e <= counter);
-            // console.log("claimed Arr: ", arrClaimedID);
             setTimeout(() => {
                 setKugelWidth(Array.from(allRef.current.querySelectorAll(".kugel"))[6].clientHeight);
             }, 300);
@@ -135,7 +125,6 @@ const Raster = (props) => {
                     if (arr[e - treeMuliplicator] !== undefined) {
                         arr[e - treeMuliplicator].classList.remove("opacity-0");
                         arr[e - treeMuliplicator].classList.add("opacity-100");
-                        // arr[e - treeMuliplicator].style.opacity = 1;
                         arr[e - treeMuliplicator].style.background = userList[i].color;
                         arr[e - treeMuliplicator].initialOpacity = 0;
                         arr[e - treeMuliplicator].classList.add("bounce-in-fwd");
@@ -146,7 +135,15 @@ const Raster = (props) => {
                         if (arr[e - treeMuliplicator].children[0].classList.contains("draggable")) {
                             arr[e - treeMuliplicator].children[2].classList.add(switcherRGB(userList[i].color));
                         } else {
-                            arr[e - treeMuliplicator].children[1].classList.add(switcherRGB(userList[i].color));
+                            setTimeout(() => {
+                                arr[e - treeMuliplicator].children[1].classList.remove(
+                                    "bgWeiss",
+                                    "bgLightGreen",
+                                    "bgBlack",
+                                    "bgRed"
+                                );
+                                arr[e - treeMuliplicator].children[1].classList.add(switcherRGB(userList[i].color));
+                            }, 800);
                         }
                     }
                 }, random);
@@ -154,9 +151,56 @@ const Raster = (props) => {
         }
     }, [treeAnimationFinish, userList, baumDimensions, currentTree, ballsPerTree, masterCounter, counter]);
 
+    useEffect(() => {
+        if (treeAnzahl > 1) {
+            console.log("MORE TREEES");
+        }
+    }, [treeAnzahl]);
+
+    function treeBG() {
+        // CHECK IF TREE IS FULL OR NOT
+        setTimeout(() => {
+            let len = Array.from(document.querySelectorAll(".claimedKugel")).length;
+            if (len < ballsPerTree) {
+                document.body.style.background = "white";
+            } else {
+                document.body.style.background = bgColors[currentTree];
+                console.log(currentTree, bgColors[currentTree]);
+            }
+
+            console.log(Array.from(document.querySelectorAll(".claimedKugel")).length, ballsPerTree);
+        }, 600);
+    }
+
+    function treeChanger(pos) {
+        if (freeTree) {
+            if (pos == "true") {
+                if (currentTree < treeAnzahl - 1) {
+                    setCurrentTree(currentTree + 1);
+                    setMasterCounter(masterCounter + -ballsPerTree);
+                    treeBG();
+                }
+            } else {
+                if (currentTree != 0) {
+                    setCurrentTree(currentTree - 1);
+
+                    setMasterCounter(masterCounter - ballsPerTree);
+                    treeBG();
+                }
+            }
+        } else {
+            console.log("BLOOOCKED");
+        }
+        setFreeTree(false);
+        setTimeout(() => {
+            setFreeTree(true);
+        }, 800);
+
+        console.log("Tree change", currentTree);
+    }
+
     return (
         <>
-            {" "}
             {treeAnimationFinish && treeAnzahl > 1 && (
                 <>
                     <div
@@ -164,11 +208,7 @@ const Raster = (props) => {
                             currentTree == 0 ? "opacity-20" : ""
                         }`}
                         onClick={() => {
-                            if (currentTree != 0) {
-                                setCurrentTree(currentTree - 1);
-                                setMasterCounter(masterCounter - ballsPerTree);
-                            }
-                            console.log("Tree change", currentTree);
+                            treeChanger("false");
                         }}
                     >
                         <FaChevronCircleLeft></FaChevronCircleLeft>
@@ -178,11 +218,7 @@ const Raster = (props) => {
                             currentTree == treeAnzahl - 1 ? "opacity-20" : ""
                         }`}
                         onClick={() => {
-                            if (currentTree < treeAnzahl - 1) {
-                                setCurrentTree(currentTree + 1);
-                                setMasterCounter(masterCounter + -ballsPerTree);
-                            }
-                            console.log("Tree change", currentTree, currentTree <= treeAnzahl - 1);
+                            treeChanger("true");
                         }}
                     >
                         <FaChevronCircleRight></FaChevronCircleRight>
@@ -249,7 +285,7 @@ const Raster = (props) => {
                                                     : "border-2 sm:border-4 border-white border-dotted"
                                             } `}
                                             onAnimationEnd={(e) => {
-                                                e.target.classList.remove("scale-in-center");
+                                                // e.target.classList.remove("scale-in-center");
                                             }}
                                             textColor={
                                                 userList.some((e) => e.id === counter - 1)
@@ -270,9 +306,6 @@ const Raster = (props) => {
                                                     ? userList[getIndex(userList, counter - 1)].image
                                                     : null
                                             }
-                                            // avatrSrc={`${counter - 1}`}
-                                            // avatrSrc={`https://i.pravatar.cc/300?img=${counter - 1}`}
-                                            // avatrSrc={imageList && searchByID(counter - 1, imageList)}
                                             id={counter - 1}
                                             isClaimed={userList.some((e) => e.id === counter - 1) ? "true" : "false"}
                                             disabled={userList.some((e) => e.id === counter - 1) ? true : false}

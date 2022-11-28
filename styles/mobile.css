@@ -3,7 +3,7 @@
   .tooltip::before {
     content: "■";
     position: absolute;
-    color: #fff;
+    color: #000;
     -webkit-transform: rotate(45deg);
             transform: rotate(45deg);
     font-size: 1.5rem;
@@ -11,13 +11,22 @@
     right: 44%;
     z-index: 100;
   }
+  .bgLightGreen::before {
+    color: #DCDFDC;
+  }
+  .bgRed::before {
+    color: #eb4511;
+  }
+  .bgWeiss::before {
+    color: #fff;
+  }
 }
 
 @media only screen and (min-width: 501px) and (max-width: 1024px) {
   .tooltip::before {
     content: "■";
     position: absolute;
-    color: #fff;
+    color: #000;
     -webkit-transform: rotate(45deg);
             transform: rotate(45deg);
     font-size: 1.5rem;

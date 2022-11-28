@@ -21,7 +21,7 @@ import { DndContext, closestCenter } from "@dnd-kit/core";
 import StartText from "../components/layout/startText";
 import MobileButton from "../components/layout/mobileButton";
 import Overlay from "../components/utils/overlay.";
-import FirstModal from "../components/modalContent/first";
+// import FirstModal from "../components/modalContent/first";
 import MobileFirst from "../components/modalContent/mobileFirst";
 import MenuContent from "../components/modalContent/menuContent";
 import ThankYou from "../components/thankyou";
@@ -30,14 +30,15 @@ import { RiMenu3Fill } from "react-icons/ri";
 import Goal from "../components/goal";
 import { testData, dataFiller } from "../dev";
 
-import { isBrowser, isMobile } from "react-device-detect";
+import { isMobile } from "react-device-detect";
 
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, doc, setDoc, addDoc } from "firebase/firestore/lite";
 import { getStorage, ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
-import uuid from "react-uuid";
 
 import CookieConsent from "react-cookie-consent";
+
+import Snowfall from "react-snowfall";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -445,6 +446,7 @@ export default function Home({ spenderList }) {
                                                 width="container h-full min-h-[100%] lg:h-[80%] overflow-hidden relative"
                                                 ref={containerRef}
                                             >
+                                                <Snowfall />
                                                 <div className="left lg:h-[80%] pl-[25%] xl:pl-0 xl:pr-[20%] pt-[15%] lg:pt-0 hidden lg:block order-last sm:order-first col-span-12 lg:col-span-6 lg:flex lg:items-center relative">
                                                     {showGoal && <Goal data={userList} klasse="w-full mb-16 "></Goal>}
 

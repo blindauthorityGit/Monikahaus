@@ -15,23 +15,26 @@ function switcher(e) {
 }
 
 function dataFiller() {
-    const arr = Array(798).fill({
+    const arr = Array(256).fill({
         id: 0,
         claimed: true,
         name: "Christine Buchner",
         sum: 15,
-        color: colors.kugeln[0].kugel1,
+        color: colors.bgColors[0],
         comment: "Ich spende gerne viel",
     });
 
     return arr.map((e, i) => {
         let obj = new Object();
+        let random = Math.floor(Math.random() * 4);
+
         obj = {
             id: i,
             claimed: true,
             name: i < 75 ? "Christine Buchner" : "Bubu Bernhardt",
             sum: 15,
-            color: i < 75 ? colors.kugeln[0].kugel1 : colors.kugeln[1].kugel2,
+            color: colors.bgColors[random],
+            // color: i < 75 ? colors.kugeln[0].kugel1 : colors.kugeln[1].kugel2,
             comment: "Ich spende gerne viel",
         };
         e = obj;
