@@ -21,7 +21,6 @@ import { DndContext, closestCenter } from "@dnd-kit/core";
 import StartText from "../components/layout/startText";
 import MobileButton from "../components/layout/mobileButton";
 import Overlay from "../components/utils/overlay.";
-// import FirstModal from "../components/modalContent/first";
 import MobileFirst from "../components/modalContent/mobileFirst";
 import MenuContent from "../components/modalContent/menuContent";
 import ThankYou from "../components/thankyou";
@@ -32,33 +31,14 @@ import { testData, dataFiller } from "../dev";
 
 import { isMobile } from "react-device-detect";
 
-import { initializeApp } from "firebase/app";
+import { app, db, storage } from "../config/firebase";
 import { getFirestore, collection, getDocs, doc, setDoc, addDoc } from "firebase/firestore/lite";
 import { getStorage, ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 
 import CookieConsent from "react-cookie-consent";
 
 import Snowfall from "react-snowfall";
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-    apiKey: process.env.NEXT_FIREBASE,
-    authDomain: "spendenbaum-john.firebaseapp.com",
-    projectId: "spendenbaum-john",
-    storageBucket: "spendenbaum-john.appspot.com",
-    messagingSenderId: "987219338463",
-    appId: "1:987219338463:web:e23928a16b675c4bff356a",
-    measurementId: "G-08CDZPFB9W",
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const storage = getStorage(app);
+import axios from "axios";
 
 const DonatorList = dynamic(() => import("../components/modalContent/donatorList"), {
     ssr: false,
@@ -100,7 +80,6 @@ export default function Home({ spenderList }) {
     const [showThankYou, setShowThankYou] = useState(false);
     const [isWinner, setIsWinner] = useState(false);
     const [isFullScreen, setIsFullScreen] = useState(false);
-    const [showIntro, setShowIntro] = useState(!isMobile);
     const [kugelColor, setKugelColor] = useState({ color: "", name: "", anon: false, id: 0 });
     const [userData, setUserData] = useState({
         color: "",
@@ -135,7 +114,6 @@ export default function Home({ spenderList }) {
     const [showSecret, setShowSecret] = useState(false);
 
     useEffect(() => {
-        console.log(secret);
         secret ? setShowSecret(true) : null;
     }, [router]);
 
@@ -145,9 +123,6 @@ export default function Home({ spenderList }) {
             elem.classList.remove("opacity-30");
             elem.classList.add("opacity-100");
         }
-    }
-    function draggedZone(id) {
-        document.getElementById(id).style.opacity = 1;
     }
 
     function handleDragStart(event) {
@@ -165,24 +140,20 @@ export default function Home({ spenderList }) {
         setIsDropped(over ? true : false);
         setIsDragging(false);
         droppedZone(over.id);
-        console.log(over ? over.id : null, over);
+        console.log(over.id);
         setUserData({
             ...userData,
             id: over ? over.id : null,
             // winner: Array.from(document.querySelectorAll(".kugel"))[over.id].dataset.iswinner == "true" ? true : false,
         });
-        console.log(userData.id);
     }
 
     useEffect(() => {
         !isMobile ? (baumRef.current.children[0].style.left = "-20px") : null;
-
         window.scrollTo(0, 0);
-        console.log(spenderList);
     }, []);
 
     useEffect(() => {
-        console.log(baumDimensions, baumDimensions.width, baumDimensions.height);
         setRasterDimensions({
             width: baumDimensions.width + "px",
             height: (baumDimensions.height / 100) * 79 + "px",
@@ -190,8 +161,46 @@ export default function Home({ spenderList }) {
     }, [baumDimensions]);
 
     async function dataDB(userData) {
-        await addDoc(collection(db, dev ? "test" : "spender"), userData);
+        const spenderCol = collection(db, dev ? "test" : "spender");
+        const spenderSnapshot = await getDocs(spenderCol);
+        const spenderList = spenderSnapshot.docs.map((doc) => doc.data());
+        console.log(spenderList.some((e) => e.id === userData.id));
+        if (spenderList.some((e) => e.id === userData.id)) {
+            alert(
+                "Während dem Spendenvorgang wurde Ihr Platz von jemand anderem gewählt. Bitte wiederholen Sie den Vorgang auf einem anderen, freien Platz."
+            );
+        } else {
+            await addDoc(collection(db, dev ? "test" : "spender"), userData);
+        }
     }
+
+    useEffect(() => {
+        setTimeout(() => {
+            async function sendEmail() {
+                let config = {
+                    method: "post",
+                    // url: `http://localhost:3000/api/contact`,
+                    url: `/api/quittung`,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    data: {
+                        body: "Testbody",
+                        email: "office@atelierbuchner.at",
+                    },
+                };
+                // console.log(values);
+
+                try {
+                    const response = await axios(config);
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+
+            // sendEmail();
+        }, 5000);
+    }, []);
 
     useEffect(() => {
         if (showThankYou) {
@@ -219,6 +228,28 @@ export default function Home({ spenderList }) {
                                 claimed: true,
                             };
                             dataDB(newUser);
+                            async function sendEmail() {
+                                let config = {
+                                    method: "post",
+                                    // url: `http://localhost:3000/api/contact`,
+                                    url: `/api/quittung`,
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    data: {
+                                        body: "Testbody",
+                                        email: "office@atelierbuchner.at",
+                                    },
+                                };
+                                // console.log(values);
+
+                                try {
+                                    const response = await axios(config);
+                                } catch (err) {
+                                    console.log(err);
+                                }
+                            }
+                            sendEmail();
                         });
                 } else {
                     const newUser = {
@@ -233,6 +264,28 @@ export default function Home({ spenderList }) {
                         claimed: true,
                     };
                     dataDB(newUser);
+                    async function sendEmail() {
+                        let config = {
+                            method: "post",
+                            // url: `http://localhost:3000/api/contact`,
+                            url: `/api/quittung`,
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            data: {
+                                body: "Testbody",
+                                email: "office@atelierbuchner.at",
+                            },
+                        };
+                        // console.log(values);
+
+                        try {
+                            const response = await axios(config);
+                        } catch (err) {
+                            console.log(err);
+                        }
+                    }
+                    sendEmail();
                 }
             };
 

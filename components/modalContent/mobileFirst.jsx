@@ -12,9 +12,10 @@ import { TreeAnimationFinish, KugelColor, UserData, UserList, ShowOverlay } from
 
 import ColorChoice from "./colorChoice";
 import SpendenSumme from "./spendenSumme";
-import NameKugel from "./NameKugel";
-import ImageUpload from "./imageUpload";
-import Comment from "./comment";
+import NameChoose from "./nameChoose";
+import BildChoose from "./bildChoose";
+import CommentChoose from "./commentChoose";
+import Payment from "./payment";
 
 import MobileSecond from "./mobileSecond";
 import ChooseSpace from "./chooseSpace";
@@ -25,9 +26,8 @@ import { BtnDirector, BtnDirectorFw } from "../../functions/btnDirector";
 import { db } from "../../pages/index";
 import { doc, setDoc } from "firebase/firestore/lite";
 
-import { TfiHandPointLeft } from "react-icons/tfi";
-
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+
 import { dev } from "../../config";
 
 const MobileFirst = (props) => {
@@ -304,130 +304,40 @@ const MobileFirst = (props) => {
 
                     {/* NAME */}
 
-                    <div ref={fourthRef} className="fourth hidden">
-                        <div className="font-bold mb-4 text-xl">Ihre Daten</div>
-                        <div className="topLine mb-4 text-base italic ">
-                            Ihr Name wird als auf Ihren Kugel-Daten angezeigt (optional)
-                            <br />
-                            {/* <span className="text-xs leading-tight">
-                                {" "}
-                                Sie können Ihren Namen, ein Bild, die Spendensumme und ein Kommentar hinterlassen, das
-                                für andere sichtbar wird:
-                            </span> */}
-                        </div>
-                        <NameKugel
-                            setName={setName}
-                            kugelColor={kugelColor}
-                            setKugelColor={setKugelColor}
-                            onChange={onChange}
-                            dataTip="Ihr Name, wird als Initialen auf der Kugel angezeigt"
-                        ></NameKugel>
-                        {/* <hr className="mt-6" /> */}
-
-                        <div className="grid grid-cols-2 mt-10 w-full gap-4">
-                            <div className={`w-full `}>
-                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
-                                    disabled={false}
-                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
-                                    onClick={() => {
-                                        BtnDirector(thirdRef, fourthRef);
-                                    }}
-                                >
-                                    Zurück
-                                </ButtonReal>
-                            </div>
-                            <div className={`w-full bottom-2  ${anon ? "" : "opacity-30"}`}>
-                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
-                                    disabled={anon ? false : true}
-                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
-                                    onClick={() => {
-                                        BtnDirectorFw(fourthRef, fifthRef);
-                                    }}
-                                >
-                                    {userData.fullName ? "Weiter" : "Überspringen"}
-                                </ButtonReal>
-                            </div>
-                        </div>
-                    </div>
+                    <NameChoose
+                        setName={setName}
+                        anon={anon}
+                        kugelColor={kugelColor}
+                        setKugelColor={setKugelColor}
+                        fullName={userData.fullName}
+                        thirdRef={thirdRef}
+                        fourthRef={fourthRef}
+                        fifthRef={fifthRef}
+                        onChange={onChange}
+                    ></NameChoose>
 
                     {/* BILD */}
 
-                    <div ref={fifthRef} className="fifth hidden">
-                        <div className="font-bold mb-4 text-xl">Ihre Daten</div>
-                        <div className="topLine mb-4 text-base italic ">
-                            Ihr Bild wird neben Ihrem Namen angezeigt (optional, max 1MB)
-                            <br />
-                        </div>
-                        <ImageUpload
-                            anon={anon}
-                            setAnon={setAnon}
-                            kugelColor={kugelColor}
-                            setKugelColor={setKugelColor}
-                            dataTip="Ihr Avatar Bild (optional)"
-                        ></ImageUpload>
-
-                        <div className="grid grid-cols-2 mt-10 w-full gap-4">
-                            <div className={`w-full `}>
-                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
-                                    disabled={false}
-                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
-                                    onClick={() => {
-                                        BtnDirector(fourthRef, fifthRef);
-                                    }}
-                                >
-                                    Zurück
-                                </ButtonReal>
-                            </div>
-                            <div className={`w-full bottom-2  ${anon ? "" : "opacity-30"}`}>
-                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
-                                    disabled={anon ? false : true}
-                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
-                                    onClick={() => {
-                                        BtnDirectorFw(fifthRef, sixthRef);
-                                    }}
-                                >
-                                    {userData.image ? "Weiter" : "Überspringen"}
-                                </ButtonReal>
-                            </div>
-                        </div>
-                    </div>
+                    <BildChoose
+                        anon={anon}
+                        setAnon={setAnon}
+                        kugelColor={kugelColor}
+                        setKugelColor={setKugelColor}
+                        image={userData.image}
+                        fourthRef={fourthRef}
+                        fifthRef={fifthRef}
+                        sixthRef={sixthRef}
+                    ></BildChoose>
 
                     {/* COMMENT */}
-
-                    <div ref={sixthRef} className="sixth hidden">
-                        <div className="font-bold mb-4 text-xl">Ihre Daten</div>
-                        <div className="topLine mb-4 text-base italic ">
-                            Ihr Kommentar, max 60 Zeichen (optional)
-                            <br />
-                        </div>
-                        <Comment onChange={onChange} dataTip="Ihr Kommentar (optional)"></Comment>
-
-                        <div className="grid grid-cols-2 mt-10 w-full gap-4">
-                            <div className={`w-full `}>
-                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
-                                    disabled={false}
-                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
-                                    onClick={() => {
-                                        BtnDirector(fourthRef, sixthRef);
-                                    }}
-                                >
-                                    Zurück
-                                </ButtonReal>
-                            </div>
-                            <div className={`w-full bottom-2 `}>
-                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
-                                    // disabled={anon ? false : true}
-                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
-                                    onClick={() => {
-                                        BtnDirectorFw(sixthRef, seventhRef);
-                                        setIsChoice(true);
-                                    }}
-                                >
-                                    {userData.comment ? "Weiter" : "Überspringen"}
-                                </ButtonReal>
-                            </div>
-                        </div>
-                    </div>
+                    <CommentChoose
+                        setIsChoice={setIsChoice}
+                        comment={userData.comment}
+                        fourthRef={fourthRef}
+                        sixthRef={sixthRef}
+                        seventhRef={seventhRef}
+                        onChange={onChange}
+                    ></CommentChoose>
                     {/* KUGEL */}
 
                     <ChooseSpace
@@ -445,77 +355,17 @@ const MobileFirst = (props) => {
 
                     {/* PAYPAL */}
 
-                    <div ref={eightRef} className="eight hidden">
-                        <div className="font-bold mb-4 text-xl">Bezahlung</div>
-                        <div className="topLine mb-4 text-base italic ">
-                            Wählen Sie Ihre Bezahlart:
-                            <br />
-                        </div>
-                        <PayPalButtons
-                            createOrder={(data, actions) => {
-                                console.log(window.localStorage.getItem("anon"));
-                                return actions.order.create({
-                                    purchase_units: [
-                                        {
-                                            amount: {
-                                                value: Number(window.localStorage.getItem("spende")),
-                                                // value: document.querySelector("#sumWrapper").dataset.sum,
-                                            },
-                                        },
-                                    ],
-                                });
-                            }}
-                            onApprove={(data, actions) => {
-                                console.log(data);
-                                return actions.order.capture().then((details) => {
-                                    const data = details;
-                                    console.log(details, details.payer, data, data.payer.name, data.payer.adress);
-                                    localStorage.setItem(`email`, data.payer.email_adress);
-                                    setIsPayed(true);
-                                    const newUser = {
-                                        anon: Boolean(window.localStorage.getItem("anon")),
-                                        color: window.localStorage.getItem("color"),
-                                        email: window.localStorage.getItem("email"),
-                                        name: window.localStorage.getItem("fullName"),
-                                        id: Number(window.localStorage.getItem("id")),
-                                        image: window.localStorage.getItem("image"),
-                                        sum: Number(window.localStorage.getItem("spende")),
-                                        winner: window.localStorage.getItem("winner"),
-                                        comment: window.localStorage.getItem("comment"),
-                                        claimed: true,
-                                    };
-                                    setUserList((current) => [...current, newUser]);
-                                    setShowThankYou(true);
-
-                                    // dataDB(newUser.colo, newUser);
-                                    // console.log(newUser, userList);
-                                    router.push({
-                                        pathname: "/donate",
-                                        query: { id: newUser.id, name: newUser.name, winner: newUser.winner },
-                                    });
-                                    setShowOverlay(false);
-                                    setShowUnclaimed(false);
-                                    {
-                                        window.localStorage.getItem("winner") == "true" ? setIsWinner(true) : null;
-                                    }
-                                });
-                            }}
-                        />
-
-                        <div className="grid grid-cols-2 mt-10 w-full gap-4">
-                            <div className={`w-full `}>
-                                <ButtonReal // style={{ background: colors.primaryColor.toLowerCase() }}
-                                    disabled={false}
-                                    klasse={`bg-black hover:bg-primaryColorDark py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
-                                    onClick={() => {
-                                        BtnDirector(seventhRef, eightRef);
-                                    }}
-                                >
-                                    Zurück
-                                </ButtonReal>
-                            </div>
-                        </div>
-                    </div>
+                    <Payment
+                        setIsPayed={setIsPayed}
+                        setUserList={setUserList}
+                        setShowOverlay={setShowOverlay}
+                        setShowUnclaimed={setShowUnclaimed}
+                        setShowThankYou={setShowThankYou}
+                        setIsWinner={setIsWinner}
+                        seventhRef={seventhRef}
+                        eightRef={eightRef}
+                        push={router.push}
+                    ></Payment>
                     {createPortal(
                         <DragOverlay
                             dropAnimation={{
