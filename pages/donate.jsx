@@ -228,28 +228,28 @@ export default function Home({ spenderList }) {
                                 claimed: true,
                             };
                             dataDB(newUser);
-                            async function sendEmail() {
-                                let config = {
-                                    method: "post",
-                                    // url: `http://localhost:3000/api/contact`,
-                                    url: `/api/quittung`,
-                                    headers: {
-                                        "Content-Type": "application/json",
-                                    },
-                                    data: {
-                                        body: "Testbody",
-                                        email: "office@atelierbuchner.at",
-                                    },
-                                };
-                                // console.log(values);
+                            // async function sendEmail() {
+                            //     let config = {
+                            //         method: "post",
+                            //         // url: `http://localhost:3000/api/contact`,
+                            //         url: `/api/quittung`,
+                            //         headers: {
+                            //             "Content-Type": "application/json",
+                            //         },
+                            //         data: {
+                            //             body: "Testbody",
+                            //             email: "office@atelierbuchner.at",
+                            //         },
+                            //     };
+                            //     // console.log(values);
 
-                                try {
-                                    const response = await axios(config);
-                                } catch (err) {
-                                    console.log(err);
-                                }
-                            }
-                            sendEmail();
+                            //     try {
+                            //         const response = await axios(config);
+                            //     } catch (err) {
+                            //         console.log(err);
+                            //     }
+                            // }
+                            // sendEmail();
                         });
                 } else {
                     const newUser = {
@@ -264,28 +264,28 @@ export default function Home({ spenderList }) {
                         claimed: true,
                     };
                     dataDB(newUser);
-                    async function sendEmail() {
-                        let config = {
-                            method: "post",
-                            // url: `http://localhost:3000/api/contact`,
-                            url: `/api/quittung`,
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            data: {
-                                body: "Testbody",
-                                email: "office@atelierbuchner.at",
-                            },
-                        };
-                        // console.log(values);
+                    // async function sendEmail() {
+                    //     let config = {
+                    //         method: "post",
+                    //         // url: `http://localhost:3000/api/contact`,
+                    //         url: `/api/quittung`,
+                    //         headers: {
+                    //             "Content-Type": "application/json",
+                    //         },
+                    //         data: {
+                    //             body: "Testbody",
+                    //             email: "office@atelierbuchner.at",
+                    //         },
+                    //     };
+                    //     // console.log(values);
 
-                        try {
-                            const response = await axios(config);
-                        } catch (err) {
-                            console.log(err);
-                        }
-                    }
-                    sendEmail();
+                    //     try {
+                    //         const response = await axios(config);
+                    //     } catch (err) {
+                    //         console.log(err);
+                    //     }
+                    // }
+                    // sendEmail();
                 }
             };
 
