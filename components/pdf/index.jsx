@@ -1,13 +1,16 @@
 import jsPDF from "jspdf";
 import Template from "./template";
+import { useRef, useState } from "react";
+import axios from "axios";
 
-const PDF = () => {
-    const doc = new jsPDF({
-        unit: "px",
-        format: "a4",
-    });
+import Choose from "./choose";
 
-    return <div></div>;
+const PDF = (props) => {
+    return (
+        <div>
+            <Choose onClickYes={props.onClickYes} onClickNo={props.onClickNo}></Choose>
+        </div>
+    );
 };
 
 export default PDF;

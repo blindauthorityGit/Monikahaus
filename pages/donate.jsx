@@ -23,6 +23,7 @@ import MobileButton from "../components/layout/mobileButton";
 import Overlay from "../components/utils/overlay.";
 import MobileFirst from "../components/modalContent/mobileFirst";
 import MenuContent from "../components/modalContent/menuContent";
+import QuittungForm from "../components/modalContent/quittung";
 import ThankYou from "../components/thankyou";
 import { MdPeople, MdInfoOutline } from "react-icons/md";
 import { RiMenu3Fill } from "react-icons/ri";
@@ -78,6 +79,7 @@ export default function Home({ spenderList }) {
     const [showList, setShowList] = useState(false);
     const [showInfo, setShowInfo] = useState(false);
     const [showThankYou, setShowThankYou] = useState(false);
+    const [showQuittung, setShowQuittung] = useState(false);
     const [isWinner, setIsWinner] = useState(false);
     const [isFullScreen, setIsFullScreen] = useState(false);
     const [kugelColor, setKugelColor] = useState({ color: "", name: "", anon: false, id: 0 });
@@ -477,7 +479,41 @@ export default function Home({ spenderList }) {
                                                     setShowThankYou(false);
                                                     window.location.reload();
                                                 }}
+                                                onClickYes={() => {
+                                                    setShowQuittung(true);
+                                                    setShowThankYou(false);
+
+                                                    console.log("Front Yes");
+                                                }}
                                             ></ThankYou>
+                                            <Overlay></Overlay>
+                                        </>
+                                    )}
+                                    {showQuittung && (
+                                        <>
+                                            {isMobile ? (
+                                                <ModalFull
+                                                    noFixed
+                                                    onClick={() => {
+                                                        setShowOverlay(false);
+                                                        setShowQuittung(false);
+                                                    }}
+                                                >
+                                                    <QuittungForm
+                                                        sum={Number(window.localStorage.getItem("spende"))}
+                                                    ></QuittungForm>
+                                                </ModalFull>
+                                            ) : (
+                                                <Modal
+                                                    onClick={() => {
+                                                        setShowOverlay(false);
+                                                        setShowQuittung(false);
+                                                    }}
+                                                >
+                                                    <QuittungForm></QuittungForm>
+                                                </Modal>
+                                            )}
+
                                             <Overlay></Overlay>
                                         </>
                                     )}

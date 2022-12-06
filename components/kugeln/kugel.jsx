@@ -38,7 +38,7 @@ const Kugel = (props, ref) => {
             data-isWinner={props.winner}
         >
             <>
-                <div className="hidden xl:block pointer-events-none">{props.name}</div>
+                <div className="hidden xl:block text-xs pointer-events-none">{props.name}</div>
                 {/* {props.name} */}
                 {props.children}
             </>

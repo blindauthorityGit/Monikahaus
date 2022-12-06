@@ -43,6 +43,6 @@ const goalSum = 1000;
 const maxSize = 1; // in MB
 
 const dev = false;
-const local = true;
+const local = false;
 
 export { colors, Tree, anzahlRows, startInfo, goalSum, showGoal, dev, anzahlBaumKugeln, local, maxSize, bgColors };
