@@ -6,6 +6,8 @@ import { H1 } from "../utils/headlines";
 import { MdOutlineClose } from "react-icons/md";
 import { isBrowser, isMobile } from "react-device-detect";
 
+import Quittung from "../pdf/";
+
 const ThankYou = (props) => {
     return (
         <motion.div
@@ -34,10 +36,12 @@ const ThankYou = (props) => {
                 {props.isWinner ? "Sie haben gewonnen!" : "Vielen Dank!"}
             </H1>
             <p className="text-white mt-12">Ihre Kugel schmückt nun den Baum</p>
-            <p className="text-white mt-12">
+            <p className="text-white mt-6 text-xs">
                 Falls Ihre Kugel nicht sofort erscheint, schauen Sie in ca. einer Minute nochmal nach (Browser
                 aktualisieren)
             </p>
+
+            <Quittung onClickYes={props.onClickYes} onClickNo={props.onClick}></Quittung>
 
             {props.isWInner ? <div>Herzlichen Glückwunsch, Sie haben gewonnen!</div> : null}
             {props.children}

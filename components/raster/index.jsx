@@ -105,14 +105,9 @@ const Raster = (props) => {
 
         if (treeAnimationFinish) {
             let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
-            arr.map((e) => {
-                let treeMuliplicator = currentTree * ballsPerTree;
-
-                if (arr[e - treeMuliplicator] !== undefined) {
-                    arr[e - treeMuliplicator].classList.remove("opacity-100");
-                    arr[e - treeMuliplicator].classList.add("opacity-0");
-                    arr[e - treeMuliplicator] = "transparent";
-                }
+            // RESET UNCLAIMED BG COLOR
+            arr.map((e, i) => {
+                e.style.background = "none";
             });
             let arrClaimedID = userList.map((e) => e.id);
             setTimeout(() => {
@@ -121,6 +116,7 @@ const Raster = (props) => {
             arrClaimedID.map((e, i) => {
                 let random = Math.random() * 500;
                 let treeMuliplicator = currentTree * ballsPerTree;
+
                 setTimeout(() => {
                     if (arr[e - treeMuliplicator] !== undefined) {
                         arr[e - treeMuliplicator].classList.remove("opacity-0");
@@ -265,28 +261,23 @@ const Raster = (props) => {
                             >
                                 {kugelCount.map((e, i) => {
                                     counter = counter + 1;
-                                    // setCounter((prev) => {
-                                    //     prev + 1;
-                                    // });
-                                    console.log(
-                                        userList.some((e) => e.id === counter - 1)
-                                            ? userList[getIndex(userList, counter - 1)].color.toLowerCase()
-                                            : null
-                                    );
+
                                     let claimed = userList.some((e) => e.id === counter - 1);
                                     return (
                                         <Kugel
                                             key={i + "kugel"}
                                             size={`w-[5%] h-[100%] ${
                                                 showUnclaimed
-                                                    ? "opacity-30 scale-in-center bg-transparent"
+                                                    ? "opacity-30 bg-transparent "
                                                     : claimed
                                                     ? ""
-                                                    : "opacity-0"
+                                                    : "opacity-0 "
                                             } ${
                                                 claimed
                                                     ? "shadow-md"
-                                                    : "border-2 sm:border-4 border-white border-dotted"
+                                                    : `border-2 sm:border-4 border-white border-dotted ${
+                                                          showUnclaimed ? "scale-in-center" : null
+                                                      }`
                                             } `}
                                             onAnimationEnd={(e) => {
                                                 // e.target.classList.remove("scale-in-center");
@@ -400,11 +391,11 @@ const Raster = (props) => {
                                                     ? userList[getIndex(userList, counter - 1)].comment
                                                     : ""
                                             }
-                                            winner={counter - 1 == 40 ? true : false}
+                                            // winner={counter - 1 == 40 ? true : false}
                                         >
                                             {props.parent === counter - 1 ? (
                                                 <Draggable
-                                                    klasse={`draggable touch-none rounded-full indent-[9999px] sm:indent-0 flex items-center justify-center ${
+                                                    klasse={`draggable absolute touch-none rounded-full indent-[9999px] sm:indent-0 flex items-center justify-center ${
                                                         kugelColor.color == "rgb(255, 255, 255)" ||
                                                         kugelColor.color == "rgb(220, 223, 220)"
                                                             ? "text-black border-4"

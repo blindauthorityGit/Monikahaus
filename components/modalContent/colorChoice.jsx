@@ -17,7 +17,7 @@ function ColorChoice(props) {
                             return (
                                 <div
                                     className={`colorBall rounded-full flex items-center justify-center ${
-                                        e === "#fff" ? "border-4" : ""
+                                        e === "#fff" || e === "rgb(255, 255, 255)" ? "border-4" : ""
                                     } hover:scale-110 transition cursor-pointer`}
                                     onClick={(e) => {
                                         props.onChangeColor(e);

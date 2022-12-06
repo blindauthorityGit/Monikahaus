@@ -5,6 +5,7 @@ import Draggable from "../dragNDrop/draggable";
 import { ButtonReal } from "../utils/buttonReal";
 import { BtnDirector, BtnDirectorFw } from "../../functions/btnDirector";
 import { isBrowser, isMobile } from "react-device-detect";
+import { checkForID } from "../../functions/checkForID";
 
 function ChooseSpace(props) {
     return (
@@ -74,10 +75,18 @@ function ChooseSpace(props) {
                         klasse={`${
                             props.userData.id ? "bg-[#32cd32]" : "bg-black"
                         }  py-2 px-6 rounded-lg text-white font-semibold uppercase text-base leading-loose tracking-wider cursor-pointer`}
-                        onClick={() => {
-                            BtnDirectorFw(props.seventhRef, props.eightRef);
-                            props.objectMapper(props.userData);
-                            console.log(props.userData);
+                        onClick={async () => {
+                            console.log(await checkForID(props.userData.id));
+                            if (await checkForID(props.userData.id)) {
+                                console.log("Geht nicht weiter");
+                                alert(
+                                    "ID wurde während dem Spendenvorgang vergeben. Bitte erneut versuchen mit einem anderen freien Platz auf dem Baum"
+                                );
+                            } else {
+                                console.log("Weiter gehts");
+                                BtnDirectorFw(props.seventhRef, props.eightRef);
+                                props.objectMapper(props.userData);
+                            }
                         }}
                     >
                         Bezahlen
