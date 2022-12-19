@@ -62,14 +62,14 @@ const Raster = (props) => {
     });
 
     const { ref: documentRef } = useSwipeable({
-        onSwiped: ({ dir, event }) => {
-            console.log(dir, event);
-        },
         onSwipedLeft: (e) => {
             treeChanger("true");
         },
         onSwipedRight: (e) => {
             treeChanger("false");
+        },
+        onSwiping: (e) => {
+            console.log(e);
         },
         preventDefaultTouchmoveEvent: true,
     });
@@ -235,7 +235,7 @@ const Raster = (props) => {
                         <FaChevronCircleLeft></FaChevronCircleLeft>
                     </div>
                     <div
-                        className={`absolute  text-4xl md:text-6xl  z-0 top-[35%] right-6 ${
+                        className={`absolute  text-4xl md:text-6xl  z-40 top-[35%] right-6 ${
                             currentTree == treeAnzahl - 1 ? "opacity-20" : ""
                         }`}
                         onClick={() => {
