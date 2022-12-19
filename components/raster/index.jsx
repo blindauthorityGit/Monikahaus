@@ -458,7 +458,7 @@ const Raster = (props) => {
                         className="absolute bottom-0 z-30 w-full text-center h-24 font-bold"
                         style={{ top: baumDimensions.bottom + 20 + "px" }}
                     >
-                        Aktueller Baum: {currentTree + 1}
+                        Aktueller Baum: {`${currentTree + 1} / ${treeAnzahl}`}
                     </div>
                 )}
             </div>
