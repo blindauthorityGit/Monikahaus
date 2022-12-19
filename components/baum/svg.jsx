@@ -92,7 +92,7 @@ const SVG = (props, ref) => {
                             rotate: 0,
                         }}
                         animate={{ x: 3806.77, y: props.closeMe ? 600 : 65.955, scale: 1.02, rotate: 0 }}
-                        transition={{ duration: props.duration, delay: 0.35, type: "spring" }}
+                        transition={{ duration: props.duration, delay: props.closeMe ? 0.05 : 0.35, type: "spring" }}
                     />
                     <motion.path
                         id="Pfad_312"
@@ -107,8 +107,8 @@ const SVG = (props, ref) => {
                             scale: 0,
                             rotate: 0,
                         }}
-                        animate={{ x: 3915.219, y: 285.045, scale: 1, rotate: 0 }}
-                        transition={{ duration: props.duration, delay: 0.5, type: "spring" }}
+                        animate={{ x: 3915.219, y: props.closeMe ? 880 : 285, scale: 1, rotate: 0 }}
+                        transition={{ duration: props.duration, delay: props.closeMe ? 0.1 : 0.5, type: "spring" }}
                     />
                     <motion.path
                         id="Pfad_229"
@@ -123,8 +123,8 @@ const SVG = (props, ref) => {
                             scale: 0,
                             rotate: 0,
                         }}
-                        animate={{ x: 3908.15, y: 279.045, scale: 1, rotate: 0 }}
-                        transition={{ duration: props.duration, delay: 0.5, type: "spring" }}
+                        animate={{ x: 3908.15, y: props.closeMe ? 900 : 279.045, scale: 1, rotate: 0 }}
+                        transition={{ duration: props.duration, delay: props.closeMe ? 0.15 : 0.5, type: "spring" }}
                     />
                     <motion.path
                         id="Pfad_230"
@@ -139,8 +139,8 @@ const SVG = (props, ref) => {
                             scale: 0,
                             rotate: 0,
                         }}
-                        animate={{ x: 3566.524, y: 565.054, scale: 1, rotate: 0 }}
-                        transition={{ duration: props.duration, delay: 0.75, type: "spring" }}
+                        animate={{ x: 3566.524, y: props.closeMe ? 1300 : 565.054, scale: 1, rotate: 0 }}
+                        transition={{ duration: props.duration, delay: props.closeMe ? 0.2 : 0.75, type: "spring" }}
                     />
                     <motion.path
                         id="Pfad_313"
@@ -155,8 +155,8 @@ const SVG = (props, ref) => {
                             scale: 0,
                             rotate: 0,
                         }}
-                        animate={{ x: 3566.524, y: 558.054, scale: 1, rotate: 0 }}
-                        transition={{ duration: props.duration, delay: 0.75, type: "spring" }}
+                        animate={{ x: 3566.524, y: props.closeMe ? 1400 : 558.054, scale: 1, rotate: 0 }}
+                        transition={{ duration: props.duration, delay: props.closeMe ? 0.25 : 0.75, type: "spring" }}
                     />
                 </g>
                 <motion.path

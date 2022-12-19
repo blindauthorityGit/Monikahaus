@@ -32,15 +32,15 @@ const QuittungForm = (props) => {
 
         doc.html(reportTemplateRef.current, {
             async callback(doc) {
-                // await doc.save(props.docName);
-                // await doc.output("datauristring");
-                // const res = await doc.output("datauristring");
-
-                // setData({ ...data, pdf: res.split("base64,")[1] });
-
                 try {
-                    await doc.output("datauristring");
-                    setData({ ...data, pdf: await doc.output("datauristring").split("base64,")[1] });
+                    // Call doc.output() and wait for the PDF data to be generated
+                    const pdfData = await doc.output("datauristring");
+
+                    // Use the split() method to extract the base64-encoded data
+                    const base64Data = pdfData.split("base64,")[1];
+
+                    // Update the state with the extracted data
+                    setData({ ...data, pdf: base64Data });
                     console.log(data);
                 } catch (error) {
                     console.error(`Could not get products: ${error}`);

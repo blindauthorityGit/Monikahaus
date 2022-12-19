@@ -15,6 +15,9 @@ import { useWindowSize, useWindowWidth, useWindowHeight } from "@react-hook/wind
 
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 
+// SWIPER STUFF
+import { useSwipeable } from "react-swipeable";
+
 const Kugel = dynamic(() => import("../kugeln/kugel"), {
     ssr: false,
 });
@@ -52,6 +55,28 @@ const Raster = (props) => {
 
     // FLAG FOR TREE CHANGE / ANIMATIONEND
     const [freeTree, setFreeTree] = useState(true);
+
+    // SWIPE STUFF
+    const handlers = useSwipeable({
+        onSwiped: (eventData) => console.log("User Swiped!", eventData),
+    });
+
+    const { ref: documentRef } = useSwipeable({
+        onSwipedLeft: (e) => {
+            treeChanger("true");
+        },
+        onSwipedRight: (e) => {
+            treeChanger("false");
+        },
+        onSwiping: (e) => {
+            console.log(e);
+        },
+        preventDefaultTouchmoveEvent: true,
+    });
+
+    useEffect(() => {
+        documentRef(document);
+    });
 
     // OPACITY CHECK DROPZONE WHEN DROPPED
     useEffect(() => {
@@ -200,7 +225,7 @@ const Raster = (props) => {
             {treeAnimationFinish && treeAnzahl > 1 && (
                 <>
                     <div
-                        className={`absolute text-4xl md:text-6xl top-[35%] left-6 z-50 ${
+                        className={`absolute text-4xl md:text-6xl top-[35%] left-6 z-40 ${
                             currentTree == 0 ? "opacity-20" : ""
                         }`}
                         onClick={() => {
@@ -210,7 +235,7 @@ const Raster = (props) => {
                         <FaChevronCircleLeft></FaChevronCircleLeft>
                     </div>
                     <div
-                        className={`absolute  text-4xl md:text-6xl  z-50 top-[35%] right-6 ${
+                        className={`absolute  text-4xl md:text-6xl  z-40 top-[35%] right-6 ${
                             currentTree == treeAnzahl - 1 ? "opacity-20" : ""
                         }`}
                         onClick={() => {
@@ -241,7 +266,7 @@ const Raster = (props) => {
                 <div
                     id="raster"
                     className=" z-40"
-                    style={{ width: props.width, height: props.height, opacity: props.opacity }}
+                    style={{ width: props.width, height: props.height, opacity: props.opacity, touchAction: "pan-y" }}
                 >
                     {rowCount.map((e, i) => {
                         let kugelCount = [];
@@ -301,6 +326,9 @@ const Raster = (props) => {
                                                     ? userList[getIndex(userList, counter - 1)].image
                                                     : null
                                             }
+                                            // onClickAvatar={(e) => {
+                                            //     console.log(e);
+                                            // }}
                                             id={counter - 1}
                                             isClaimed={userList.some((e) => e.id === counter - 1) ? "true" : "false"}
                                             disabled={userList.some((e) => e.id === counter - 1) ? true : false}

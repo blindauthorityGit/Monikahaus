@@ -54,6 +54,7 @@ const Kugel = (props, ref) => {
                 onMouseLeave={props.toolTiponMouseLeave}
                 imgData={props.imgData}
                 tooltipID={props.id}
+                // onClickAvatar={props.onClickAvatar}
             ></ToolTip>
         </div>
     );
