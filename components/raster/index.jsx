@@ -264,7 +264,6 @@ const Raster = (props) => {
                 }
             >
                 <div
-                    {...handlers}
                     id="raster"
                     className=" z-40"
                     style={{ width: props.width, height: props.height, opacity: props.opacity, touchAction: "pan-y" }}
@@ -327,6 +326,9 @@ const Raster = (props) => {
                                                     ? userList[getIndex(userList, counter - 1)].image
                                                     : null
                                             }
+                                            // onClickAvatar={(e) => {
+                                            //     console.log(e);
+                                            // }}
                                             id={counter - 1}
                                             isClaimed={userList.some((e) => e.id === counter - 1) ? "true" : "false"}
                                             disabled={userList.some((e) => e.id === counter - 1) ? true : false}
