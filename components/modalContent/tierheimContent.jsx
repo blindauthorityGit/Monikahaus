@@ -84,7 +84,7 @@ const TierheimContent = () => {
                     </p>
                 </div>
                 <img src={Leitung.src} alt="" />
-                    <p>Konzept, Design und Umsetzung von <a href="https://www.sabocon.com">Sabocon.com</a>
+                    <p>Konzept, Design und Umsetzung von <a href="https://www.sabocon.com">Sabocon.com</a></p>
             </div>
         </MainContainer>
     );
