@@ -41,7 +41,9 @@ const SVG = (props, ref) => {
 
     return (
         <svg
-            className={`absolute overflow-hidden z-10 ${mobile ? " left-1/2 transform -translate-x-1/2 " : null}`}
+            className={`absolute ${props.animation} overflow-hidden z-10 ${
+                mobile ? " left-1/2 transform -translate-x-1/2 " : null
+            }`}
             xmlns="http://www.w3.org/2000/svg"
             width={mobile ? "80%" : "100%"}
             height="100%"

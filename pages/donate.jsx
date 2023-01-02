@@ -14,6 +14,7 @@ import {
     UserData,
     UserList,
     ShowOverlay,
+    TreeMove,
 } from "../helper/context";
 
 import { DndContext, closestCenter } from "@dnd-kit/core";
@@ -541,6 +542,9 @@ export default function Home({ spenderList }) {
 
                                                     <StartText
                                                         headline={startInfo.headline}
+                                                        subline={
+                                                            "Gemeinsam konnten wir € 2.655,- für das Tierheim Dreieich sammeln"
+                                                        }
                                                         buttonText={startInfo.buttonText}
                                                         onClick={() => {
                                                             setShowOverlay(true);
@@ -567,7 +571,7 @@ export default function Home({ spenderList }) {
                                                             <Goal secret={secret} data={userList} klasse=""></Goal>
                                                         ))}
                                                 </div>
-                                                <MobileButton
+                                                {/* <MobileButton
                                                     klasse="absolute w-3/4 flex lg:hidden bottom-16 md:bottom-24 z-30  left-1/2 transform -translate-x-1/2 "
                                                     buttonText={startInfo.buttonText}
                                                     onClick={() => {
@@ -577,7 +581,7 @@ export default function Home({ spenderList }) {
                                                             baumRef.current.children[0].children[0].getBoundingClientRect()
                                                         );
                                                     }}
-                                                ></MobileButton>
+                                                ></MobileButton> */}
                                             </MainContainer>
 
                                             <Boden></Boden>

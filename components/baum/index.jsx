@@ -38,7 +38,7 @@ const Baum = (props, ref) => {
         >
             {/* <Img src={BaumDoc} layout="fill"></Img> */}
 
-            <SVG ref={gRef} closeMe={baumWeg}></SVG>
+            <SVG animation="rotateY-anim" ref={gRef} closeMe={baumWeg}></SVG>
             <Kreis
                 onAnimationComplete={(definition) => {
                     console.log("Completed animating", definition);

@@ -52,6 +52,12 @@ const DonatorList = () => {
     };
 
     useEffect(() => {
+        // console.log(userList.sort((a, b) => a.id - b.id));
+        // setUserList(userList.sort((a, b) => a.id - b.id));
+        setUserList(userList.sort((a, b) => b.sum - a.sum));
+    });
+
+    useEffect(() => {
         setItems(sliceIntoChunks(itemsAll, itemsPerPage));
         console.log(Math.floor(windowSize.innerHeight / 90));
         console.log(listRef.current);

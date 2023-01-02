@@ -84,6 +84,12 @@ const TierheimContent = () => {
                     </p>
                 </div>
                 <img src={Leitung.src} alt="" />
+                <p className="mt-6 text-sm ">
+                    Umsetzung von{" "}
+                    <a className="underline" href="https//www.sabocon.com">
+                        Sabocon GmbH{" "}
+                    </a>{" "}
+                </p>
             </div>
         </MainContainer>
     );

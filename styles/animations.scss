@@ -51,6 +51,11 @@
 .blinky {
     animation: blink 4s ease 0s 1 normal forwards;
     -webkit-animation: blink 4s ease 0s 1 normal forwards;
+}
+
+.rotateY-anim {
+    animation: rotateY-anim 0.5s linear forwards;
+    left: 10%
 
 }
 
@@ -625,5 +630,15 @@
 	75%,
     100% {
 		opacity: 0.3;
+	}
+}
+
+@keyframes rotateY-anim {
+	0% {
+		transform: rotateY(0deg);
+	}
+
+	100% {
+		transform: rotateY(360deg);
 	}
 }
