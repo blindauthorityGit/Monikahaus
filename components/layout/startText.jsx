@@ -13,12 +13,12 @@ function StartText(props) {
                     {props.headline}
                 </H1>
                 <p className="mt-6 text-lg"> {props.subline}</p>
-                <Button // style={{ background: colors.primaryColor.toLowerCase() }}
+                {/* <Button // style={{ background: colors.primaryColor.toLowerCase() }}
                     klasse={`mt-8 bg-primaryColor hover:bg-primaryColorDark py-4 rounded-lg text-white font-bold uppercase text-xl leading-loose tracking-wider cursor-pointer`}
                     onClick={props.onClick}
                 >
                     {props.buttonText}
-                </Button>
+                </Button> */}
             </div>
         </div>
     );
