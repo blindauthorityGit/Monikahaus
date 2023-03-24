@@ -24,7 +24,7 @@ const colors = {
 const bgColors = ["#033F63", "#AF4D98", "#FF4A1C", "#CC3363", "#0197F6"];
 
 const startInfo = {
-    headline: "Vielen Dank an alle Spender!",
+    headline: "Spenden Sie Hoffnung!",
     subline: "Lorem ipsum dolor sit amet delurum omes bubu",
     buttonText: "Jetzt spenden",
 };
