@@ -111,7 +111,7 @@ const Raster = (props) => {
 
     useEffect(() => {
         // SET TREE NUMBER
-
+        console.log("TEST");
         setTreeAnzahl(Math.ceil((userList.length + 1) / ballsPerTree));
         setCurrentTree(Math.ceil((userList.length + 1) / ballsPerTree) - 1);
         console.log("TREE ANZAHL:", Math.ceil((userList.length + 1) / ballsPerTree));
