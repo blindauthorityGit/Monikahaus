@@ -39,7 +39,7 @@ const Raster = (props) => {
 
     // MULTI TREES
     const [ballsPerTree, setBallsPerTree] = useState(75);
-    const [treeAnzahl, setTreeAnzahl] = useState(2);
+    const [treeAnzahl, setTreeAnzahl] = useState(0);
     const [currentTree, setCurrentTree] = useState(0);
 
     // FLAG FOR TREE CHANGE / ANIMATIONEND
@@ -118,7 +118,7 @@ const Raster = (props) => {
 
         // SET TREE NUMBER
         // console.log("Calculating treeAnzahl...");
-        // setTreeAnzahl(Math.ceil((userList.length + 1) / ballsPerTree));
+        setTreeAnzahl(Math.ceil((userList.length + 1) / ballsPerTree));
         setCurrentTree(Math.ceil((userList.length + 1) / ballsPerTree) - 1);
         console.log("TREE ANZAHL:", Math.ceil((userList.length + 1) / ballsPerTree));
     }, [ballsPerTree, userList.length]);

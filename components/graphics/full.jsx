@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { isBrowser, isMobile } from "react-device-detect";
+import dynamic from "next/dynamic";
 
 //COMPS
 import BGDesktop from "./bg";
@@ -9,7 +10,11 @@ import BoyWhiteGraphic from "./boyWhite";
 import BoyBrownGraphic from "./boyBrown";
 import SnowmanGraphic from "./snowman";
 import Baum from "./baum";
-import { Raster } from "../raster";
+
+const Raster = dynamic(() => import("../raster/raster"), {
+    ssr: false,
+});
+// import { Raster } from "../raster";
 
 //FUNCTIONS
 import animateWithClass from "../../functions/animateWithClass";
