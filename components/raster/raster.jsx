@@ -107,12 +107,17 @@ const Raster = (props) => {
     }, [ballsPerTree, documentRef]);
 
     useEffect(() => {
+        console.log("TREE COUNTER");
         setMasterCounter(ballsPerTree * currentTree);
     }, [ballsPerTree, treeAnzahl, currentTree]);
 
     useEffect(() => {
+        console.log("START OF useEffect");
+        console.log("ballsPerTree:", ballsPerTree);
+        console.log("userList.length:", userList.length);
+
         // SET TREE NUMBER
-        console.log("TEST");
+        console.log("Calculating treeAnzahl...");
         setTreeAnzahl(Math.ceil((userList.length + 1) / ballsPerTree));
         setCurrentTree(Math.ceil((userList.length + 1) / ballsPerTree) - 1);
         console.log("TREE ANZAHL:", Math.ceil((userList.length + 1) / ballsPerTree));
