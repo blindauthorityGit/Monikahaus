@@ -126,10 +126,10 @@ const Raster = (props) => {
 
         // SET TREE NUMBER
         // console.log("Calculating treeAnzahl...");
-        setTreeAnzahl(Math.ceil((userList.length + 1) / ballsPerTree));
+        // setTreeAnzahl(Math.ceil((userList.length + 1) / ballsPerTree));
         setCurrentTree(Math.ceil((userList.length + 1) / ballsPerTree) - 1);
         console.log("TREE ANZAHL:", Math.ceil((userList.length + 1) / ballsPerTree));
-    }, [ballsPerTree, userList.length]);
+    }, [userList.length]);
 
     //WHEN CLICK ON START WITH MULTIPLE TREES HOP TO LAST TREE IF ANY OTHER IS CURRENT
     const slideToLastTree = () => {
