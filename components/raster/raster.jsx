@@ -40,7 +40,7 @@ const Raster = (props) => {
     // MULTI TREES
     const [ballsPerTree, setBallsPerTree] = useState(75);
     const [treeAnzahl, setTreeAnzahl] = useState(2);
-    const [currentTree, setCurrentTree] = useState(0);
+    const [currentTree, setCurrentTree] = useState(1);
 
     // FLAG FOR TREE CHANGE / ANIMATIONEND
     const [freeTree, setFreeTree] = useState(true);
