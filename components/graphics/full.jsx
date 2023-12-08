@@ -36,6 +36,9 @@ const Full = (props) => {
 
     //BAUMREF
     const ref = useRef();
+    useEffect(() => {
+        console.log("FULL GRAPHIC LOG");
+    }, []);
 
     // useEffect(() => {
     //     animateWithClass(ref.current, animateTree == "right" ? "slide-out-right" : "slide-out-left");
