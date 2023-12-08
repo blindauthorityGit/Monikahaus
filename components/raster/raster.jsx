@@ -38,7 +38,7 @@ const Raster = (props) => {
     const allRef = useRef();
 
     // MULTI TREES
-    const [ballsPerTree, setBallsPerTree] = useState(anzahlBaumKugeln);
+    const [ballsPerTree, setBallsPerTree] = useState(75);
     const [treeAnzahl, setTreeAnzahl] = useState(0);
     const [currentTree, setCurrentTree] = useState(0);
 
@@ -134,7 +134,7 @@ const Raster = (props) => {
             // Reset the getToLastTree flag after sliding
             setGetToLastTree(false);
         }
-    }, [getToLastTree]);
+    }, [getToLastTree, setGetToLastTree, slideToLastTree]);
 
     // OPACITY CHECK DROPZONE WHEN DROPPED
     useEffect(() => {
