@@ -141,6 +141,7 @@ export default function Home() {
             : fetchFirestoreData(JSON.parse(process.env.NEXT_PUBLIC_LIVE_DB) ? "live" : "donation")
                   .then((data) => {
                       setUserList(data);
+                      console.log("DATA:", data);
                   })
                   .catch((error) => {
                       console.error("Error fetching data:", error);
