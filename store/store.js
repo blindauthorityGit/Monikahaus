@@ -1,5 +1,5 @@
 // store.js
-import create from "zustand";
+import { create } from "zustand";
 import Cookies from "js-cookie";
 
 const useStore = create((set) => ({
