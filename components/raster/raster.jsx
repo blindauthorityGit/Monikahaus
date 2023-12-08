@@ -113,7 +113,7 @@ const Raster = (props) => {
         // SET TREE NUMBER
         setTreeAnzahl(Math.ceil((userList.length + 1) / ballsPerTree));
         setCurrentTree(Math.ceil((userList.length + 1) / ballsPerTree) - 1);
-    }, []);
+    }, [ballsPerTree, userList.length]);
 
     //WHEN CLICK ON START WITH MULTIPLE TREES HOP TO LAST TREE IF ANY OTHER IS CURRENT
     const slideToLastTree = () => {
