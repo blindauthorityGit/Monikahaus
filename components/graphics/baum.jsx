@@ -25,11 +25,16 @@ const BaumGraphic = () => {
     const swipeCount = useStore((state) => state.swipeCount);
 
     useEffect(() => {
-        console.log("ANIMAT TREEE", animationEndCounter);
-
         const handleAnimationEnd = () => {
             ref.current.classList.remove(animateTree == "right" ? "slide-out-right" : "slide-out-left");
-            console.log("ANIMATION HAS ENDED");
+            const randomString = [...Array(6)]
+                .map(() => String.fromCharCode(Math.floor(Math.random() * 26) + 97))
+                .join("");
+
+            setAnimationEndCounter(randomString);
+        };
+        const handleAnimationEndMobile = () => {
+            ref.current.classList.remove(animateTree == "right" ? "mobile-slide-out-right" : "mobile-slide-out-left");
             const randomString = [...Array(6)]
                 .map(() => String.fromCharCode(Math.floor(Math.random() * 26) + 97))
                 .join("");
@@ -37,36 +42,37 @@ const BaumGraphic = () => {
             setAnimationEndCounter(randomString);
         };
 
+        const isMobile = window.innerWidth <= 768; // Adjust this breakpoint as needed
+
         if (animateTree === "right") {
-            ref.current.classList.add("slide-out-right");
-            ref.current.removeEventListener("animationend", handleAnimationEnd);
-            ref.current.addEventListener("animationend", handleAnimationEnd);
+            ref.current.classList.add(isMobile ? "mobile-slide-out-right" : "slide-out-right");
+            ref.current.removeEventListener("animationend", isMobile ? handleAnimationEndMobile : handleAnimationEnd);
+            ref.current.addEventListener("animationend", isMobile ? handleAnimationEndMobile : handleAnimationEnd);
         } else if (animateTree === "left") {
-            ref.current.classList.add("slide-out-left");
-            ref.current.removeEventListener("animationend", handleAnimationEnd);
-            ref.current.addEventListener("animationend", handleAnimationEnd);
+            ref.current.classList.add(isMobile ? "mobile-slide-out-left" : "slide-out-left");
+            ref.current.removeEventListener("animationend", isMobile ? handleAnimationEndMobile : handleAnimationEnd);
+            ref.current.addEventListener("animationend", isMobile ? handleAnimationEndMobile : handleAnimationEnd);
         } else {
-            // Reset any animation classes and remove event listener
-            ref.current.classList.remove("slide-out-right", "slide-out-left");
+            // Reset any animation classes and remove the event listener
+            ref.current.classList.remove(
+                "slide-out-right",
+                "slide-out-left",
+                "mobile-slide-out-right",
+                "mobile-slide-out-left"
+            );
             ref.current.removeEventListener("animationend", handleAnimationEnd);
         }
 
         return () => {
             ref.current?.removeEventListener("animationend", handleAnimationEnd);
         };
-    }, [animateTree, swipeCount]);
-
-    useEffect(() => {
-        console.log(animationEndCounter);
-    }, [animationEndCounter]);
+    }, [animateTree, ref, setAnimationEndCounter, swipeCount]);
 
     // Use useEffect to set the dimensions once they are available
     useEffect(() => {
         if (dimensions.width > 0 && dimensions.height > 0) {
-            console.log(dimensions.width, dimensions.height);
             setDimensions(dimensions.width, dimensions.height);
         }
-        console.log(ref.current);
     }, [dimensions, setDimensions]);
 
     return (
@@ -79,7 +85,7 @@ const BaumGraphic = () => {
                 height="251px" // Set the desired height of the background image
                 width="169px"
                 style={{ aspectRatio: "618 / 877" }}
-                className="z-[-1]  top-0 w-[72vw] sm:w-[60vw] h-[auto] lg:w-[33vw] xl:h-[auto] 2xl:w-[58vh] 3xl:w-[40vw]"
+                className="z-[-1]  top-0 w-[72vw] sm:w-[60vw] h-[auto] lg:w-[34vw] xl:h-[auto] 2xl:w-[58vh] 3xl:w-[40vw]"
                 ref={ref}
                 onLoadingComplete={(e) => {
                     console.log(e.clientWidth, e.clientHeight);
