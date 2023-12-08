@@ -29,7 +29,6 @@ import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 
 //FUNTIONS
 import isElementOverflowing from "../../functions/isElementOverflowing";
-import calculateToolTipPosition from "../../functions/calculateToolTipPosition";
 
 const Raster = (props) => {
     //GLOBAL USER DATA STATE
@@ -40,14 +39,13 @@ const Raster = (props) => {
 
     // MULTI TREES
     const [ballsPerTree, setBallsPerTree] = useState(anzahlBaumKugeln);
-    const [treeAnzahl, setTreeAnzahl] = useState(null);
-    const [currentTree, setCurrentTree] = useState(null);
+    const [treeAnzahl, setTreeAnzahl] = useState(0);
+    const [currentTree, setCurrentTree] = useState(0);
 
     // FLAG FOR TREE CHANGE / ANIMATIONEND
     const [freeTree, setFreeTree] = useState(true);
 
     const [masterCounter, setMasterCounter] = useState(0);
-    const [counterIsIn, setCounterIsIn] = useState(false);
     let counter = masterCounter;
 
     //GLOBAL UNCLAIMED STATE
@@ -82,12 +80,9 @@ const Raster = (props) => {
     //INITIAL FLAG
     const [initialLoad, setInitialLoad] = useState(true);
 
-    //GLOBAL MODAL OPEN
-    const isModalOpen = useStore((state) => state.isModalOpen);
-
     const { ref: documentRef } = useSwipeable({
         onSwipedLeft: (e) => {
-            if (currentTree !== treeAnzahl - 1 && !isModalOpen) {
+            if (currentTree !== treeAnzahl - 1) {
                 treeChanger("true");
                 setAnimateTree("left");
                 setSwipeCount((prev) => prev + 1);
@@ -95,7 +90,7 @@ const Raster = (props) => {
             }
         },
         onSwipedRight: (e) => {
-            if (currentTree > 0 && !isModalOpen) {
+            if (currentTree > 0) {
                 treeChanger("false");
                 setAnimateTree("right");
                 setSwipeCount((prev) => prev + 1);
@@ -110,14 +105,13 @@ const Raster = (props) => {
         documentRef(document);
     });
 
-    useEffect(() => {}, []);
-
     useEffect(() => {
         setMasterCounter(ballsPerTree * currentTree);
-    }, [ballsPerTree, currentTree]);
+    }, [ballsPerTree, treeAnzahl, currentTree]);
 
     useEffect(() => {
         // SET TREE NUMBER
+        console.log("TEST DEPLOY");
         setTreeAnzahl(Math.ceil((userList.length + 1) / ballsPerTree));
         setCurrentTree(Math.ceil((userList.length + 1) / ballsPerTree) - 1);
     }, [ballsPerTree, userList.length]);
@@ -184,66 +178,54 @@ const Raster = (props) => {
         setTimeout(() => {
             setFreeTree(true);
         }, 500);
+
+        console.log("Tree change", currentTree);
     }
 
     useEffect(() => {
         document.body.classList.remove("overflow-hidden");
+        let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
 
-        // Check if allRef.current is not null before proceeding
-        if (allRef.current) {
-            let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
-            let arrClaimedID = userList.map((e) => e.id);
+        let arrClaimedID = userList.map((e) => e.id);
+        setTimeout(() => {
+            setKugelWidth(Array.from(allRef.current.querySelectorAll(".kugel"))[6].clientHeight);
+        }, 300);
+
+        arrClaimedID.map((e, i) => {
+            // e.classList.add("shine");
+            let random = Math.random() * 100;
+            let treeMuliplicator = currentTree * ballsPerTree;
+
             setTimeout(() => {
-                setKugelWidth(Array.from(allRef.current.querySelectorAll(".kugel"))[6].clientHeight);
-            }, 350);
-
-            arrClaimedID.map((e, i) => {
-                // e.classList.add("shine");
-                let random = Math.random() * 100;
-                let treeMuliplicator = currentTree * ballsPerTree;
-
-                setTimeout(() => {
-                    if (arr[e - treeMuliplicator] !== undefined) {
-                        arr[e - treeMuliplicator].classList.remove("opacity-0");
-                        arr[e - treeMuliplicator].classList.add("opacity-100", "shine");
-                        arr[e - treeMuliplicator].style.background = userList[i].color;
-                        arr[e - treeMuliplicator].initialOpacity = 0;
-                        arr[e - treeMuliplicator].classList.add("bounce-in-fwd");
-                        arr[e - treeMuliplicator].addEventListener("animationend", (e) => {
-                            e.target.classList.remove("bounce-in-fwd");
-                        });
-                    }
-                }, random);
-            });
-        }
-    }, [animationEndCounter, userList]);
+                if (arr[e - treeMuliplicator] !== undefined) {
+                    arr[e - treeMuliplicator].classList.remove("opacity-0");
+                    arr[e - treeMuliplicator].classList.add("opacity-100", "shine");
+                    arr[e - treeMuliplicator].style.background = userList[i].color;
+                    arr[e - treeMuliplicator].initialOpacity = 0;
+                    arr[e - treeMuliplicator].classList.add("bounce-in-fwd");
+                    arr[e - treeMuliplicator].addEventListener("animationend", (e) => {
+                        e.target.classList.remove("bounce-in-fwd");
+                    });
+                }
+            }, random);
+        });
+    }, [animationEndCounter]);
 
     // HIDE BALLS FOR ANIMATION
     useEffect(() => {
-        // Check if allRef.current is not null before proceeding
-        if (allRef.current) {
-            let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
-            console.log(initialLoad);
-            initialLoad
-                ? null
-                : arr.map((e, i) => {
-                      e.style.background = "none";
-                      e.classList.remove("shine", "shadow-md");
-                  });
-        }
+        let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
+        console.log(initialLoad);
+        initialLoad
+            ? null
+            : arr.map((e, i) => {
+                  e.style.background = "none";
+                  e.classList.remove("shine", "shadow-md");
+              });
     }, [masterCounter, initialLoad]);
-
-    // if (!userList) {
-    //     return null; // or a loading indicator
-    // }
-
-    // // Ensure that necessary data is available before rendering
-    // if (treeAnzahl === 0 || currentTree === null) {
-    //     return null;
-    // }
 
     return (
         <>
+            {" "}
             {treeAnzahl > 1 && (
                 <>
                     <TreeCountFloater klasse="absolute left-0 right-0 text-center top-[87%] w-[40%] lg:left-0 lg:right-0 lg:bottom-[-8%] m-auto ">
@@ -368,7 +350,7 @@ const Raster = (props) => {
                                             if (e.target.classList.contains("claimedKugel")) {
                                                 e.target.children[1].style.setProperty("--custom-left", `51%`);
                                                 e.target.children[1].style.setProperty("--custom-top", `10%`);
-                                                console.log(e.target.id);
+                                                setTooltipOpen(true);
                                                 // Wrap the setTimeout in a Promise
                                                 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -395,14 +377,7 @@ const Raster = (props) => {
                                                     );
                                                     e.target.children[1].style.setProperty("--custom-top", `2%`);
 
-                                                    // CHECK IF BALL IS LOWER ROWS, AND ADD ZINDEX TO CHARACTER IF TRUE
-                                                    calculateToolTipPosition(
-                                                        ballsPerTree,
-                                                        currentTree,
-                                                        Number(e.target.id)
-                                                    )
-                                                        ? setTooltipOpen(true)
-                                                        : null;
+                                                    console.log(beforePercentage);
                                                 };
 
                                                 // Call the function
@@ -437,7 +412,7 @@ const Raster = (props) => {
                                         }}
                                         klasse={userList.some((e) => e.id === counter - 1) ? "claimedKugel" : null}
                                         toolTipStyle={{
-                                            top: kugelWidth + "px",
+                                            top: isMobile ? kugelWidth + "px" : kugelWidth + 16 + "px",
                                             background: userList.some((e) => e.id === counter - 1)
                                                 ? userList[getIndex(userList, counter - 1)].color.toLowerCase()
                                                 : "",
