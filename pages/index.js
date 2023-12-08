@@ -154,6 +154,10 @@ export default function Home() {
         console.log("TEST");
     }, [userList]);
 
+    useEffect(() => {
+        console.log("TEST");
+    }, []);
+
     return (
         <>
             <Head>
