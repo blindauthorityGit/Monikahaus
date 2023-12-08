@@ -46,7 +46,7 @@ const Raster = (props) => {
     // FLAG FOR TREE CHANGE / ANIMATIONEND
     const [freeTree, setFreeTree] = useState(true);
 
-    const [masterCounter, setMasterCounter] = useState(null);
+    const [masterCounter, setMasterCounter] = useState(0);
     const [counterIsIn, setCounterIsIn] = useState(false);
     let counter = masterCounter;
 
@@ -114,7 +114,7 @@ const Raster = (props) => {
 
     useEffect(() => {
         setMasterCounter(ballsPerTree * currentTree);
-    }, [ballsPerTree, treeAnzahl, currentTree]);
+    }, [ballsPerTree, currentTree]);
 
     useEffect(() => {
         // SET TREE NUMBER
@@ -233,14 +233,14 @@ const Raster = (props) => {
         }
     }, [masterCounter, initialLoad]);
 
-    if (!userList) {
-        return null; // or a loading indicator
-    }
+    // if (!userList) {
+    //     return null; // or a loading indicator
+    // }
 
-    // Ensure that necessary data is available before rendering
-    if (treeAnzahl === 0 || currentTree === null) {
-        return null;
-    }
+    // // Ensure that necessary data is available before rendering
+    // if (treeAnzahl === 0 || currentTree === null) {
+    //     return null;
+    // }
 
     return (
         <>
