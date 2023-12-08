@@ -113,7 +113,11 @@ const Raster = (props) => {
     useEffect(() => {
         console.log("TREE COUNTER");
         setMasterCounter(ballsPerTree * currentTree);
-    }, [ballsPerTree, treeAnzahl, currentTree]);
+    }, [treeAnzahl, currentTree]);
+    // useEffect(() => {
+    //     console.log("TREE COUNTER");
+    //     setMasterCounter(ballsPerTree * currentTree);
+    // }, [ballsPerTree, treeAnzahl, currentTree]);
 
     useEffect(() => {
         console.log("START OF useEffect");
@@ -219,7 +223,7 @@ const Raster = (props) => {
                 }
             }, random);
         });
-    }, [animationEndCounter, ballsPerTree, currentTree, userList]);
+    }, [animationEndCounter]);
 
     // HIDE BALLS FOR ANIMATION
     useEffect(() => {
