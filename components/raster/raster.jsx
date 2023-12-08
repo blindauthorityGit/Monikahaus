@@ -102,6 +102,10 @@ const Raster = (props) => {
     });
 
     useEffect(() => {
+        console.log("COMP MOUNTED");
+    }, []);
+
+    useEffect(() => {
         documentRef(document);
         console.log("KOMPLETT TEST", ballsPerTree);
     }, [ballsPerTree, documentRef]);
