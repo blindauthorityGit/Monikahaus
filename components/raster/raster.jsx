@@ -219,7 +219,7 @@ const Raster = (props) => {
                 }
             }, random);
         });
-    }, [animationEndCounter]);
+    }, [animationEndCounter, ballsPerTree, currentTree, userList]);
 
     // HIDE BALLS FOR ANIMATION
     useEffect(() => {

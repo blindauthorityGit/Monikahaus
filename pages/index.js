@@ -151,6 +151,7 @@ export default function Home() {
 
     useEffect(() => {
         console.log(userList);
+        console.log("TEST");
     }, [userList]);
 
     return (
