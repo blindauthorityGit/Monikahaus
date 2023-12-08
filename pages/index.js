@@ -214,7 +214,7 @@ export default function Home() {
                 </RoundModal>
             ) : null}
             <MainContainer width="w-full h-full min-h-[100svh] relative">
-                <img
+                {/* <img
                     onClick={async () => {
                         console.log("GEHT");
                         // await saveUserDataToRealtimeDB(Math.floor(Math.random() * 900));
@@ -223,7 +223,7 @@ export default function Home() {
                     className="absolute top-8 left-4 z-50"
                     src={Favicon.src}
                     alt=""
-                />
+                /> */}
                 <Snow />
                 {/* // FLOAT BUTTONS */}
 
