@@ -39,7 +39,7 @@ const Raster = (props) => {
 
     // MULTI TREES
     const [ballsPerTree, setBallsPerTree] = useState(anzahlBaumKugeln);
-    const [treeAnzahl, setTreeAnzahl] = useState(2);
+    const [treeAnzahl, setTreeAnzahl] = useState(0);
     const [currentTree, setCurrentTree] = useState(0);
 
     // FLAG FOR TREE CHANGE / ANIMATIONEND
@@ -103,6 +103,7 @@ const Raster = (props) => {
 
     useEffect(() => {
         documentRef(document);
+        console.log("KOMPLETT TEST");
     });
 
     useEffect(() => {
@@ -115,7 +116,7 @@ const Raster = (props) => {
         setTreeAnzahl(Math.ceil((userList.length + 1) / ballsPerTree));
         setCurrentTree(Math.ceil((userList.length + 1) / ballsPerTree) - 1);
         console.log("TREE ANZAHL:", Math.ceil((userList.length + 1) / ballsPerTree));
-    }, []);
+    }, [ballsPerTree, userList.length]);
 
     //WHEN CLICK ON START WITH MULTIPLE TREES HOP TO LAST TREE IF ANY OTHER IS CURRENT
     const slideToLastTree = () => {
@@ -182,6 +183,7 @@ const Raster = (props) => {
     }
 
     useEffect(() => {
+        console.log("USEFFECT BTEST");
         document.body.classList.remove("overflow-hidden");
         let arr = Array.from(allRef.current.querySelectorAll(".kugel"));
 
