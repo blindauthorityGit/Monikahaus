@@ -103,8 +103,8 @@ const Raster = (props) => {
 
     useEffect(() => {
         documentRef(document);
-        console.log("KOMPLETT TEST");
-    });
+        console.log("KOMPLETT TEST", ballsPerTree);
+    }, [ballsPerTree, documentRef]);
 
     useEffect(() => {
         setMasterCounter(ballsPerTree * currentTree);
