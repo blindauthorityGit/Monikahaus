@@ -114,8 +114,8 @@ const Raster = (props) => {
 
         setTreeAnzahl(Math.ceil((userList.length + 1) / ballsPerTree));
         setCurrentTree(Math.ceil((userList.length + 1) / ballsPerTree) - 1);
-        console.log(Math.ceil((userList.length + 1) / ballsPerTree));
-    }, []);
+        console.log("TREE ANZAHL:", Math.ceil((userList.length + 1) / ballsPerTree));
+    }, [ballsPerTree, userList.length]);
 
     //WHEN CLICK ON START WITH MULTIPLE TREES HOP TO LAST TREE IF ANY OTHER IS CURRENT
     const slideToLastTree = () => {
