@@ -80,30 +80,30 @@ const Raster = (props) => {
     //INITIAL FLAG
     const [initialLoad, setInitialLoad] = useState(true);
 
-    const { ref: documentRef } = useSwipeable({
-        onSwipedLeft: (e) => {
-            if (currentTree !== treeAnzahl - 1) {
-                treeChanger("true");
-                setAnimateTree("left");
-                setSwipeCount((prev) => prev + 1);
-                setInitialLoad(false);
-            }
-        },
-        onSwipedRight: (e) => {
-            if (currentTree > 0) {
-                treeChanger("false");
-                setAnimateTree("right");
-                setSwipeCount((prev) => prev + 1);
-                setInitialLoad(false);
-            }
-        },
+    // const { ref: documentRef } = useSwipeable({
+    //     onSwipedLeft: (e) => {
+    //         if (currentTree !== treeAnzahl - 1) {
+    //             treeChanger("true");
+    //             setAnimateTree("left");
+    //             setSwipeCount((prev) => prev + 1);
+    //             setInitialLoad(false);
+    //         }
+    //     },
+    //     onSwipedRight: (e) => {
+    //         if (currentTree > 0) {
+    //             treeChanger("false");
+    //             setAnimateTree("right");
+    //             setSwipeCount((prev) => prev + 1);
+    //             setInitialLoad(false);
+    //         }
+    //     },
 
-        preventDefaultTouchmoveEvent: true,
-    });
+    //     preventDefaultTouchmoveEvent: true,
+    // });
 
-    useEffect(() => {
-        documentRef(document);
-    });
+    // useEffect(() => {
+    //     documentRef(document);
+    // });
 
     useEffect(() => {
         setMasterCounter(ballsPerTree * currentTree);
