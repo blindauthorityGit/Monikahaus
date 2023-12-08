@@ -165,7 +165,7 @@ export default function Home() {
                 <title>Monikahaus Spendenaktion</title>
                 <meta
                     name="description"
-                    content="Wir sammeln Spenden für die Kinder und Jugendlichen des Familienzentrums Monikahaus."
+                    content="Wir sammeln Spenden für die Kinder und Jugendlichen des Familienzentrums Monikahaus.  Helfen Sie uns dabei!"
                 />
                 <meta
                     name="keywords"
