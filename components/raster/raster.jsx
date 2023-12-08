@@ -111,9 +111,11 @@ const Raster = (props) => {
 
     useEffect(() => {
         // SET TREE NUMBER
+
         setTreeAnzahl(Math.ceil((userList.length + 1) / ballsPerTree));
         setCurrentTree(Math.ceil((userList.length + 1) / ballsPerTree) - 1);
-    }, [ballsPerTree, userList.length]);
+        console.log(Math.ceil((userList.length + 1) / ballsPerTree));
+    }, []);
 
     //WHEN CLICK ON START WITH MULTIPLE TREES HOP TO LAST TREE IF ANY OTHER IS CURRENT
     const slideToLastTree = () => {
