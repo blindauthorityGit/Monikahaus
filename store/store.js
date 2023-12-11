@@ -9,6 +9,20 @@ const useStore = create((set) => ({
     setShowUnclaimed: (value) => set({ showUnclaimed: value }),
     userList: [],
     setUserList: (users) => set({ userList: users }),
+    heightList: [],
+    setHeightList: (data) =>
+        set((state) => {
+            const existingIndex = state.heightList.findIndex((entry) => entry["data-id"] === data["data-id"]);
+
+            if (existingIndex !== -1) {
+                // Update existing entry
+                state.heightList[existingIndex] = data;
+                return { heightList: [...state.heightList] };
+            } else {
+                // Add new entry
+                return { heightList: [...state.heightList, data] };
+            }
+        }),
     showOverlay: false,
     setShowOverlay: (show) => set({ showOverlay: show }),
     isModalOpen: false,

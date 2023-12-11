@@ -11,9 +11,11 @@ import useStore from "../../../store/store"; // Import the zustand store
 
 function ListItem(props, ref) {
     const setListItemHeight = useStore((state) => state.setListItemHeight);
+    const setHeightList = useStore((state) => state.setHeightList);
+    const heightList = useStore((state) => state.heightList);
 
     const variants = {
-        open: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 120, delay: props.i * 0.05 } },
+        open: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 80, delay: props.i * 0.03 } },
         closed: { x: -100, opacity: 0 },
     };
 
@@ -21,13 +23,17 @@ function ListItem(props, ref) {
 
     useEffect(() => {
         // SET HEIGHT INCLUDING MARGIN
-        setListItemHeight(testRef.current.offsetHeight + 16);
-    }, []);
+        const height = testRef.current.offsetHeight + 16;
+
+        // Add the height and data-id to the global state array
+        setHeightList({ "data-id": props.e.id, height: height });
+    }, [props.e.id, setHeightList]);
 
     return (
         <>
             <motion.li
                 data-id={props.e.id}
+                key={props.key}
                 className="wrapper listItem w-full grid grid-cols-12  mt-2 mb-4 hover:bg-[#f5f5f5] relative "
                 onMouseOver={(e) => {
                     props.onHover(e);
@@ -35,7 +41,10 @@ function ListItem(props, ref) {
                 onMouseLeave={(e) => {
                     props.onLeave(e);
                 }}
-                ref={testRef}
+                ref={(element) => {
+                    ref.current = element; // Assign ref to the motion.li element
+                    testRef.current = element; // Also keep your original testRef
+                }}
                 variants={variants}
                 // Add initial and animate props here
                 initial="closed"

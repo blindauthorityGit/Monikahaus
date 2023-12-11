@@ -18,6 +18,7 @@ import {
     sortByNameAscending,
     sortByNameDescending,
 } from "../../../functions/sortFunctions";
+import calculateItemsPerPage from "../../../functions/calculateItemsPerPage";
 
 const DonatorList = () => {
     //GLOBAL USER STATE
@@ -26,10 +27,12 @@ const DonatorList = () => {
     const isSidebarOpen = useStore((state) => state.isSidebarOpen);
     //GOBAL SIDEBAR STATE
     const listItemHeight = useStore((state) => state.listItemHeight);
+    //GLOABL HEIGHT LIST OF DONATOR ITEMS
+    const heightList = useStore((state) => state.heightList);
 
     const [itemsAll, setItemsAll] = useState(userList);
     const [items, setItems] = useState(null);
-    const [itemsPerPage, setItemsPerPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(userList.length);
 
     const [currentPage, setCurrentPage] = useState(0);
 
@@ -56,32 +59,6 @@ const DonatorList = () => {
         open: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 120 } },
         closed: { x: -500, opacity: 0 },
     };
-    // const itemVariants = {
-    //     open: { opacity: 1, x: 0 },
-    //     closed: { opacity: 0, x: -400 },
-    // };
-
-    useEffect(() => {
-        if (listItemHeight > 1) {
-            //SET HEIGHT RATIO RELATIVE TO CONTAINER DEPENDING ON DEVICE WIDTH
-
-            const calculateValue = () => {
-                if (windowSize.innerHeight > 768 && windowSize.innerWidth > 450) {
-                    return 0.8;
-                } else if (windowSize.innerWidth < 450 && windowSize.innerWidth >= 321) {
-                    return 0.78;
-                } else if (windowSize.innerWidth < 321) {
-                    return 0.7; // Add your desired value for window sizes less than 321
-                } else {
-                    return 0.78;
-                }
-            };
-
-            setItemsPerPage(
-                Math.floor((windowSize.innerHeight * calculateValue()) / (listItemHeight + listItemHeight * 0.05))
-            );
-        }
-    }, [listItemHeight, windowSize.innerHeight]);
 
     useEffect(() => {
         function handleWindowResize() {
@@ -95,6 +72,26 @@ const DonatorList = () => {
             setAnimateItems(false);
         };
     }, [isSidebarOpen]);
+
+    // CALCULATE ITEMS PER PAGE FROM THE TALLES ELEMENT
+    useEffect(() => {
+        const calculateValue = () => {
+            if (windowSize.innerHeight > 768 && windowSize.innerWidth > 450) {
+                return 0.8;
+            } else if (windowSize.innerWidth < 450 && windowSize.innerWidth >= 321) {
+                return 0.78;
+            } else if (windowSize.innerWidth < 321) {
+                return 0.7; // Add your desired value for window sizes less than 321
+            } else {
+                return 0.78;
+            }
+        };
+        const newContainerHeight = windowSize.innerHeight * calculateValue();
+
+        // Call the function to calculate itemsPerPage
+        setItemsPerPage(calculateItemsPerPage(newContainerHeight, heightList));
+        // Use itemsPerPage as needed, perhaps set it in another state variable
+    }, [heightList, windowSize.innerHeight]);
 
     const updateListItemHeight = (height) => {
         setListItemHeight(height);
@@ -120,13 +117,12 @@ const DonatorList = () => {
 
     useEffect(() => {
         //SORT BY DATE ASCENDING
-        console.log(sortByCreatedAtDescending(userList));
 
         setItemsAll(sortByCreatedAtDescending(userList));
         setItems(sliceIntoChunks(itemsAll, itemsPerPage));
-        if (listItemRef.current) {
-            console.log(listItemRef.current);
-        }
+        // if (listItemRef.current) {
+        //     console.log(listItemRef.current);
+        // }
     }, [listItemRef.current, height, setItemsAll, itemsAll, itemsPerPage]);
 
     const claimedArr = Array.from(document.querySelectorAll(".kugel"));
