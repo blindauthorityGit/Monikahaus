@@ -32,7 +32,7 @@ const DonatorList = () => {
 
     const [itemsAll, setItemsAll] = useState(userList);
     const [items, setItems] = useState(null);
-    const [itemsPerPage, setItemsPerPage] = useState(userList.length);
+    const [itemsPerPage, setItemsPerPage] = useState(1);
 
     const [currentPage, setCurrentPage] = useState(0);
 
@@ -76,22 +76,33 @@ const DonatorList = () => {
     // CALCULATE ITEMS PER PAGE FROM THE TALLES ELEMENT
     useEffect(() => {
         const calculateValue = () => {
-            if (windowSize.innerHeight > 768 && windowSize.innerWidth > 450) {
+            if (windowSize.innerHeight > 768 && windowSize.innerHeight < 108 && windowSize.innerWidth > 450) {
+                setItemsPerPage(8);
+
                 return 0.8;
+            } else if (windowSize.innerHeight >= 1080 && windowSize.innerWidth >= 321) {
+                setItemsPerPage(9);
+
+                return 0.78;
             } else if (windowSize.innerWidth < 450 && windowSize.innerWidth >= 321) {
+                setItemsPerPage(7);
+
                 return 0.78;
             } else if (windowSize.innerWidth < 321) {
+                setItemsPerPage(7);
                 return 0.7; // Add your desired value for window sizes less than 321
             } else {
+                setItemsPerPage(8);
                 return 0.78;
             }
         };
-        const newContainerHeight = windowSize.innerHeight * calculateValue();
+        calculateValue();
+        // const newContainerHeight = windowSize.innerHeight * calculateValue();
 
         // Call the function to calculate itemsPerPage
-        setItemsPerPage(calculateItemsPerPage(newContainerHeight, heightList));
+        // setItemsPerPage(calculateItemsPerPage(newContainerHeight, heightList));
         // Use itemsPerPage as needed, perhaps set it in another state variable
-    }, [heightList, windowSize.innerHeight]);
+    }, [windowSize.innerHeight, windowSize.innerWidth]);
 
     const updateListItemHeight = (height) => {
         setListItemHeight(height);

@@ -15,15 +15,23 @@ function ListItem(props, ref) {
     const heightList = useStore((state) => state.heightList);
 
     const variants = {
-        open: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 80, delay: props.i * 0.03 } },
+        open: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 120, delay: props.i * 0.05 } },
         closed: { x: -100, opacity: 0 },
     };
 
     const testRef = useRef();
 
+    // useEffect(() => {
+    //     // SET HEIGHT INCLUDING MARGIN
+    //     console.log(testRef.current);
+    //     // setListItemHeight(testRef.current.offsetHeight + 16);
+    //     setListItemHeight(68);
+    // }, []);
+
     useEffect(() => {
         // SET HEIGHT INCLUDING MARGIN
         const height = testRef.current.offsetHeight + 16;
+        // setListItemHeight(height);
 
         // Add the height and data-id to the global state array
         setHeightList({ "data-id": props.e.id, height: height });
