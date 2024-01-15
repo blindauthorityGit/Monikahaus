@@ -44,6 +44,7 @@ const StartText = () => {
                     handleModal(e);
                     setGetToLastTree(true);
                 }}
+                disabled
                 klasse={"bg-primaryColor hover:bg-primaryColor-950 mt-8 text-white z-[60]"}
             >
                 Jetzt Spenden

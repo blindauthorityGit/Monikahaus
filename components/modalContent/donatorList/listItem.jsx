@@ -15,7 +15,7 @@ function ListItem(props, ref) {
     const heightList = useStore((state) => state.heightList);
 
     const variants = {
-        open: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 120, delay: props.i * 0.05 } },
+        open: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 80, delay: props.i * 0.035 } },
         closed: { x: -100, opacity: 0 },
     };
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Step1 from "./step1";
 import Step2 from "./step2";
 import Step3 from "./step3";
+import ThankYou from "./thankyou";
 
 const Index = ({ onClose }) => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -25,7 +26,11 @@ const Index = ({ onClose }) => {
         }
     };
 
-    return <div>{renderStep()}</div>;
+    return (
+        <div>
+            <ThankYou></ThankYou>
+        </div>
+    );
 };
 
 export default Index;

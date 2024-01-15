@@ -164,25 +164,25 @@ export default function Home() {
                 <meta property="og:site_name" content="Monikahaus - Spendenaktion" />
                 <meta property="og:locale" content="de_DE" />
             </Head>
-            {onBoarding && (
-                <OnBoardModal
-                    isOpen={onBoarding}
+
+            {/* <OnBoardModal
+                isOpen={onBoarding}
+                onClose={() => {
+                    setOnBoardingAndCookie(false);
+                    setShowOverlay(false);
+                    setShowUnclaimed(false);
+                }}
+            >
+                <OnboardingContent
                     onClose={() => {
                         setOnBoardingAndCookie(false);
                         setShowOverlay(false);
                         setShowUnclaimed(false);
+                        window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
-                >
-                    <OnboardingContent
-                        onClose={() => {
-                            setOnBoardingAndCookie(false);
-                            setShowOverlay(false);
-                            setShowUnclaimed(false);
-                            window.scrollTo({ top: 0, behavior: "smooth" });
-                        }}
-                    />
-                </OnBoardModal>
-            )}
+                />
+            </OnBoardModal> */}
+
             {showSuccess ? (
                 <RoundModal
                     isOpen={showSuccess}
