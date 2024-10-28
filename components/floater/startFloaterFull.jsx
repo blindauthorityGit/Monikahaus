@@ -3,8 +3,8 @@ import { useRef } from "react";
 import { motion, sync, useCycle } from "framer-motion";
 import FloaterButton from "./floatButton";
 // ICONS
-import { BsFillPeopleFill, BsFillInfoCircleFill } from "react-icons/bs";
-import { AiOutlineSafetyCertificate } from "react-icons/ai";
+import { BsFillPeopleFill, BsFillInfoCircleFill } from "react-icons/bs/index.js";
+import { AiOutlineSafetyCertificate } from "react-icons/ai/index.js";
 
 const StartFloaterFull = (props) => {
     const sidebar = {

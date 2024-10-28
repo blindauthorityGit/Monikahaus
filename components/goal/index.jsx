@@ -18,7 +18,7 @@ const Goal = (props) => {
 
     useEffect(() => {
         if (userList.length > 0) {
-            setSum(userList.map((e) => e.sum).reduce((a, b) => a + b));
+            setSum(userList.map((e) => e?.sum).reduce((a, b) => a + b));
         }
     }, [userList]);
 
@@ -29,13 +29,13 @@ const Goal = (props) => {
             // When the goal is reached, update the goal to the next value (goal + goalSum)
             setGoal(Math.ceil(sum / goalStep) * goalSum);
         }
-    }, [sum]);
+    }, [goal, sum]);
 
     // SET PERCENTAGE AFTER REASSESING GOAL FOR PROGRESS BAR
     useEffect(() => {
         setGoalsReached(Math.floor(sum / goalSum));
         setPercentage((sum / goal) * 100);
-    }, [goal]);
+    }, [goal, sum]);
 
     // SHOW TEXT AFTER ANIMATION
     useEffect(() => {
@@ -77,7 +77,7 @@ const Goal = (props) => {
                             {showCounter && (
                                 <>
                                     {" "}
-                                    {sum.toLocaleString("de-DE", {
+                                    {sum?.toLocaleString("de-DE", {
                                         minimumFractionDigits: 2,
                                         maximumFractionDigits: 2,
                                     })}{" "}

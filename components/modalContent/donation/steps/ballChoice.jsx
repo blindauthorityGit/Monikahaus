@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 
-import { GiCheckMark } from "react-icons/gi";
+import { GiCheckMark } from "react-icons/gi/index.js";
 import { colors } from "../../../../config";
-import { BiSolidColor } from "react-icons/bi";
+import { BiSolidColor } from "react-icons/bi/index.js";
 import { motion, AnimatePresence } from "framer-motion";
 import { fade } from "framer-motion"; // Import the exit animation
 

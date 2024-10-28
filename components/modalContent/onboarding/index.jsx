@@ -26,11 +26,7 @@ const Index = ({ onClose }) => {
         }
     };
 
-    return (
-        <div>
-            <ThankYou></ThankYou>
-        </div>
-    );
+    return <div>{renderStep()}</div>;
 };
 
 export default Index;

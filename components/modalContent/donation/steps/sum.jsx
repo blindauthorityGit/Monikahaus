@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 
-import { GiCheckMark } from "react-icons/gi";
+import { GiCheckMark } from "react-icons/gi/index.js";
 import { colors } from "../../../../config";
-import { GiPayMoney } from "react-icons/gi";
+import { GiPayMoney } from "react-icons/gi/index.js";
 import { motion } from "framer-motion";
 
 //Typo

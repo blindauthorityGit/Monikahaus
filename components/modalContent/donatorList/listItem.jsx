@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useRef } from "react";
 import { isBrowser, isMobile } from "react-device-detect";
-import { BsPersonCircle } from "react-icons/bs";
+import { BsPersonCircle } from "react-icons/bs/index.js";
 import { motion } from "framer-motion";
 
 //ASSETS

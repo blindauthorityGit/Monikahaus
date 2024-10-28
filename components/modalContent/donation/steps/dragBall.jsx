@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { GiCheckMark } from "react-icons/gi";
+import { GiCheckMark } from "react-icons/gi/index.js";
 import { colors } from "../../../../config";
-import { BsPersonCircle } from "react-icons/bs";
+import { BsPersonCircle } from "react-icons/bs/index.js";
 import { motion } from "framer-motion";
 import { isBrowser, isMobile } from "react-device-detect";
 
-import { TfiHandPointLeft } from "react-icons/tfi";
+import { TfiHandPointLeft } from "react-icons/tfi/index.js";
 import Draggable from "../../../dragNDrop/draggable";
 
 // Typo

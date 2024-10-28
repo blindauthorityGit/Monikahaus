@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { GiCheckMark } from "react-icons/gi";
+import { GiCheckMark } from "react-icons/gi/index.js";
 import { colors, maxSize, avatars } from "../../../../config";
-import { BsPersonCircle } from "react-icons/bs";
+import { BsPersonCircle } from "react-icons/bs/index.js";
 import { motion } from "framer-motion";
 
 //Image Upload STuff

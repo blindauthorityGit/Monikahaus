@@ -111,6 +111,7 @@ function Payment(props) {
                         onApprove={(data, actions) => {
                             return actions.order.capture().then(async (details) => {
                                 const data = details;
+                                console.log("ES WIRD HOCHGELADEN");
                                 uploadToDatabase(
                                     userData,
                                     setUserList,

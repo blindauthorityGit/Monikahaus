@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import useStore from "../../store/store";
-import { AiFillCloseCircle } from "react-icons/ai";
+import { AiFillCloseCircle } from "react-icons/ai/index.js";
 
 const RoundModal = ({ onClose, isOpen, children }) => {
     const resetUserData = useStore((state) => state.resetUserData);

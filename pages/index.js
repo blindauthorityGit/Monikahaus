@@ -126,7 +126,7 @@ export default function Home() {
             ? JSON.parse(process.env.NEXT_PUBLIC_FILLER)
                 ? setUserList(dataFiller())
                 : setUserList(TestData)
-            : fetchFirestoreData(JSON.parse(process.env.NEXT_PUBLIC_LIVE_DB) ? "live" : "donation")
+            : fetchFirestoreData(JSON.parse(process.env.NEXT_PUBLIC_LIVE_DB) ? "2024_Live" : "2024_Test")
                   .then((data) => {
                       setUserList(data);
                   })
@@ -165,7 +165,7 @@ export default function Home() {
                 <meta property="og:locale" content="de_DE" />
             </Head>
 
-            {/* <OnBoardModal
+            <OnBoardModal
                 isOpen={onBoarding}
                 onClose={() => {
                     setOnBoardingAndCookie(false);
@@ -181,7 +181,7 @@ export default function Home() {
                         window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
                 />
-            </OnBoardModal> */}
+            </OnBoardModal>
 
             {showSuccess ? (
                 <RoundModal

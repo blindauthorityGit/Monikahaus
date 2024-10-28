@@ -25,7 +25,7 @@ import Draggable from "../dragNDrop/draggable";
 import { useSwipeable } from "react-swipeable";
 
 // ICONS
-import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
+import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa/index.js";
 
 //FUNTIONS
 import isElementOverflowing from "../../functions/isElementOverflowing";

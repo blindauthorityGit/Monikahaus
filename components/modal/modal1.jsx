@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import useStore from "../../store/store";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai/index.js";
 
 const Modal = ({ onClose, children }) => {
     const resetUserData = useStore((state) => state.resetUserData);

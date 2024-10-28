@@ -37,7 +37,9 @@ const uploadToDatabase = async (
             await saveUserDataToFirestore(updatedUserData);
 
             // Fetch the updated user list
-            const data = await fetchFirestoreData(JSON.parse(process.env.NEXT_PUBLIC_LIVE_DB) ? "live" : "donation");
+            const data = await fetchFirestoreData(
+                JSON.parse(process.env.NEXT_PUBLIC_LIVE_DB) ? "2024_Live" : "2024_Test"
+            );
             setUserList(data);
             setShowOverlay(true);
             setShowSuccess(true);

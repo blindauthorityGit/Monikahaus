@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { GiCheckMark } from "react-icons/gi";
+import { GiCheckMark } from "react-icons/gi/index.js";
 import { colors } from "../../../../config";
-import { BsIncognito } from "react-icons/bs";
+import { BsIncognito } from "react-icons/bs/index.js";
 import { motion } from "framer-motion";
 
 // Typo
