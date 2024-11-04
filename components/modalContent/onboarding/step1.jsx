@@ -18,7 +18,7 @@ const Step1 = ({ onNext }) => {
 
                 <P>
                     In unserem Familienzentrum Monikahaus in Frankfurt am Main bieten wir unter einem Dach vielfältige,
-                    integrierte und miteinander vernetzte Hilfen für Familien an. Jeder Ratsuchende erhält so eine
+                    integrierte und miteinander vernetzte Hilfen für Familien an. Ratsuchende erhalten so eine
                     bedarfsorientierte und passgenaue Unterstützung. „Schritt für Schritt &mdash; Hand in Hand“ auf der
                     Grundlage einer vertrauensvollen Beziehung begleiten wir Familien in ihrem Leben. Unser Angebot
                     reicht von Schwangerschaftsberatung und Frühen Hilfen über Kita, stationäre Wohngruppen und

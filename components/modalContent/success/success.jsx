@@ -93,8 +93,8 @@ const Success = ({ onNext }) => {
                         <strong>Bitte beachten:</strong> <br></br> Der Sozialdienst katholischer Frauen e. V.,
                         Ortsverein Frankfurt, ist als gemeinnützig vom Finanzamt Frankfurt am Main anerkannt. Ihre
                         Spende ist steuerlich abzugsfähig. Für den Spendennachweis genügt der Zahlungsbeleg, wenn die
-                        Zuwendung den Betrag von 300 Euro nicht übersteigt. Wenn Sie eine Spendenquittung benötigen,
-                        schreiben Sie uns bitte an{" "}
+                        Zuwendung den Betrag von 300 Euro nicht übersteigt.
+                        <br /> Wenn Sie eine Spendenquittung benötigen, schreiben Sie uns bitte an <br />
                         <a href="mailto:spenden@skf-frankfurt.de">spenden@skf-frankfurt.de</a>.
                     </P>
                     {/* <img src={Logo.src} alt="" />

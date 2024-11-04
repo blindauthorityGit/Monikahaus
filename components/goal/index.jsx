@@ -18,6 +18,7 @@ const Goal = (props) => {
 
     useEffect(() => {
         if (userList.length > 0) {
+            console.log(userList);
             setSum(userList.map((e) => e?.sum).reduce((a, b) => a + b));
         }
     }, [userList]);
@@ -72,7 +73,7 @@ const Goal = (props) => {
                         <div
                             ref={countRef}
                             className="now absolute text-text text-xs xl:text-base top-3 sm:top-6 whitespace-nowrap"
-                            style={{ right: percentage < 15 ? "-4rem" : "0" }}
+                            // style={{ right: percentage < 15 ? "-4rem" : "0" }}
                         >
                             {showCounter && (
                                 <>

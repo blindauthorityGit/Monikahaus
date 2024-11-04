@@ -29,7 +29,7 @@ const Info = () => {
                 <P>Der Sozialdienst katholischer Frauen ist anerkannter Fachverband im Deutschen Caritasverband.</P>
                 <div className="mb-4 xl:mb-66"></div>
                 <P>
-                    <span className="font-bold">Sozialdienst katholischer Frauen e. V.</span>
+                    <span className="font-bold">Sozialdienst katholischer Frauen e.V.</span>
                     <br />
                     Ortsverein Frankfurt am Main<br></br>
                     Kriegkstraße 32–36<br></br>

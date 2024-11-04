@@ -15,7 +15,7 @@ const Info = () => {
                 <P>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</P>
                 <br />
                 <P>
-                    <span id="s3-t-firma">Sozialdienst katholischer Frauen e. V.</span>
+                    <span id="s3-t-firma">Sozialdienst katholischer Frauen e.V.</span>
                     <br />
                     {/* <span id="s3-t-ansprechpartner">Marc Werner</span>
                     <br /> */}
@@ -25,7 +25,7 @@ const Info = () => {
                 </P>
                 <P>
                     Die verantwortliche Stelle entscheidet allein oder gemeinsam mit anderen über die Zwecke und Mittel
-                    der Verarbeitung von personenbezogenen Daten (z.B. Namen, Kontaktdaten o. Ä.).
+                    der Verarbeitung von personenbezogenen Daten (z.B. Namen, Kontaktdaten o.Ä.).
                 </P>
                 <div className="mb-6 xl:mb-8"></div>
                 <strong>Widerruf Ihrer Einwilligung zur Datenverarbeitung</strong>
