@@ -24,18 +24,18 @@ const Step2 = ({ onNext }) => {
                     wie beispielsweise
                     <strong>
                         {" "}
-                        Schwimmkurse und Selbstverteidigungskurse, Fußball und Tanz AG, Reittherapie, Ausflüge in den
-                        Kletterwald, in den Freizeitpark, ins Kino etc., Ferienfreizeiten sowie die Anschaffung von
-                        Spielsachen und Spielgeräten für den Außenbereich.
+                        Schwimmkurse und Selbstverteidigungskurse, Fußball und Tanz AG, Reittherapie,
+                        Fahrradwerkstatträume, Ausflüge in den Kletterwald, in den Freizeitpark, ins Kino etc.,
+                        Ferienfreizeiten sowie die Anschaffung von Spielsachen und Spielgeräten für den Außenbereich.
                     </strong>
                 </P>
                 <div className="mb-4 xl:mb-66"></div>
 
-                <P>
+                {/* <P>
                     <strong>
                         Insbesondere möchten wir zwei Fahrradwerkstatträume für die Kinder und Jugendlichen einrichten.
                     </strong>
-                </P>
+                </P> */}
                 <div className="mb-4 xl:mb-66"></div>
                 <div className="flex justify-end w-full lg:bottom-8 lg:absolute lg:right-8">
                     {/* <img src={Logo.src} alt="" /> */}
