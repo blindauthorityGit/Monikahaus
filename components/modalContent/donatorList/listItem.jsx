@@ -21,21 +21,18 @@ function ListItem(props, ref) {
 
     const testRef = useRef();
 
-    // useEffect(() => {
-    //     // SET HEIGHT INCLUDING MARGIN
-    //     console.log(testRef.current);
-    //     // setListItemHeight(testRef.current.offsetHeight + 16);
-    //     setListItemHeight(68);
-    // }, []);
-
     useEffect(() => {
-        // SET HEIGHT INCLUDING MARGIN
+        if (!testRef.current) return;
         const height = testRef.current.offsetHeight + 16;
-        // setListItemHeight(height);
+        setHeightList({ "data-id": props.e?.id, height });
+    }, [props.e?.id, setHeightList]);
 
-        // Add the height and data-id to the global state array
-        setHeightList({ "data-id": props.e.id, height: height });
-    }, [props.e.id, setHeightList]);
+    // Wenn noch kein Eintrag vorhanden ist -> nichts rendern
+    if (!props.e) return null;
+
+    // Summe sicher vorbereiten
+    const rawSum = Number(props.e.sum);
+    const displaySum = isNaN(rawSum) ? 0 : rawSum;
 
     return (
         <>
@@ -43,22 +40,16 @@ function ListItem(props, ref) {
                 data-id={props.e.id}
                 key={props.key}
                 className="wrapper listItem w-full grid grid-cols-12  mt-2 mb-4 hover:bg-[#f5f5f5] relative "
-                onMouseOver={(e) => {
-                    props.onHover(e);
-                }}
-                onMouseLeave={(e) => {
-                    props.onLeave(e);
-                }}
+                onMouseOver={(e) => props.onHover(e)}
+                onMouseLeave={(e) => props.onLeave(e)}
                 ref={(element) => {
-                    ref.current = element; // Assign ref to the motion.li element
-                    testRef.current = element; // Also keep your original testRef
+                    ref.current = element;
+                    testRef.current = element;
                 }}
                 variants={variants}
-                // Add initial and animate props here
                 initial="closed"
                 animate="open"
                 whileHover={{ scale: 1.05 }}
-                // key={props.keyProp}
             >
                 <div className="left pr-6 h-full col-span-3">
                     {props.e.isAnonymus ? (
@@ -71,7 +62,7 @@ function ListItem(props, ref) {
                                 <div
                                     className="avatar w-10 h-10 lg:w-12 lg:h-12 xl:w-16 xl:h-16 bg-cover rounded-full"
                                     style={{ backgroundImage: `url(${props.e.image})` }}
-                                ></div>
+                                />
                             ) : (
                                 <img className="w-10 h-10 lg:w-12 lg:h-12 xl:w-16 xl:h-16" src={Avatar.src} alt="" />
                             )}
@@ -81,18 +72,17 @@ function ListItem(props, ref) {
                 <div className="right text-xs sm:text-base lg:text-sm xl:text-base col-span-6 pr-3">
                     <strong>{!props.e.isAnonymous ? props.e.name : "Anonymer Spender"}</strong>
                     <br />
-
                     {props.e.comment && (
-                        <div className="farRight comment hidden lg:block text-xs lg:mt-1 xl:mt-2 italic  ">
-                            {props.e.comment}
-                        </div>
-                    )}
-                    {props.e.comment && (
-                        <div className="farRight lg:hidden mt-1 text-xs lg:p-4 ">{props.e.comment}</div>
+                        <>
+                            <div className="farRight comment hidden lg:block text-xs lg:mt-1 xl:mt-2 italic">
+                                {props.e.comment}
+                            </div>
+                            <div className="farRight lg:hidden mt-1 text-xs lg:p-4">{props.e.comment}</div>
+                        </>
                     )}
                 </div>
                 <div className="sum font-bold text-xs sm:text-base lg:text-sm xl:text-base text-right col-span-3">
-                    {props.e.sum.toLocaleString("de-DE", {
+                    {displaySum.toLocaleString("de-DE", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                     })}{" "}
