@@ -138,7 +138,7 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
-        // console.log(userList);
+        console.log(userList);
     }, [userList]);
 
     return (
