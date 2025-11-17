@@ -33,7 +33,13 @@ function ListItem(props, ref) {
     // Summe sicher vorbereiten
     const rawSum = Number(props.e.sum);
     const displaySum = isNaN(rawSum) ? 0 : rawSum;
+    const hasNameOrComment = Boolean(props.e.name || props.e.comment);
 
+    // Kriterien für "leeren" Dummy-User:
+    // keine Summe (>0) UND kein Name/Kommentar
+    if (displaySum <= 0 && !hasNameOrComment) {
+        return null;
+    }
     return (
         <>
             <motion.li
