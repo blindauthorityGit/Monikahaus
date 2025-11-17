@@ -34,6 +34,8 @@ const Raster = (props) => {
     //GLOBAL USER DATA STATE
     const userData = useStore((state) => state.userData);
 
+    console.log("USERDATA", userData);
+
     //CONTAINER REF
     const allRef = useRef();
 

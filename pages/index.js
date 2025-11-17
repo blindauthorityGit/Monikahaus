@@ -126,13 +126,15 @@ export default function Home() {
             ? JSON.parse(process.env.NEXT_PUBLIC_FILLER)
                 ? setUserList(dataFiller())
                 : setUserList(TestData)
-            : fetchFirestoreData(JSON.parse(process.env.NEXT_PUBLIC_LIVE_DB) ? "2024_Live" : "2024_Test")
+            : fetchFirestoreData(JSON.parse(process.env.NEXT_PUBLIC_LIVE_DB) ? "2025_Live" : "2025_Test")
                   .then((data) => {
                       setUserList(data);
                   })
                   .catch((error) => {
                       console.error("Error fetching data:", error);
                   });
+
+        console.log(userList);
     }, []);
 
     useEffect(() => {

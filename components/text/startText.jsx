@@ -32,11 +32,11 @@ const StartText = () => {
 
     return (
         <div className="absolute lg:static bottom-8 lg:bottom-auto w-full 3xl:mt-12">
-            <H1 klasse="hidden lg:block">Vielen Dank für Ihre Spenden!</H1>
-            {/* <P klasse="text-xl font-semibold tracking-wide hidden lg:block">
+            <H1 klasse="hidden lg:block">Kleiner Beitrag – große Wirkung!</H1>
+            <P klasse="text-xl font-semibold tracking-wide hidden lg:block">
                 Wir sammeln Spenden für die Kinder und Jugendlichen<br></br> des Familienzentrums Monikahaus.
-            </P> */}
-            {/* <MainButton
+            </P>
+            <MainButton
                 onClick={(e) => {
                     console.log("BUBUBU");
                     setShowUnclaimed(!showUnclaimed);
@@ -47,7 +47,7 @@ const StartText = () => {
                 klasse={"bg-primaryColor hover:bg-primaryColor-950 mt-8 text-white z-[60]"}
             >
                 Jetzt Spenden
-            </MainButton> */}
+            </MainButton>
         </div>
     );
 };
