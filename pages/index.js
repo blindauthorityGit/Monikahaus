@@ -143,7 +143,7 @@ export default function Home() {
 
     return (
         <>
-            <Head>
+            {/* <Head>
                 <title>Monikahaus Spendenaktion</title>
                 <meta
                     name="description"
@@ -259,7 +259,7 @@ export default function Home() {
                     {/* // GRAPHICS */}
                     <Full parent={parent} />
                 </DndContext>
-            </MainContainer>
+            </MainContainer> */}
         </>
     );
 }
