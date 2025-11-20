@@ -201,7 +201,7 @@ export default function Home() {
                 <Snow />
                 {/* // FLOAT BUTTONS */}
 
-                <StartFloaterFull
+            {/* <StartFloaterFull
                     onClickPeople={() => {
                         setSidebarOpen(true);
                         setShowOverlay(true);
@@ -257,9 +257,9 @@ export default function Home() {
                         </div>
                     </div>
                     {/* // GRAPHICS */}
-                    <Full parent={parent} />
-                </DndContext>
-            </MainContainer> */}
+            {/* <Full parent={parent} />
+                </DndContext> */}
+            {/* </MainContainer>  */}
         </>
     );
 }
