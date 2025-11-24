@@ -143,7 +143,7 @@ export default function Home() {
 
     return (
         <>
-            {/* <Head>
+            <Head>
                 <title>Monikahaus Spendenaktion</title>
                 <meta
                     name="description"
@@ -166,7 +166,6 @@ export default function Home() {
                 <meta property="og:site_name" content="Monikahaus - Spendenaktion" />
                 <meta property="og:locale" content="de_DE" />
             </Head>
-
             <OnBoardModal
                 isOpen={onBoarding}
                 onClose={() => {
@@ -184,7 +183,6 @@ export default function Home() {
                     }}
                 />
             </OnBoardModal>
-
             {showSuccess ? (
                 <RoundModal
                     isOpen={showSuccess}
@@ -201,7 +199,7 @@ export default function Home() {
                 <Snow />
                 {/* // FLOAT BUTTONS */}
 
-            {/* <StartFloaterFull
+                <StartFloaterFull
                     onClickPeople={() => {
                         setSidebarOpen(true);
                         setShowOverlay(true);
@@ -257,9 +255,10 @@ export default function Home() {
                         </div>
                     </div>
                     {/* // GRAPHICS */}
-            {/* <Full parent={parent} />
-                </DndContext> */}
-            {/* </MainContainer>  */}
+                    <Full parent={parent} />
+                </DndContext>
+            </MainContainer>{" "}
+            ,
         </>
     );
 }
