@@ -36,7 +36,7 @@ const StartText = () => {
             <P klasse="text-xl font-semibold tracking-wide hidden lg:block">
                 Wir sammeln Spenden für die Kinder und Jugendlichen<br></br> des Familienzentrums Monikahaus.
             </P>
-            <MainButton
+            {/* <MainButton
                 onClick={(e) => {
                     console.log("BUBUBU");
                     setShowUnclaimed(!showUnclaimed);
@@ -47,7 +47,7 @@ const StartText = () => {
                 klasse={"bg-primaryColor hover:bg-primaryColor-950 mt-8 text-white z-[60]"}
             >
                 Jetzt Spenden
-            </MainButton>
+            </MainButton> */}
         </div>
     );
 };
