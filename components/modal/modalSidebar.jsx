@@ -1,28 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import useStore from "../../store/store";
 
 import { AiOutlineClose } from "react-icons/ai/index.js";
+import useModalFocus from "./useModalFocus";
 
 const ModalSidebar = (props) => {
     const isSidebarOpen = useStore((state) => state.isSidebarOpen);
-    const closeModal = useStore((state) => state.closeModal);
+    const sidebarRef = useRef(null);
 
-    useEffect(() => {
-        const handleEscapeKey = (event) => {
-            if (event.key === "Escape") {
-                closeModal();
-            }
-        };
-
-        if (isSidebarOpen) {
-            document.addEventListener("keydown", handleEscapeKey);
-        }
-
-        return () => {
-            document.removeEventListener("keydown", handleEscapeKey);
-        };
-    }, [isSidebarOpen]);
+    useModalFocus(isSidebarOpen, props.onClose, sidebarRef);
 
     const animationProps = {
         initial: { x: "-100%", opacity: 0 },
@@ -38,6 +25,11 @@ const ModalSidebar = (props) => {
         <AnimatePresence>
             {isSidebarOpen && (
                 <motion.div
+                    ref={sidebarRef}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={props.ariaLabel || "Seitenleiste"}
+                    tabIndex={-1}
                     key={isSidebarOpen ? "open" : "closed"} // Use the key prop to force re-render on animation changes
                     initial={animationProps.initial}
                     animate={animationProps.animate}
@@ -54,12 +46,14 @@ const ModalSidebar = (props) => {
                     }}
                 >
                     {/* Your sidebar content goes here */}
-                    <AiOutlineClose
-                        className="right-4 top-4 cursor-pointer xl:text-3xl absolute transition-all duration-200 hover:text-4xl"
+                    <button
+                        type="button"
+                        aria-label="Seitenleiste schließen"
                         onClick={props.onClose}
+                        className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full text-darkText transition-colors duration-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryColor"
                     >
-                        Close Sidebar
-                    </AiOutlineClose>
+                        <AiOutlineClose aria-hidden="true" className="text-2xl" />
+                    </button>
                     {props.children}
                 </motion.div>
             )}

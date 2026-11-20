@@ -77,7 +77,18 @@ const Goal = (props) => {
                 {displayGoal.toLocaleString("de-DE")} Euro
             </div>
 
-            <div className="balken border border-dashed h-3 rounded-3xl border-darkText sm:h-4 w-full relative">
+            <div
+                className="balken border border-dashed h-3 rounded-3xl border-darkText sm:h-4 w-full relative"
+                role="progressbar"
+                aria-label="Spendenfortschritt"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={Math.max(0, Math.min(100, Math.round(displayPercentage)))}
+                aria-valuetext={`${displaySum.toLocaleString("de-DE", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                })} Euro von ${displayGoal.toLocaleString("de-DE")} Euro`}
+            >
                 <motion.div
                     className={`inner rounded-l-3xl ${
                         goalsReached >= 1 ? "bg-[#00A651]" : "bg-darkText"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import ReactPaginate from "react-paginate";
 import ListItem from "./listItem";
 import { motion } from "framer-motion";
@@ -23,6 +23,7 @@ import calculateItemsPerPage from "../../../functions/calculateItemsPerPage";
 const DonatorList = () => {
     //GLOBAL USER STATE
     const userList = useStore((state) => state.userList);
+    const userListStatus = useStore((state) => state.userListStatus);
     //GOBAL SIDEBAR STATE
     const isSidebarOpen = useStore((state) => state.isSidebarOpen);
     //GOBAL SIDEBAR STATE
@@ -30,8 +31,6 @@ const DonatorList = () => {
     //GLOABL HEIGHT LIST OF DONATOR ITEMS
     const heightList = useStore((state) => state.heightList);
 
-    const [itemsAll, setItemsAll] = useState(userList);
-    const [items, setItems] = useState(null);
     const [itemsPerPage, setItemsPerPage] = useState(1);
 
     const [currentPage, setCurrentPage] = useState(0);
@@ -43,6 +42,14 @@ const DonatorList = () => {
     const [windowSize, setWindowSize] = useState(getWindowSize());
 
     const listItemRef = useRef();
+
+    const itemsAll = useMemo(
+        () => sortByCreatedAtDescending(Array.isArray(userList) ? [...userList] : []),
+        [userList]
+    );
+    const items = useMemo(() => sliceIntoChunks(itemsAll, itemsPerPage), [itemsAll, itemsPerPage]);
+    const currentItems = items[currentPage] || [];
+    const pageCount = items.length;
 
     // VARIANTS FRAMER MOTION
     const variants = {
@@ -127,14 +134,10 @@ const DonatorList = () => {
     };
 
     useEffect(() => {
-        //SORT BY DATE ASCENDING
-
-        setItemsAll(sortByCreatedAtDescending(userList));
-        setItems(sliceIntoChunks(itemsAll, itemsPerPage));
-        // if (listItemRef.current) {
-        //     console.log(listItemRef.current);
-        // }
-    }, [listItemRef.current, height, setItemsAll, itemsAll, itemsPerPage]);
+        if (currentPage >= pageCount) {
+            setCurrentPage(Math.max(pageCount - 1, 0));
+        }
+    }, [currentPage, pageCount]);
 
     const claimedArr = Array.from(document.querySelectorAll(".kugel"));
 
@@ -161,35 +164,34 @@ const DonatorList = () => {
             <div className="col-span-12 p-4 lg:pt-4 xl:pt-10  sm:pt-4 lg:p-10">
                 <H2>Vielen Dank an:</H2>
                 <div className="mb-6 xl:mb-8"></div>
-                {items && (
-                    <>
-                        {/* Use motion.div here with the variants */}
+                {userListStatus === "loading" ? (
+                    <p role="status">Spenderliste wird geladen …</p>
+                ) : userListStatus === "error" ? (
+                    <p role="alert">Die Spenderliste konnte gerade nicht geladen werden.</p>
+                ) : currentItems.length === 0 ? (
+                    <p>Aktuell sind noch keine Spenden vorhanden.</p>
+                ) : (
                         <motion.ul variants={variants} animate="open" exit="closed" className="daList">
-                            {items[currentPage].map((e, i) => {
-                                if (i < itemsPerPage) {
-                                    return (
-                                        <ListItem
-                                            key={`lister${i}`}
-                                            onHover={onHover}
-                                            onLeave={onLeave}
-                                            e={e}
-                                            variants={itemVariants}
-                                            ref={listItemRef}
-                                            i={i}
-                                            onHeightUpdate={updateListItemHeight}
-                                        ></ListItem>
-                                    );
-                                }
-                            })}
+                            {currentItems.map((e, i) => (
+                                <ListItem
+                                    key={e.id || `lister${i}`}
+                                    onHover={onHover}
+                                    onLeave={onLeave}
+                                    e={e}
+                                    variants={itemVariants}
+                                    ref={listItemRef}
+                                    i={i}
+                                    onHeightUpdate={updateListItemHeight}
+                                ></ListItem>
+                            ))}
                         </motion.ul>
-                    </>
                 )}
             </div>
-            <ReactPaginate
+            {pageCount > 1 && <ReactPaginate
                 previousLabel={"<<"}
                 nextLabel={">>"}
                 breakLabel={"..."}
-                pageCount={Math.ceil(itemsAll.length / itemsPerPage)}
+                pageCount={pageCount}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={3}
                 onPageChange={handlePageClick}
@@ -205,7 +207,7 @@ const DonatorList = () => {
                 nextClassName={"page-item pl-5"}
                 nextLinkClassName={"page-link"}
                 activeClassName={"active font-bold opacity-100"}
-            />
+            />}
         </div>
     );
 };

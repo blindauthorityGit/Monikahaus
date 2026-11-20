@@ -29,14 +29,14 @@ const StartFloaterFull = (props) => {
 
     return (
         <div className="absolute z-[29] right-0 top-8">
-            <FloaterButton klasse="flex justify-center items-center mb-2" onClick={props.onClickPeople}>
-                <BsFillPeopleFill />
+            <FloaterButton label="Spenderliste öffnen" klasse="flex justify-center items-center mb-2" onClick={props.onClickPeople}>
+                <BsFillPeopleFill aria-hidden="true" />
             </FloaterButton>
-            <FloaterButton klasse="flex justify-center items-center mb-2" onClick={props.onClickInfo}>
-                <BsFillInfoCircleFill />
+            <FloaterButton label="Informationen öffnen" klasse="flex justify-center items-center mb-2" onClick={props.onClickInfo}>
+                <BsFillInfoCircleFill aria-hidden="true" />
             </FloaterButton>
-            <FloaterButton klasse="flex justify-center items-center" onClick={props.onClickPrivacy}>
-                <AiOutlineSafetyCertificate />
+            <FloaterButton label="Datenschutzhinweise öffnen" klasse="flex justify-center items-center" onClick={props.onClickPrivacy}>
+                <AiOutlineSafetyCertificate aria-hidden="true" />
             </FloaterButton>
         </div>
     );
