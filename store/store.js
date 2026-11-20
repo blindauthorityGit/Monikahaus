@@ -8,7 +8,10 @@ const useStore = create((set) => ({
     showUnclaimed: false,
     setShowUnclaimed: (value) => set({ showUnclaimed: value }),
     userList: [],
-    setUserList: (users) => set({ userList: users }),
+    userListStatus: "loading",
+    setUserList: (users) =>
+        set({ userList: Array.isArray(users) ? users : [], userListStatus: "ready" }),
+    setUserListError: () => set({ userList: [], userListStatus: "error" }),
     heightList: [],
     setHeightList: (data) =>
         set((state) => {

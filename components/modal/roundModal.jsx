@@ -1,32 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import useStore from "../../store/store";
 import { AiFillCloseCircle } from "react-icons/ai/index.js";
+import useModalFocus from "./useModalFocus";
 
 const RoundModal = ({ onClose, isOpen, children }) => {
-    const resetUserData = useStore((state) => state.resetUserData);
+    const modalRef = useRef(null);
 
-    const isModalOpen = useStore((state) => state.isModalOpen);
-    const modalPosition = useStore((state) => state.modalPosition);
-    const closeModal = useStore((state) => state.closeModal);
-    const modalHeight = useStore((state) => state.modalHeight);
-    // const setModalHeight = useStore((state) => state.setModalHeight);
-
-    useEffect(() => {
-        const handleEscapeKey = (event) => {
-            if (event.key === "Escape") {
-                closeModal();
-            }
-        };
-
-        if (isModalOpen) {
-            document.addEventListener("keydown", handleEscapeKey);
-        }
-
-        return () => {
-            document.removeEventListener("keydown", handleEscapeKey);
-        };
-    }, [isModalOpen]);
+    useModalFocus(isOpen, onClose, modalRef);
 
     // Function to calculate animation props based on screen size
     const calculateAnimationProps = () => {
@@ -70,6 +50,11 @@ const RoundModal = ({ onClose, isOpen, children }) => {
     return (
         <AnimatePresence>
             <motion.div
+                ref={modalRef}
+                role="dialog"
+                aria-modal="true"
+                aria-label="Spendenbestätigung"
+                tabIndex={-1}
                 key={isOpen ? "open" : "closed"} // Use the key prop to force re-render on animation changes
                 initial={animationProps.initial}
                 animate={animationProps.animate}
@@ -82,14 +67,14 @@ const RoundModal = ({ onClose, isOpen, children }) => {
                 }}
             >
                 {/* Your modal content goes here */}
-                <AiFillCloseCircle
-                    className="right-4 top-4 lg:right-20 cursor-pointer text-3xl text-white xl:text-3xl absolute transition-all duration-200 hover:text-4xl"
-                    onClick={() => {
-                        onClose();
-                    }}
+                <button
+                    type="button"
+                    aria-label="Bestätigung schließen"
+                    onClick={onClose}
+                    className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full text-darkText transition-colors duration-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryColor lg:right-20"
                 >
-                    Close Sidebar
-                </AiFillCloseCircle>
+                    <AiFillCloseCircle aria-hidden="true" className="text-2xl" />
+                </button>
                 {children}
             </motion.div>
         </AnimatePresence>

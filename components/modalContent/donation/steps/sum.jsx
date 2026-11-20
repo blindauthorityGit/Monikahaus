@@ -17,16 +17,23 @@ import useStore from "../../../../store/store";
 function Sum(props) {
     const [opacity, setOpacity] = useState(0.3);
     const userData = useStore((state) => state.userData);
-    const [inputValue, setInputValue] = useState("");
+    const [inputValue, setInputValue] = useState(userData.sum ? String(userData.sum) : "");
     const sumRef = useRef();
     // const [isInputFocused, setInputFocused] = useState(false);
 
     const isInputFocused = useStore((state) => state.isInputFocused);
     const setIsInputFocused = useStore((state) => state.setIsInputFocused);
     const handleChange = (e) => {
-        const value = { sum: parseFloat(e.target.value) };
-        setInputValue(e.target.value);
-        addToUserData(value);
+        const rawValue = e.target.value;
+        setInputValue(rawValue);
+
+        if (rawValue === "") {
+            addToUserData({ sum: null });
+            return;
+        }
+
+        const value = Number(rawValue.replace(",", "."));
+        if (Number.isFinite(value)) addToUserData({ sum: value });
     };
 
     const handleInputFocus = () => {
@@ -38,8 +45,16 @@ function Sum(props) {
     };
 
     const handleBlur = (e) => {
-        // Check if the viewport width is less than or equal to 768 (adjust this value as needed)
-        e.target.value = parseFloat(e.target.value).toFixed(2);
+        const rawValue = e.target.value.replace(",", ".");
+        const value = Number(rawValue);
+
+        if (rawValue === "" || !Number.isFinite(value) || value < 1) {
+            setInputValue("");
+            addToUserData({ sum: null });
+        } else {
+            setInputValue(value.toFixed(2));
+            addToUserData({ sum: value });
+        }
 
         if (window.innerWidth <= 768) {
             setIsInputFocused(false); // When the input is blurred, set the focused state to false
@@ -75,8 +90,15 @@ function Sum(props) {
                 </div> */}
                 <div className="col-span-3 md:col-span-3 lg:col-span-3 mt-2 lg:mt-0">
                     <div className={`SUMINPUTwrapper flex justify-between ${props.wrapperKlasse}`} ref={sumRef}>
+                        <label htmlFor="donation-amount" className="sr-only">
+                            Spendenbetrag in Euro
+                        </label>
                         <input
+                            id="donation-amount"
+                            name="sum"
                             type="number"
+                            inputMode="decimal"
+                            autoComplete="off"
                             className="SUMINPUT border-b-2 w-full text-xl lg:text-2xl xl:text-5xl py-4 font-bold pl-4"
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -84,8 +106,8 @@ function Sum(props) {
                                 handleInputFocus();
                             }}
                             placeholder="5,00"
-                            step="1"
-                            value={userData.sum ? userData.sum : ""}
+                            step="0.01"
+                            value={inputValue}
                             min="1"
                         />
                     </div>

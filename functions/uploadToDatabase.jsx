@@ -1,6 +1,6 @@
 import uploadImageAndGetURL from "./uploadImageAndGetURL"; // Import the image upload function
 import saveUserDataToFirestore from "./saveDataToFirestore"; // Import the image upload function
-import { fetchFirestoreData } from "../config/firebase";
+import { donorCollectionName, fetchFirestoreData } from "../config/firebase";
 
 const uploadToDatabase = async (
     userData,
@@ -26,24 +26,14 @@ const uploadToDatabase = async (
         }
         console.log("updatedUserData", updatedUserData);
 
-        if (JSON.parse(process.env.NEXT_PUBLIC_DEV)) {
-            const newUserList = [...userList, updatedUserData];
-            console.log(newUserList);
-            setUserList(newUserList);
-            setShowOverlay(true);
-            setShowSuccess(true);
-        } else {
-            // Save the updated userData to Firestore
-            await saveUserDataToFirestore(updatedUserData);
+        // Save to the collection selected for this environment (2026_Test in dev).
+        await saveUserDataToFirestore(updatedUserData);
 
-            // Fetch the updated user list
-            const data = await fetchFirestoreData(
-                JSON.parse(process.env.NEXT_PUBLIC_LIVE_DB) ? "2025_Live" : "2025_Test"
-            );
-            setUserList(data);
-            setShowOverlay(true);
-            setShowSuccess(true);
-        }
+        // Fetch the updated user list from Firestore.
+        const data = await fetchFirestoreData(donorCollectionName);
+        setUserList(data);
+        setShowOverlay(true);
+        setShowSuccess(true);
         console.log(userList);
 
         closeModal();
