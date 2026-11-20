@@ -8,7 +8,7 @@ import { P } from "../typography";
 //STORE
 import useStore from "../../store/store"; // Import the zustand store
 
-const StartText = () => {
+const StartText = ({ campaignStarted }) => {
     //GLOBAL UNCLAIMED STATE
     const showUnclaimed = useStore((state) => state.showUnclaimed);
     const setShowUnclaimed = useStore((state) => state.setShowUnclaimed);
@@ -36,18 +36,21 @@ const StartText = () => {
             <P klasse="text-xl font-semibold tracking-wide hidden lg:block">
                 Wir sammeln Spenden für die Kinder und Jugendlichen<br></br> des Familienzentrums Monikahaus.
             </P>
-            <MainButton
-                onClick={(e) => {
-                    console.log("BUBUBU");
-                    setShowUnclaimed(!showUnclaimed);
-                    setShowOverlay(true);
-                    handleModal(e);
-                    setGetToLastTree(true);
-                }}
-                klasse={"bg-primaryColor hover:bg-primaryColor-950 mt-8 text-white z-[60]"}
-            >
-                Jetzt Spenden
-            </MainButton>
+            {campaignStarted ? (
+                <MainButton
+                    onClick={(e) => {
+                        setShowUnclaimed(!showUnclaimed);
+                        setShowOverlay(true);
+                        handleModal(e);
+                        setGetToLastTree(true);
+                    }}
+                    klasse="bg-primaryColor hover:bg-primaryColor-950 mt-8 text-white z-[60]"
+                >
+                    Jetzt Spenden
+                </MainButton>
+            ) : (
+                <P klasse="mt-8 text-xl font-semibold">Die Spendenaktion startet am 24. November.</P>
+            )}
         </div>
     );
 };

@@ -26,7 +26,6 @@ import { SuccessModalContent } from "../components/modalContent/success";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 
 //DEV
-import { TestData } from "../config/testData";
 import { donorCollectionName, fetchFirestoreData } from "../config/firebase";
 
 // FX
@@ -42,8 +41,11 @@ import Hotjar from "@hotjar/browser";
 import Favicon from "../assets/logoSmall.svg";
 import OGImage from "../assets/ogImage.jpg";
 
+const campaignStart = Date.parse("2026-11-24T00:00:00+01:00");
+const maxTimeout = 2 ** 31 - 1;
+
 export default function Home() {
-    const userList = useStore((state) => state.userList);
+    const [campaignStarted, setCampaignStarted] = useState(false);
     const setUserList = useStore((state) => state.setUserList);
     const setUserListError = useStore((state) => state.setUserListError);
 
@@ -122,7 +124,31 @@ export default function Home() {
         //HOTJAR INIT
         Hotjar.init(3630058, 6);
 
-        onBoarding ? setShowOverlay(true) : null;
+        if (useStore.getState().onBoarding) {
+            setShowOverlay(true);
+        }
+    }, [setShowOverlay]);
+
+    useEffect(() => {
+        let timeout;
+
+        function checkCampaignStart() {
+            const remaining = campaignStart - Date.now();
+            if (remaining <= 0) {
+                setCampaignStarted(true);
+                return;
+            }
+
+            timeout = window.setTimeout(checkCampaignStart, Math.min(remaining, maxTimeout));
+        }
+
+        checkCampaignStart();
+        return () => window.clearTimeout(timeout);
+    }, []);
+
+    useEffect(() => {
+        if (!campaignStarted) return;
+
         fetchFirestoreData(donorCollectionName)
             .then((data) => {
                 setUserList(data);
@@ -131,13 +157,7 @@ export default function Home() {
                 console.error("Error fetching data:", error);
                 setUserListError();
             });
-
-        console.log(userList);
-    }, []);
-
-    useEffect(() => {
-        console.log(userList);
-    }, [userList]);
+    }, [campaignStarted, setUserList, setUserListError]);
 
     return (
         <>
@@ -198,11 +218,15 @@ export default function Home() {
                 {/* // FLOAT BUTTONS */}
 
                 <StartFloaterFull
-                    onClickPeople={() => {
-                        setSidebarOpen(true);
-                        setShowOverlay(true);
-                        handleToggleComponent("donorList");
-                    }}
+                    onClickPeople={
+                        campaignStarted
+                            ? () => {
+                                  setSidebarOpen(true);
+                                  setShowOverlay(true);
+                                  handleToggleComponent("donorList");
+                              }
+                            : undefined
+                    }
                     onClickInfo={() => {
                         setSidebarOpen(true);
                         setShowOverlay(true);
@@ -215,7 +239,7 @@ export default function Home() {
                     }}
                 ></StartFloaterFull>
                 <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-                    {isModalOpen && (
+                    {campaignStarted && isModalOpen && (
                         <ModalOne
                             isOpen={isModalOpen}
                             onClose={() => {
@@ -246,21 +270,20 @@ export default function Home() {
                             }}
                         >
                             {activeComponent === "info" && <Info />}
-                            {activeComponent === "donorList" && <DonatorList />}
+                            {campaignStarted && activeComponent === "donorList" && <DonatorList />}
                             {activeComponent === "privacy" && <Privacy />}
                         </ModalSidebar>
                     )}
                     <div className="col-span-12 container mx-auto grid grid-cols-12 min-h-[100svh] z-20 px-8 lg:px-0">
                         <div className="col-span-12 lg:col-span-5 h-full  flex flex-col pt-[10%] relative overflow-hidden">
-                            <Goal
-                                data={TestData}
-                                klasse="w-full lg:mb-20 xl:mb-36 2xl:mb-36 absolute lg:relative bottom-28 lg:bottom-auto lg:top-0"
-                            ></Goal>
-                            <StartText />
+                            {campaignStarted && (
+                                <Goal klasse="w-full lg:mb-20 xl:mb-36 2xl:mb-36 absolute lg:relative bottom-28 lg:bottom-auto lg:top-0" />
+                            )}
+                            <StartText campaignStarted={campaignStarted} />
                         </div>
                     </div>
                     {/* // GRAPHICS */}
-                    <Full parent={parent} />
+                    <Full parent={parent} campaignStarted={campaignStarted} />
                 </DndContext>
             </MainContainer>{" "}
             ,

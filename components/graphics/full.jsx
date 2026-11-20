@@ -49,7 +49,7 @@ const Full = (props) => {
                     className={`w-full lg:pl-6 xl:pl-6`}
                     style={{ height: dimensions.height - dimensions.height * baumstumpfHeight + "px" }}
                 >
-                    <Raster parent={props.parent}></Raster>
+                    {props.campaignStarted && <Raster parent={props.parent} />}
                 </div>
                 <Baum />
             </div>
