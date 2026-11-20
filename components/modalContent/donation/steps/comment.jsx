@@ -71,6 +71,9 @@ function Comment(props) {
                 </div>
                 <div className="col-span-9 md:col-span-9 xl:col-span-9 mt-4">
                     <div className={`wrapper flex justify-between ${props.wrapperKlasse}`} ref={nameRef}>
+                        <label htmlFor="comment" className="sr-only">
+                            Ihr Kommentar, optional, maximal 60 Zeichen
+                        </label>
                         <textarea
                             className="text-base sm:text-xl p-4 font-semibold w-full "
                             rows="2"

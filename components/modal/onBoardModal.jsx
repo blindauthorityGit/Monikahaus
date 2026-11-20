@@ -1,30 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import useStore from "../../store/store";
 import { AiOutlineClose } from "react-icons/ai/index.js";
+import useModalFocus from "./useModalFocus";
 
 const OnBoardModal = ({ onClose, children, isOpen }) => {
     const resetUserData = useStore((state) => state.resetUserData);
+    const modalRef = useRef(null);
 
-    const isModalOpen = useStore((state) => state.isModalOpen);
-    const modalPosition = useStore((state) => state.modalPosition);
-    const closeModal = useStore((state) => state.closeModal);
+    const handleClose = () => {
+        onClose?.();
+        resetUserData();
+    };
 
-    useEffect(() => {
-        const handleEscapeKey = (event) => {
-            if (event.key === "Escape") {
-                closeModal();
-            }
-        };
-
-        if (isModalOpen) {
-            document.addEventListener("keydown", handleEscapeKey);
-        }
-
-        return () => {
-            document.removeEventListener("keydown", handleEscapeKey);
-        };
-    }, [isOpen]);
+    useModalFocus(isOpen, handleClose, modalRef);
 
     // Function to calculate animation props based on screen size
     const calculateAnimationProps = () => {
@@ -72,6 +61,11 @@ const OnBoardModal = ({ onClose, children, isOpen }) => {
         <AnimatePresence>
             {isOpen && (
                 <motion.div
+                    ref={modalRef}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Informationen zur Spendenaktion"
+                    tabIndex={-1}
                     key={isOpen ? "open" : "closed"} // Use the key prop to force re-render on animation changes
                     // initial={animationProps.initial}
                     // animate={animationProps.animate}
@@ -86,15 +80,14 @@ const OnBoardModal = ({ onClose, children, isOpen }) => {
                     }}
                 >
                     {/* Your modal content goes here */}
-                    <AiOutlineClose
-                        className="right-4 top-4 cursor-pointer xl:text-3xl absolute transition-all duration-200 hover:text-4xl"
-                        onClick={() => {
-                            onClose();
-                            resetUserData();
-                        }}
+                    <button
+                        type="button"
+                        aria-label="Dialog schließen"
+                        onClick={handleClose}
+                        className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full text-darkText transition-colors duration-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryColor"
                     >
-                        Close Sidebar
-                    </AiOutlineClose>
+                        <AiOutlineClose aria-hidden="true" className="text-2xl" />
+                    </button>
                     {children}
                 </motion.div>
             )}
