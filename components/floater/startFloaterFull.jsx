@@ -29,9 +29,15 @@ const StartFloaterFull = (props) => {
 
     return (
         <div className="absolute z-[29] right-0 top-8">
-            <FloaterButton label="Spenderliste öffnen" klasse="flex justify-center items-center mb-2" onClick={props.onClickPeople}>
-                <BsFillPeopleFill aria-hidden="true" />
-            </FloaterButton>
+            {props.onClickPeople && (
+                <FloaterButton
+                    label="Spenderliste öffnen"
+                    klasse="flex justify-center items-center mb-2"
+                    onClick={props.onClickPeople}
+                >
+                    <BsFillPeopleFill aria-hidden="true" />
+                </FloaterButton>
+            )}
             <FloaterButton label="Informationen öffnen" klasse="flex justify-center items-center mb-2" onClick={props.onClickInfo}>
                 <BsFillInfoCircleFill aria-hidden="true" />
             </FloaterButton>
