@@ -76,8 +76,14 @@ function Name(props) {
                 </div>
                 <div className="col-span-9 md:col-span-9 xl:col-span-9 mt-4">
                     <div className={`wrapper flex justify-between ${props.wrapperKlasse}`} ref={nameRef}>
+                        <label htmlFor="donation-name" className="sr-only">
+                            Ihr Name
+                        </label>
                         <input
+                            id="donation-name"
+                            name="name"
                             type="text"
+                            autoComplete="name"
                             className="border-b-2 w-full text-xl xl:text-3xl py-4 font-bold pl-4"
                             onChange={handleChange}
                             onBlur={handleBlur}

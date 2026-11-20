@@ -26,8 +26,8 @@ import { SuccessModalContent } from "../components/modalContent/success";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 
 //DEV
-import { TestData, dataFiller } from "../config/testData";
-import { fetchFirestoreData } from "../config/firebase";
+import { TestData } from "../config/testData";
+import { donorCollectionName, fetchFirestoreData } from "../config/firebase";
 
 // FX
 import { Snow } from "../components/fx";
@@ -45,6 +45,7 @@ import OGImage from "../assets/ogImage.jpg";
 export default function Home() {
     const userList = useStore((state) => state.userList);
     const setUserList = useStore((state) => state.setUserList);
+    const setUserListError = useStore((state) => state.setUserListError);
 
     //GLOBAL USER DATA
     const userData = useStore((state) => state.userData);
@@ -122,17 +123,14 @@ export default function Home() {
         Hotjar.init(3630058, 6);
 
         onBoarding ? setShowOverlay(true) : null;
-        JSON.parse(process.env.NEXT_PUBLIC_DEV)
-            ? JSON.parse(process.env.NEXT_PUBLIC_FILLER)
-                ? setUserList(dataFiller())
-                : setUserList(TestData)
-            : fetchFirestoreData(JSON.parse(process.env.NEXT_PUBLIC_LIVE_DB) ? "2025_Live" : "2025_Test")
-                  .then((data) => {
-                      setUserList(data);
-                  })
-                  .catch((error) => {
-                      console.error("Error fetching data:", error);
-                  });
+        fetchFirestoreData(donorCollectionName)
+            .then((data) => {
+                setUserList(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+                setUserListError();
+            });
 
         console.log(userList);
     }, []);
@@ -233,6 +231,13 @@ export default function Home() {
                     )}
                     {isSidebarOpen && (
                         <ModalSidebar
+                            ariaLabel={
+                                activeComponent === "donorList"
+                                    ? "Spenderliste"
+                                    : activeComponent === "info"
+                                      ? "Informationen zum Monikahaus"
+                                      : "Datenschutzerklärung"
+                            }
                             isOpen={isModalOpen}
                             onClose={() => {
                                 setSidebarOpen(false);

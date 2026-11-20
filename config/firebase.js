@@ -19,14 +19,12 @@ const storage = getStorage(app);
 
 export { app, db, storage };
 
+export const donorCollectionName =
+    process.env.NEXT_PUBLIC_DEV === "true" || process.env.NEXT_PUBLIC_LIVE_DB !== "true"
+        ? "2026_Test"
+        : "2026_Live";
+
 export const fetchFirestoreData = async (collectionName) => {
-    try {
-        const querySnapshot = await getDocs(collection(db, collectionName));
-        const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        console.log(data);
-        return data;
-    } catch (error) {
-        console.error("Error fetching data:", error);
-        return [];
-    }
+    const querySnapshot = await getDocs(collection(db, collectionName));
+    return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 };
